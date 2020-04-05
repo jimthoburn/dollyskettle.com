@@ -1,0 +1,44 @@
+{
+  "name": "dollys-kettle",
+  "version": "0.1.0",
+  "description": "A collection of recipes and pictures",
+  "repository": "github:jimthoburn/dollyskettle.com",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=12.14.0"
+  },
+  "type": "module",
+  "scripts": {
+    "prepare": "snowpack",
+    "build": "node --experimental-modules build.js",
+    "serve": "serve ./_site/ --listen=4000",
+    "start": "npm run build && npm run serve"
+  },
+  "dependencies": {
+    "htm": "^3.0.3",
+    "preact": "^10.3.4",
+    "preact-render-to-string": "^5.1.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "chalk": "^3.0.0",
+    "fs-extra": "^9.0.0",
+    "js-beautify": "^1.10.3",
+    "node-fetch": "^2.6.0",
+    "serve": "^11.3.0",
+    "snowpack": "^1.6.0"
+  },
+  "snowpack": {
+    "webDependencies": [
+      "htm",
+      "preact",
+      "preact/hooks",
+      "preact-render-to-string"
+    ],
+    "installOptions": {
+      "clean": true,
+      "optimize": false,
+      "sourceMap": true
+    }
+  }
+}

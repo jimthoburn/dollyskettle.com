@@ -1,0 +1,659 @@
+  /*
+
+  Theme Name: Kettle
+
+  Description: For the “Dolly Put the Kettle On” website (dollyskettle.com)
+
+  Version: 1.0
+
+  Author: Jim T.
+
+  */
+
+
+  /* =Elements
+  ----------------------------------------------- */
+  html, body {
+    min-height: 100%;
+  }
+  body {
+    font: 100%/1.5 "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+    background: rgb(255, 255, 254); /* @white */
+    margin: 0;
+    padding: 0 0 3em 0;
+    color: rgb(51, 51, 0);
+  }
+
+  a {
+    color: rgb(228, 47, 48);
+    color: rgb(231, 86, 70);
+    color: rgb(231, 67, 58); /* @link-color */
+    text-decoration: none;
+  }
+  a:hover,
+  a:active,
+  a:focus {
+    text-decoration: underline;
+  }
+  a img {
+    border-width: 0;
+  }
+
+  /* OPTIONAL: Increase the font size on big screens. */
+  @media (min-width: 40em) {
+    body {
+      font-size: 125%;
+    }
+  }
+  @media (min-width: 80em) {
+    body {
+      font-size: 150%;
+    }
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+  }
+  h1 {
+    font-size: 2em;
+  }
+  h2 {
+    font-size: 1.75em;
+  }
+  h3 {
+    font-size: 1.5em;
+  }
+  h4 {
+    font-size: 1.25em;
+  }
+  h5 {
+    font-size: 1.125em;
+  }
+  h6 {
+    font-size: 1em;
+  }
+
+  /* OPTIONAL: Make the recipe headline fit nicely on small screens. */
+  @media (max-width: 29.9em) {  
+    header h1 {
+      font-size: 1.5em;
+    }
+  }
+
+  p {
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+  }
+
+  article img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+  }
+  @media (min-width: 40em) {
+    article img.alignleft {
+      float: left;
+      margin-right: 1.5em;
+    }
+    article img.alignright {
+      float: right;
+      margin-left: 1.5em;
+    }
+  }
+  @media (min-width: 50em) {
+    article p:first-child img {
+      float: left;
+      margin-right: 1.5em;
+    }
+  }
+
+  article figure {
+    text-align: center;
+    margin: 3em 0 0;
+  }
+  article figure img + br {
+    display: none;
+  }
+  @media (min-width: 25em) {
+    article figure img {
+      display: inline-block;
+      vertical-align: top;
+      border-radius: 0.1em;
+      margin: 1.5em 0.75em;
+      padding: 0.75em;
+      border: 0.1em dashed rgba(73, 123, 64, 0.1);
+      box-sizing: border-box;
+    }
+    article figure a img {
+      border-color: rgba(228, 47, 48, 0.1);
+      border-color: rgba(231, 86, 70, 0.1);
+      border-color: rgba(231, 67, 58, 0.1); /* @link-color */
+      transition: border-color 0.2s;
+    }
+    article figure a:hover  img,
+    article figure a:active img,
+    article figure a:focus  img {
+      border-color: rgba(228, 47, 48, 0.5);
+      border-color: rgba(231, 86, 70, 0.5);
+      border-color: rgba(231, 67, 58, 0.5); /* @link-color */
+    }
+  }
+  @media (min-width: 60em) {
+    article figure {
+      margin-left: -3em;
+      margin-right: -3em;
+    }
+  }
+
+
+  /* =Jump to Navigation
+  ----------------------------------------------- */
+  nav.jump {
+    margin: 0;
+  }
+  nav.jump:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  /* Logotype */
+  nav.jump > a {
+    color: inherit;
+    display: block;
+    background: rgba(255, 255, 255, 0.85);
+    background: white;
+    padding: 0.25em 0.75em;
+    float: left;
+    text-align: left;
+  }
+  nav.jump > a h2 {
+    margin: 0;
+  }
+  nav.jump > a p {
+    margin: 0;
+  }
+
+  /* Menu */
+  nav.jump > p {
+    margin: 0;
+  }
+  nav.jump > p a {
+    background-color: rgb(228, 47, 48);
+    background-color: rgb(231, 86, 70);
+    background-color: rgb(231, 67, 58); /* @link-color */
+    color: rgb(255, 255, 254); /* @white */
+    float: right;
+    padding: 0.25em 0.75em;
+  }
+  @media (min-width: 30em) {
+    nav.jump > a {
+      padding: 0.5em 1.25em;
+    }
+    nav.jump > p a {
+      padding: 0.5em 1.25em;
+    }
+  }
+  .jump h2 a img {
+    max-width: 100%;
+  }
+  .footer-image { 
+    margin: 0 auto;
+    display: block;
+    max-width: 100%;
+  }
+
+
+  /* =Background Image
+  ----------------------------------------------- */
+  .background-image + article header {
+    position: absolute;
+    top: 5em;
+    left: 0;
+    margin: 0;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .background-image img {
+    width: 100%;
+    height: auto;
+  }
+
+  /* Wide pages have more padding */
+  @media (min-width: 40em) {
+    .background-image + article header {
+      padding-left: 3em;
+      padding-right: 3em;
+    }
+  }
+
+  /* If the page isn’t tall enough to fit entire image */
+  @media (min-aspect-ratio: 1/8) {
+    .background-image {
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    .background-image + article header {
+      position: static;
+      margin-top: 6em;
+      margin-bottom: 3em;
+      min-height: 7em;
+    }
+  }
+
+  /* This works great, but causes trouble on some devices:
+  https://github.com/scottjehl/Device-Bugs/issues/36
+  @media (min-aspect-ratio: 5/8) {
+    .background-image + article header {
+      min-height: 55vh;
+    }
+  }
+  */
+
+  /* Mimic viewport units using media queries */
+  @media (min-aspect-ratio: 1/8) and (min-height: 40em) {
+    .background-image + article header {
+      min-height: 10em;
+    }
+  }
+  @media (min-aspect-ratio: 1/8) and (min-height: 45em) {
+    .background-image + article header {
+      min-height: 15em;
+    }
+  }
+  @media (min-aspect-ratio: 1/8) and (min-height: 50em) {
+    .background-image + article header {
+      min-height: 20em;
+    }
+  }
+  @media (min-aspect-ratio: 1/8) and (min-height: 55em) {
+    .background-image + article header {
+      min-height: 25em;
+    }
+  }
+  @media (min-aspect-ratio: 1/8) and (min-height: 60em) {
+    .background-image + article header {
+      min-height: 30em;
+    }
+  }
+  @media (min-aspect-ratio: 1/8) and (min-height: 65em) {
+    .background-image + article header {
+      min-height: 35em;
+    }
+  }
+  @media (min-aspect-ratio: 1/8) and (min-height: 70em) {
+    .background-image + article header {
+      min-height: 40em;
+    }
+  }
+  @media (min-aspect-ratio: 1/8) and (min-height: 75em) {
+    .background-image + article header {
+      min-height: 45em;
+    }
+  }
+
+  /* Bring more of the image’s center into view  */
+  @media (min-aspect-ratio: 7/8) {
+    .background-image {
+      top: -12.5%;
+      height: 125%;
+    }
+  }
+  @media (min-aspect-ratio: 9/8) {
+    .background-image {
+      top: -25%;
+      height: 150%;
+    }
+  }
+  @media (min-aspect-ratio: 11/8) {
+    .background-image {
+      top: -37.5%;
+      height: 175%;
+    }
+  }
+
+  /* Mimic viewport units using media queries */
+  @media (min-aspect-ratio: 1/1) and (min-height: 40em) {
+    .background-image + article header {
+      min-height: 10em;
+    }
+  }
+  @media (min-aspect-ratio: 1/1) and (min-height: 45em) {
+    .background-image + article header {
+      min-height: 15em;
+    }
+  }
+  @media (min-aspect-ratio: 1/1) and (min-height: 50em) {
+    .background-image + article header {
+      min-height: 20em;
+    }
+  }
+  @media (min-aspect-ratio: 1/1) and (min-height: 60em) {
+    .background-image + article header {
+      min-height: 30em;
+    }
+  }
+
+
+  /* =Header
+  ----------------------------------------------- */
+  header {
+    margin: 6em 1.5em 1.5em;
+    text-align: center;
+  }
+  .background-image + article header {
+    text-align: right;
+  }
+  .background-image + article header div {
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  header h1,
+  header .meta {
+    margin: 0;
+    padding: 0.375em 0.75em;
+  }
+  .background-image + article header .meta {
+    float: right;
+  }
+  .background-image + article header h1,
+  .background-image + article header .meta {
+    background-color: rgb(73, 123, 64); /* @fern */
+    color: rgb(255, 255, 254); /* @white */
+  }
+  @media (min-width: 40em) {
+    header {
+      margin: 6em 3em 3em;
+    }
+    header h1,
+    header .meta {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    header h1 {
+      max-width: 18.5em;
+    }
+  }
+
+
+  /* =Body
+  ----------------------------------------------- */
+  .comments,
+  article .body {
+    margin: 0;
+    padding: 1.5em;
+    background: rgb(255, 255, 254); /* @white */
+    position: relative;
+  }
+  footer {
+    margin: 0 1.5em 1.5em;
+    text-align: center;
+  }
+
+  @media (min-width: 40em) {
+    .comments,
+    article .body {
+      padding: 3em;
+    }
+  }
+
+  @media (min-width: 50em) {
+    .comments,
+    article .body {
+      max-width: 40em;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 0.125em;
+    }
+    footer {
+      margin: 0 3em 3em;
+    }
+  }
+
+  article h3 {
+    color: rgb(73, 123, 64); /* @fern */
+  }
+  article .body > *:first-child {
+    margin-top: 0;
+  }
+
+  article .body ul {
+    margin-left: 0;
+    padding-left: 0;
+    list-style-type: none;
+  }
+  article .body ul li:before {
+    content: "• ";
+    color: rgb(73, 123, 64); /* @fern */
+  }
+
+
+  /* =Recipe List
+  ----------------------------------------------- */
+  .recipe-list {
+    padding: 1.5em;
+    background: rgb(255, 255, 254); /* @white */
+    text-align: center;
+  }
+  .recipe-list ul,
+  .recipe-list li {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+  }
+  .recipe-list ul {
+    margin: 0 auto;
+  }
+  .recipe-list li {
+    margin: 0.75em 0;
+  }
+  @media (min-width: 40em) {
+    .recipe-list ul {
+      display: table;
+    }
+    .recipe-list li {
+      display: inline-block;
+      vertical-align: top;
+    }
+    .recipe-list li {
+      margin: 1.5em;
+      width: 24em;
+    }
+  }
+  .recipe-list li a {
+    border: 0.1em dashed rgba(73, 123, 64, 0.1);
+    display: block;
+    padding: 0.75em;
+  }
+  .recipe-list img {
+    display: block;
+    margin-bottom: 0.75em;
+    max-width: 100%;
+    height: auto;
+  }
+  @media (min-width: 40em) {  
+    .recipe-list {
+      padding: 3em;
+    }
+  }
+
+
+  /* =Alphabetcial Recipe List
+  ----------------------------------------------- */
+  .alphabetical-recipe-list {
+    padding: 1.5em;
+    background: rgb(255, 255, 254); /* @white */
+  }
+  .alphabetical-recipe-list ul {
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+
+  /* =Dialog
+  ----------------------------------------------- */
+  .dialog {
+    margin: 1.5em;
+    text-align: center;
+  }
+
+
+  /* =Footer
+  ----------------------------------------------- */
+  footer ul,
+  footer li {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+
+  /* =Form
+  ----------------------------------------------- */
+  label {
+    display: block;
+  }
+  textarea,
+  button,
+  input[type="text"],
+  input[type="email"],
+  input[type="search"],
+  input[type="submit"] {
+    background: rgb(245, 245, 244);
+    color: inherit;
+    font-family: inherit;
+    font-size: 1em;
+    line-height: inherit;
+    border-width: 0;
+    cursor: pointer;
+    padding: 0.25em;
+    border-radius: 0.25em;
+    margin: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+    transition: background-color 0.1s, color 0.1s;
+  }
+  button,
+  input[type="submit"] {
+    padding: 0.25em 0.75em;
+  }
+  textarea:focus,
+  button:focus,
+  button:active,
+  button:hover,
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="search"]:focus,
+  input[type="submit"]:focus,
+  input[type="submit"]:active,
+  input[type="submit"]:hover {
+    background: rgb(225, 225, 224);
+    color: rgb(1, 1, 0);
+  }
+  .math-question .instructions {
+    display: block;
+    margin-bottom: 0.5em;
+  }
+
+
+  /* =Comments
+  ----------------------------------------------- */
+  .comments {
+    border-top: 0.1em dashed rgba(73, 123, 64, 0.1);
+    padding-bottom: 0;
+  }
+  .comment-respond {
+    margin-top: 3em;
+  }
+  .comment-notes {
+    font-size: 0.75em;
+  }
+  .comments ol,
+  .comments li {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+  }
+  .comments li {
+    margin-top: 1.5em; /* @line-height */
+  }
+
+
+  /* =Navigation
+  ----------------------------------------------- */
+  nav {
+    margin-top: 3em;
+    text-align: center;
+  }
+  #navigation > a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-bottom: 0.1em dashed rgba(73, 123, 64, 0.1);
+    padding: 0 0.75em 0.75em;
+  }
+  #navigation > a:hover  h1,
+  #navigation > a:active h1,
+  #navigation > a:focus  h1 {
+    text-decoration: underline;
+  }
+  #navigation > a p {
+    margin-top: 0;
+  }
+  nav h1 img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0.375em;
+  }
+  nav h1 br {
+    display: none;
+  }
+  /*
+  nav h2 {
+    font-size: inherit;
+  }
+  */
+  nav ul,
+  nav li {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+  }
+  @media (min-width: 40em) {
+    nav section,
+    nav form {
+      display: inline-block;
+      vertical-align: top;
+      text-align: left;
+      margin-left: 1.5em;
+      margin-right: 1.5em;
+    }
+  }
+
+  nav label {
+    display: inline;
+  }
+  nav input[type="search"] {
+    width: 12em;
+  }
+
+  /* OPTIONAL: Hide redundant labels and headlines */
+  nav#navigation h2,
+  nav form label > span:first-child {
+    /* @hidden-accessible */
+    position: absolute;
+    left: -9999px;
+  }
+
