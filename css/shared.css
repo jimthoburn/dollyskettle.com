@@ -9,7 +9,13 @@
   Author: Jim T.
 
   */
-
+  
+  
+  /* =Color
+  ----------------------------------------------- */
+  :root {
+    --headline-color: rgb(73, 123, 64); /* @fern */
+  }
 
   /* =Elements
   ----------------------------------------------- */
@@ -169,6 +175,7 @@
     float: left;
     text-align: left;
   }
+  
   nav.jump > a h2 {
     margin: 0;
   }
@@ -369,8 +376,11 @@
   .background-image + article header h1,
   .background-image + article header .meta {
     background-color: rgb(73, 123, 64); /* @fern */
+    background-color: var(--headline-color, rgb(73, 123, 64));
     color: rgb(255, 255, 254); /* @white */
   }
+
+
   @media (min-width: 40em) {
     header {
       margin: 6em 3em 3em;
@@ -422,6 +432,7 @@
 
   article h3 {
     color: rgb(73, 123, 64); /* @fern */
+    color: var(--headline-color, rgb(73, 123, 64));
   }
   article .body > *:first-child {
     margin-top: 0;
@@ -435,6 +446,7 @@
   article .body ul li:before {
     content: "• ";
     color: rgb(73, 123, 64); /* @fern */
+    color: var(--headline-color, rgb(73, 123, 64));
   }
 
 
@@ -655,5 +667,30 @@
     /* @hidden-accessible */
     position: absolute;
     left: -9999px;
+  }
+
+
+  /* =Logotype (OPTIONAL)
+  ----------------------------------------------- */
+  @font-face {
+    font-family: "Italianno";
+    src: url("/fonts/italianno.woff2") format("woff2"),
+         url("/fonts/italianno.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  nav h1,
+  nav h2 {
+    font-family: "Italianno", "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+    font-size: 2em;
+    margin: 0;
+  }
+  nav h1 {
+    font-size: 2.25em;
+  }
+  nav a > p {
+    font-family: "Italianno", "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+    font-size: 1.75em;
   }
 

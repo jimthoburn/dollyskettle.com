@@ -19,8 +19,8 @@ function CategoryPage({ title, posts }) {
   <div class="recipe-list">
     <ul>
       ${posts.map(post => {
-        console.log("CategoryPage");
-        console.log(post.title.rendered);
+        // console.log("CategoryPage");
+        // console.log(post.title.rendered);
         const image = getPostImage({ post });
         if (image) {
           return html`

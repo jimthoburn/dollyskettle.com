@@ -1,18 +1,21 @@
 
 import jsBeautify            from "js-beautify";
 
-import { render }            from "../web_modules/preact-render-to-string.js";
+import { renderToString }    from "../web_modules/preact-render-to-string.js";
 import { config }            from "../_config.js";
 import { getPublicURLs,
          getMostRecentPostURL,
          getPostsAlphabetically,
          getPost,
+         getPage,
          getCategory }       from "../data/post.js";
-import { getNormalizedCategory } from "../helpers/post.js";
 import { DefaultLayout }     from "../layouts/default.js";
 import { RedirectLayout }    from "../layouts/redirect.js";
 import { RobotsText }        from "../layouts/robots.txt.js";
 import { SiteMapXML }        from "../layouts/sitemap.xml.js";
+import { Error404Page,
+         error404PageTitle } from "../pages/404.js";
+import { DefaultPage }       from "../pages/default.js";
 import { PostPage }          from "../pages/post.js";
 import { CategoryPage }      from "../pages/category.js";
 import { IndexPage }         from "../pages/index.js";
@@ -21,20 +24,27 @@ import { IndexPage }         from "../pages/index.js";
 const FIRST_POST = "FIRST_POST";
 
 
+function render(...theParameters) {
+  return jsBeautify.html_beautify(`<!DOCTYPE html>
+${renderToString(theParameters)}
+`);
+}
+
+
 function getIndexHTML() {
   return new Promise((resolve, reject) => {
-    const html = DefaultLayout({
+    const html = render(DefaultLayout({
       title: "Recipe List",
-      content: render(IndexPage({
+      content: IndexPage({
         posts: getPostsAlphabetically()
-      }))
+      })
       // openGraphImage:
       //   openGraphImage && (openGraphImage.indexOf("http") === 0 || config.host) ?
       //     openGraphImage.indexOf("http") != 0 && config.host
       //       ? `${config.host}${openGraphImage}`
       //       : openGraphImage
       //     : null
-    });
+    }));
     resolve(html);
   });
 }
@@ -48,18 +58,42 @@ function getPostHTML(url) {
     //   album
     // });
 
-    const html = DefaultLayout({
+    const html = render(DefaultLayout({
       title: post.title.rendered,
-      content: render(PostPage({ post }))
+      content: PostPage({ post })
       // openGraphImage:
       //   openGraphImage && (openGraphImage.indexOf("http") === 0 || config.host) ?
       //     openGraphImage.indexOf("http") != 0 && config.host
       //       ? `${config.host}${openGraphImage}`
       //       : openGraphImage
       //     : null
-    });
+    }));
 
-    resolve(jsBeautify.html_beautify(html));
+    resolve(html);
+  });
+}
+
+function getPageHTML(url) {
+  return new Promise((resolve, reject) => {
+    const page = getPage(url);
+
+    // const openGraphImage = getOpenGraphImage({
+    //   getPageURL,
+    //   album
+    // });
+
+    const html = render(DefaultLayout({
+      title: page.title.rendered,
+      content: DefaultPage({ page })
+      // openGraphImage:
+      //   openGraphImage && (openGraphImage.indexOf("http") === 0 || config.host) ?
+      //     openGraphImage.indexOf("http") != 0 && config.host
+      //       ? `${config.host}${openGraphImage}`
+      //       : openGraphImage
+      //     : null
+    }));
+
+    resolve(html);
   });
 }
 
@@ -67,21 +101,16 @@ function getCategoryHTML(url) {
   return new Promise((resolve, reject) => {
     const category = getCategory(url);
 
-    const html = DefaultLayout({
-      title: category.name,
-      content: render(CategoryPage({
-        title: category.name,
-        posts: getPostsAlphabetically().filter(post => 
-          getNormalizedCategory({ post }).url === category.url
-        )
-      }))
+    const html = render(DefaultLayout({
+      title: category.title,
+      content: CategoryPage(category)
       // openGraphImage:
       //   openGraphImage && (openGraphImage.indexOf("http") === 0 || config.host) ?
       //     openGraphImage.indexOf("http") != 0 && config.host
       //       ? `${config.host}${openGraphImage}`
       //       : openGraphImage
       //     : null
-    });
+    }));
     resolve(html);
   });
 }
@@ -109,11 +138,21 @@ function getSiteMapXML() {
 function getRedirectHTML(redirectTo) {
   // console.log("getRedirectHTML");
   return new Promise((resolve, reject) => {
-    const html = RedirectLayout({ url: redirectTo });
+    const html = render(RedirectLayout({ url: redirectTo }));
     // console.log("getRedirectHTML html: ");
     // console.log(html);
     resolve(html);
   });
+}
+
+function getError404HTML() {
+  const html = render(DefaultLayout({
+    title: error404PageTitle,
+    content: Error404Page(),
+    includeClientJS: false
+  }));
+
+  return html;
 }
 
 
@@ -149,6 +188,9 @@ function getSourceByURL(url) {
     } else if (getPost(url)) {
       getPostHTML(url)
         .then(resolve);
+    } else if (getPage(url)) {
+      getPageHTML(url)
+        .then(resolve);
     } else {
       throw new Error(`An unexpected URL was passed to getSourceByURL: ${url}`);
     }
@@ -157,6 +199,7 @@ function getSourceByURL(url) {
 
 
 export {
-  getSourceByURL
+  getSourceByURL,
+  getError404HTML
 }
 

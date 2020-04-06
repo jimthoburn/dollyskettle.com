@@ -7,9 +7,10 @@ import { config }           from "./_config.js";
 
 import { refreshData,
          getPostURLs,
-         getCategoryURLs } from "./data/post.js";
-import { getSourceByURL }   from "./get-source/by-url.js";
-import { getError404HTML }  from "./get-source/error.js";
+         getCategoryURLs,
+         getPageURLs }      from "./data/post.js";
+import { getSourceByURL,
+         getError404HTML }  from "./get-source/by-url.js";
 
 
 const GENERATED_FILES_FOLDER = `./${config.buildFolder}`;
@@ -139,6 +140,7 @@ refreshData().then(() => {
   build([
     ...getPostURLs(),
     ...getCategoryURLs(), 
+    ...getPageURLs(),
     ...Object.keys(config.redirects)
   ]);
 });

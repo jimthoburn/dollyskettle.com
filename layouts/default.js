@@ -1,24 +1,19 @@
 
-import { config } from "../_config.js";
-import { taggedLiteral as html } from "../helpers/tagged-literal.js";
-import { getCategoryURLs, getCategory } from "../data/post.js";
+import { createElement }  from "../web_modules/preact.js";
+import   htm              from "../web_modules/htm.js";
+const    html = htm.bind(createElement);
 
-function getCategoriesHTML() {
-  let items = [];
-  getCategoryURLs().map(url => {
-    const category = getCategory(url);
-    // console.log("Addding category");
-    // console.log(category);
-    items.push(html`
-      <li><a href="${ category.url }">${ category.label }</a></li>
-    `);
-  })
-  return items.join("");
-}
+import { config }         from "../_config.js";
+
+import { normalizeURL }   from "../helpers/url.js";
+import { getCategoryURLs,
+         getCategory,
+         getPageURLs,
+         getPage }        from "../data/post.js";
+
 
 export const DefaultLayout = ({ title, content, openGraphImage, headlineColor, linkColor }) => {
   return html`
-    <!DOCTYPE html>
     <html lang="en" dir="ltr">
       <head>
         <meta charset="utf-8" />
@@ -35,58 +30,12 @@ export const DefaultLayout = ({ title, content, openGraphImage, headlineColor, l
           : ""}
 
         <link rel="stylesheet" href="/css/shared.css" />
-        <style>
-          @font-face {
-            font-family: "Italianno";
-            src: url("/fonts/italianno.woff2") format("woff2"),
-                 url("/fonts/italianno.woff") format("woff");
-            font-weight: normal;
-            font-style: normal;
-          }
-        
-          nav h1,
-          nav h2 {
-            font-family: "Italianno", "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
-            font-size: 2em;
-            margin: 0;
-          }
-          nav h1 {
-            font-size: 2.25em;
-          }
-          nav a > p {
-            font-family: "Italianno", "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
-            font-size: 1.75em;
-          }
-        </style>
-
-        ${ headlineColor
-          ? html`
-            <style>
-              .background-image + article header h1,
-              .background-image + article header .meta {
-                background-color: ${ headlineColor };
-              }
-              article h3,
-              article .body ul li:before {
-                color: ${ headlineColor };
-              }
-            </style>`
-          : ""}
-
-        ${ linkColor
-          ? html`
-            <style>
-              nav.jump a {
-                background-color: ${ linkColor };
-              }
-              a {
-                color: ${ linkColor };
-              }
-            </style>`
-          : ""}
 
       </head>
-      <body>
+      <body style="${`
+          --headline-color: ${ headlineColor || "unset" };
+          --link-color:     ${ linkColor     || "unset"};
+        `}">
         <nav class="jump">
           <a href="/">
             <h2>Dolly’s Kettle</h2>
@@ -107,15 +56,24 @@ export const DefaultLayout = ({ title, content, openGraphImage, headlineColor, l
           <section>
             <h2>Categories</h2>
             <ul>
-              ${ getCategoriesHTML() }
+              ${getCategoryURLs().map(url => {
+                const category = getCategory(url);
+                return html`
+                <li><a href="${ category.url }">${ category.label }</a></li>
+                `;
+              })}
             </ul>
           </section>
 
           <section>
             <h2>Pages</h2>
             <ul>
-              <!-- <li class="page_item page-item-49"><a href="/about/">About</a></li> -->
-              <li class="page_item page-item-471"><a href="/index/">Recipe List</a></li>
+              ${getPageURLs().map(url => {
+                const page = getPage(url);
+                return html`
+                <li><a href="/${ normalizeURL(page.link) }/" dangerouslySetInnerHTML=${ { __html: page.title.rendered } }></a></li>
+                `;
+              })}
             </ul>
           </section>
 
@@ -124,16 +82,17 @@ export const DefaultLayout = ({ title, content, openGraphImage, headlineColor, l
             <input type="hidden" name="sites" value="dollyskettle.com" />
             <p>
               <label>
-            <span>Keywords</span>
-            <input type="search" name="q" />
-          </label>
+                <span>Keywords</span>
+                <input type="search" name="q" />
+              </label>
+              <span> </span>
               <button type="submit">Search</button>
             </p>
           </form>
 
         </nav>
 
-        <img src="https://dollyskettle.com/wp-content/themes/kettle/images/farmhouse.jpg" alt="" class="footer-image" width="700">
+        <img src="https://dollyskettle.com/wp-content/themes/kettle/images/farmhouse.jpg" alt="" class="footer-image" width="700" />
 
       </body>
     </html>

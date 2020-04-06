@@ -38,15 +38,23 @@ function getFormattedDate({ date }) {
   return `${mo} ${da}, ${ye}`;
 }
 
-function getNormalizedCategory({ post }) {
-  try {
-    const category = post._embedded["wp:term"][0][0];
-    // console.log(`Did find a category for post: ${ post.link }`);
-    // console.log(category);
-    return {
-      label: category.name,
+function __getNormalizedCategories(category) {
+  if (Array.isArray(category)) {
+    return category.map(__getNormalizedCategories).flat();
+  } else if (category.name && category.link) {
+    return [{
+      title: category.name,
       url: `/${normalizeURL(category.link)}/`
-    };
+    }];
+  } else {
+    console.log(`Unexpected category data:`);
+    console.log(category);
+  }
+}
+
+function getNormalizedCategories({ post }) {
+  try {
+    return __getNormalizedCategories(post._embedded["wp:term"]);
   } catch(error) {
     console.log(`Couldn’t find a category for post: ${ post.link }`);
     console.log(error);
@@ -58,6 +66,6 @@ export {
   getBackgroundImage,
   getPostImage,
   getFormattedDate,
-  getNormalizedCategory
+  getNormalizedCategories
 }
 

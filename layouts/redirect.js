@@ -1,10 +1,12 @@
 
-import { config } from "../_config.js";
-import { taggedLiteral as html } from "../helpers/tagged-literal.js";
+import { createElement }  from "../web_modules/preact.js";
+import   htm              from "../web_modules/htm.js";
+const    html = htm.bind(createElement);
+
+import { config }         from "../_config.js";
 
 export const RedirectLayout = ({ url }) => {
   return html`
-    <!DOCTYPE html>
     <html lang="en" dir="ltr">
       <head>
         <meta charset="utf-8" />
