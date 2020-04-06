@@ -3,6 +3,8 @@ import fs               from "fs-extra";
 import mkdirp           from "mkdirp";
 import fetch            from "node-fetch";
 
+import { fetchFromFileSystem }
+                        from "../helpers/fetch-from-file-system.js";
 import { fetchJSON }    from "../helpers/fetch.js";
 import { normalizeURL } from "../helpers/url.js";
 import { getNormalizedCategories } from "../helpers/post.js";
@@ -17,13 +19,15 @@ const pages      = {};
 let mostRecentPostURL;
 
 function saveJSON({ url, json, filename }) {
-  const writePath = "./_api/" + url.replace("https://", "");
+  const writePath = "./_api/" + encodeURIComponent(url);
+  const fullPath = `${writePath}/${filename ? filename : "index.json"}`;
+  console.log(`Saving JSON file to: ${ fullPath }`);
 
   mkdirp(writePath, function (err) {
     if (err) {
       console.error(err);
     } else {
-      fs.writeFileSync(`${writePath}/${filename ? filename : "index.json"}`, JSON.stringify(json, null, '  '), 'utf8', (err) => {
+      fs.writeFileSync(fullPath, JSON.stringify(json, null, '  '), 'utf8', (err) => {
         if (err) {
           console.log(err);
         }
@@ -37,9 +41,24 @@ async function* fetchData(url) {
   let items;
   do {
     const urlWithPageNumber = url.replace(/\$\{[\s]*pageNumber[\s]*\}/g, pageNumber);
-    console.log(`Fetching page ${ pageNumber } from ${ urlWithPageNumber }`);
-    items = await fetchJSON({ url: urlWithPageNumber, fetch});
-    saveJSON({ url: urlWithPageNumber, json: items });
+    if (config.useLocalData === true) {
+      const localURL = `/api/${encodeURIComponent(urlWithPageNumber)}/index.json`;
+      console.log(`Fetching page ${ pageNumber } from local data: ${ localURL }`);
+      items = await fetchJSON({
+        url: localURL,
+        fetch: fetchFromFileSystem
+      });
+    } else {
+      console.log(`Fetching page ${ pageNumber } from remote data: ${ urlWithPageNumber }`);
+      items = await fetchJSON({
+        url: urlWithPageNumber,
+        fetch
+      });
+      saveJSON({
+        url: urlWithPageNumber,
+        json: items
+      });
+    }
     yield items;
     pageNumber++;
   } while(items != null && items.length > 0)

@@ -7,6 +7,7 @@ export const config = {
     "posts": "https://write.dollyskettle.com/wp-json/wp/v2/posts?per_page=100&page=${ pageNumber }&_embed=1",
     "pages": "https://write.dollyskettle.com/wp-json/wp/v2/pages?per_page=100&page=${ pageNumber }&_embed=1"
   },
+  "useLocalData": true,
 
   // Path to favicon in public folder
   // "favicon": "/favicon.png",
