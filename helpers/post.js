@@ -10,7 +10,22 @@ function getBackgroundImage({ post }) {
       height: image.media_details.height
     }
   } catch(error) {
-    console.error(new Error(`Couldn’t find a featured image for post`));
+    console.log(`Couldn’t find a featured image for post: ${ post.link }`);
+    console.error(error);
+  }
+}
+
+function getPostImage({ post }) {
+  try {
+    const image = post._embedded["wp:featuredmedia"][0]["media_details"]["sizes"]["large"];
+    return {
+      src: image.source_url,
+      width: image.width,
+      height: image.height
+    }
+  } catch(error) {
+    console.log(`Couldn’t find an image for post: ${ post.link }`);
+    console.error(error);
   }
 }
 
@@ -41,6 +56,7 @@ function getNormalizedCategory({ post }) {
 
 export {
   getBackgroundImage,
+  getPostImage,
   getFormattedDate,
   getNormalizedCategory
 }

@@ -70,6 +70,7 @@ function getCategoryHTML(url) {
     const html = DefaultLayout({
       title: category.name,
       content: render(CategoryPage({
+        title: category.name,
         posts: getPostsAlphabetically().filter(post => 
           getNormalizedCategory({ post }).url === category.url
         )

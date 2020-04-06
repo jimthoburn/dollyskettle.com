@@ -21,7 +21,7 @@ async function* fetchPosts() {
     posts = await fetchJSON({ url: `${config.data.post}&page=${ pageNumber }`, fetch});
     yield posts;
     pageNumber++;
-  } while(posts != null && posts.length > 0)
+  } while(pageNumber < 2 && posts != null && posts.length > 0)
 }
 
 async function refreshData() {
@@ -46,8 +46,8 @@ async function refreshData() {
       next,
       previous 
     }
-    console.log("category");
-    console.log(category);
+    // console.log("category");
+    // console.log(category);
     if (category && !categories[category.url]) categories[category.url] = category;
 
     if (mostRecentPostURL == null || urls[mostRecentPostURL].date_gmt < post.date_gmt) {
@@ -58,11 +58,11 @@ async function refreshData() {
 }
 
 function getPostURLs() {
-  return Object.keys(urls);
+  return Object.keys(urls).sort();
 }
 
 function getCategoryURLs() {
-  return Object.keys(categories);
+  return Object.keys(categories).sort();
 }
 
 function getPost(url) {

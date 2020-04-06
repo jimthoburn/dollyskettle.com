@@ -7,8 +7,8 @@ function getCategoriesHTML() {
   let items = [];
   getCategoryURLs().map(url => {
     const category = getCategory(url);
-    console.log("Addding category");
-    console.log(category);
+    // console.log("Addding category");
+    // console.log(category);
     items.push(html`
       <li><a href="${ category.url }">${ category.label }</a></li>
     `);
