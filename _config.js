@@ -9,7 +9,7 @@ export const config = {
     "media": "https://write.dollyskettle.com/wp-json/wp/v2/media?per_page=100&page=${ pageNumber }&_embed=1",
     "categories" : "https://write.dollyskettle.com/wp-json/wp/v2/categories?per_page=100&page=${ pageNumber }&_embed=1"
   },
-  "useLocalData": true,
+  // "useLocalData": true,
 
   // Path to favicon in public folder
   // "favicon": "/favicon.png",
