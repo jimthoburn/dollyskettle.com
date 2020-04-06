@@ -36,12 +36,12 @@ function saveJSON({ url, json, filename }) {
   });
 }
 
-async function* fetchData(url) {
+async function* fetchData({ url, useLocalData }) {
   let pageNumber = 1;
   let items;
   do {
     const urlWithPageNumber = url.replace(/\$\{[\s]*pageNumber[\s]*\}/g, pageNumber);
-    if (config.useLocalData === true) {
+    if (useLocalData === true) {
       const localURL = `/api/${encodeURIComponent(urlWithPageNumber)}/index.json`;
       console.log(`Fetching page ${ pageNumber } from local data: ${ localURL }`);
       items = await fetchJSON({
@@ -64,9 +64,9 @@ async function* fetchData(url) {
   } while(items != null && items.length > 0)
 }
 
-async function fetchAllItems(url) {
+async function fetchAllItems({ url, useLocalData }) {
   let allItems = [];
-  for await (let nextItems of fetchData(url)) {
+  for await (let nextItems of fetchData({ url, useLocalData })) {
     if (nextItems != null && nextItems.length > 0) {
       allItems = allItems.concat(nextItems);
     }
@@ -74,8 +74,8 @@ async function fetchAllItems(url) {
   return allItems;
 }
 
-async function refreshPosts(url) {
-  const items = await fetchAllItems(url)
+async function refreshPosts({ url, useLocalData }) {
+  const items = await fetchAllItems({ url, useLocalData });
   const published = items.filter(item => item.status === "publish");
   console.log(`There are ${ published.length } published posts`);
 
@@ -113,8 +113,8 @@ async function refreshPosts(url) {
   }
 }
 
-async function refreshPages(url) {
-  const items = await fetchAllItems(url)
+async function refreshPages({ url, useLocalData }) {
+  const items = await fetchAllItems({ url, useLocalData });
   const published = items.filter(item => item.status === "publish");
   console.log(`There are ${ published.length } published pages`);
 
@@ -124,9 +124,20 @@ async function refreshPages(url) {
   }
 }
 
+async function refreshCollection({ url, collection, useLocalData }) {
+  const items = await fetchAllItems({ url, useLocalData });
+
+  for (let item of items) {
+    const url = `/${normalizeURL(item.link)}/`;
+    collection[url] = item;
+  }
+}
+
 async function refreshData() {
-  await refreshPosts(config.data.posts);
-  await refreshPages(config.data.pages);
+  await refreshPosts({ url: config.data.posts, useLocalData: config.useLocalData });
+  await refreshPages({ url: config.data.pages, useLocalData: config.useLocalData });
+  // await refreshCollection({ url: config.data.media, collection: {}, useLocalData: config.useLocalData });
+  // await refreshCollection({ url: config.data.categories, collection: {}, useLocalData: config.useLocalData });
 }
 
 function getPostURLs() {

@@ -45,8 +45,7 @@ export const DefaultLayout = ({ title, content, openGraphImage }) => {
         <nav id="navigation">
 
           <a href="/">
-            <h1>
-              <img src="https://dollyskettle.com/wp-content/themes/kettle/images/kettle.gif" height="125" alt="" /> Dolly’s Kettle </h1>
+            <h1><img src="/images/kettle.gif" height="125" alt="" /> Dolly’s Kettle</h1>
             <p>Nutritious Cooking for a Healthy Life</p>
           </a>
 
@@ -89,7 +88,7 @@ export const DefaultLayout = ({ title, content, openGraphImage }) => {
 
         </nav>
 
-        <img src="https://dollyskettle.com/wp-content/themes/kettle/images/farmhouse.jpg" alt="" class="footer-image" width="700" />
+        <img src="/images/farmhouse.jpg" alt="" class="footer-image" width="700" />
 
       </body>
     </html>
