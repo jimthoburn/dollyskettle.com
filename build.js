@@ -14,11 +14,12 @@ const GENERATED_FILES_FOLDER = `./${config.buildFolder}`;
 
 
 function createFile({ pageURL, filename, output }) {
+  if (pageURL == "/" && !filename) {
+  console.log("createFile");
+  console.log({ pageURL, filename, output });
+  }
 
   const writePath = GENERATED_FILES_FOLDER + pageURL;
-  
-  console.log({ pageURL, filename });
-  console.log ({writePath});
 
   mkdirp(writePath, function (err) {
     if (err) {
@@ -131,5 +132,8 @@ console.log(chalk.cyan("- - - - - - - - - - - - - - - - - - - - - - -"));
 console.log("⏱️ ", chalk.cyan("Starting build"));
 console.log(chalk.cyan("- - - - - - - - - - - - - - - - - - - - - - -"));
 console.log("");
-getPostsByURL().then(build);
+
+getPostsByURL().then(urls => {
+  build([...Object.keys(config.redirects), ...urls]);
+});
 

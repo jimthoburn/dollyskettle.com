@@ -4,18 +4,15 @@ import   htm              from "../web_modules/htm.js";
 const    html = htm.bind(createElement);
 
 
-const error404PageTitle = "This page couldn’t be found";
+const error404PageTitle = "This page couldn’t be found.";
 
 
 function Error404Page() {
 
   return html`
-  <section>
-
-    <h1>Oops!</h1>
-    <p>This page couldn’t be found.</p>
-    <p>You may want to visit the <a href="/">home page</a> instead.</p>
-
+  <section class="dialog">
+    <header><h1 style="max-width: none">Oops, this page couldn’t be found.</h1></header>
+    <p>You might find what you’re looking for in the <a href="/index">recipe list</a>.</p>
   </section>
   `;
 }
