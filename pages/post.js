@@ -20,7 +20,7 @@ function PostPage({ post }) {
       ? html`<div class="background-image"><img src="${ backgroundImage.src }" alt="" width="700" /></div>`
       : ""}
 
-    <article>
+    <article style="--headline-color: ${ post["Headline Color"] || "unset" };">
 
       <${PageHeader} page="${post}" />
 

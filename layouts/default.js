@@ -12,7 +12,7 @@ import { getCategoryURLs,
          getPage }        from "../data/post.js";
 
 
-export const DefaultLayout = ({ title, content, openGraphImage, headlineColor, linkColor }) => {
+export const DefaultLayout = ({ title, content, openGraphImage }) => {
   return html`
     <html lang="en" dir="ltr">
       <head>
@@ -32,10 +32,7 @@ export const DefaultLayout = ({ title, content, openGraphImage, headlineColor, l
         <link rel="stylesheet" href="/css/shared.css" />
 
       </head>
-      <body style="${`
-          --headline-color: ${ headlineColor || "unset" };
-          --link-color:     ${ linkColor     || "unset"};
-        `}">
+      <body>
         <nav class="jump">
           <a href="/">
             <h2>Dolly’s Kettle</h2>
