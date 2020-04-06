@@ -1,4 +1,6 @@
 
+import fs               from "fs-extra";
+import mkdirp           from "mkdirp";
 import fetch            from "node-fetch";
 
 import { fetchJSON }    from "../helpers/fetch.js";
@@ -14,13 +16,30 @@ const pages      = {};
 
 let mostRecentPostURL;
 
+function saveJSON({ url, json, filename }) {
+  const writePath = "./_api/" + url.replace("https://", "");
+
+  mkdirp(writePath, function (err) {
+    if (err) {
+      console.error(err);
+    } else {
+      fs.writeFileSync(`${writePath}/${filename ? filename : "index.json"}`, JSON.stringify(json, null, '  '), 'utf8', (err) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+    }
+  });
+}
 
 async function* fetchData(url) {
   let pageNumber = 1;
   let items;
   do {
-    console.log(`Fetching page ${ pageNumber } from ${ url }`);
-    items = await fetchJSON({ url: url.replace(/\$\{[\s]*pageNumber[\s]*\}/g, pageNumber), fetch});
+    const urlWithPageNumber = url.replace(/\$\{[\s]*pageNumber[\s]*\}/g, pageNumber);
+    console.log(`Fetching page ${ pageNumber } from ${ urlWithPageNumber }`);
+    items = await fetchJSON({ url: urlWithPageNumber, fetch});
+    saveJSON({ url: urlWithPageNumber, json: items });
     yield items;
     pageNumber++;
   } while(items != null && items.length > 0)
@@ -30,7 +49,7 @@ async function fetchAllItems(url) {
   let allItems = [];
   for await (let nextItems of fetchData(url)) {
     if (nextItems != null && nextItems.length > 0) {
-      allItems = allItems.concat(nextItems)
+      allItems = allItems.concat(nextItems);
     }
   }
   return allItems;
