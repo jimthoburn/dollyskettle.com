@@ -672,14 +672,6 @@
 
   /* =Logotype (OPTIONAL)
   ----------------------------------------------- */
-  @font-face {
-    font-family: "Italianno";
-    src: url("/fonts/italianno.woff2") format("woff2"),
-         url("/fonts/italianno.woff") format("woff");
-    font-weight: normal;
-    font-style: normal;
-  }
-
   nav h1,
   nav h2 {
     font-family: "Italianno", "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;

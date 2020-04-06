@@ -29,6 +29,7 @@ export const DefaultLayout = ({ title, content, openGraphImage }) => {
           ? html`<meta property="og:image" content="${ openGraphImage }" />`
           : ""}
 
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Italianno&display=swap" /> 
         <link rel="stylesheet" href="/css/shared.css" />
 
       </head>
