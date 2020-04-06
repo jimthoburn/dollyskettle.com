@@ -5,7 +5,9 @@ import chalk                from "chalk";
 
 import { config }           from "./_config.js";
 
-import { getPostsByURL }    from "./data/post.js";
+import { refreshData,
+         getPostURLs,
+         getCategoryURLs } from "./data/post.js";
 import { getSourceByURL }   from "./get-source/by-url.js";
 import { getError404HTML }  from "./get-source/error.js";
 
@@ -14,10 +16,10 @@ const GENERATED_FILES_FOLDER = `./${config.buildFolder}`;
 
 
 function createFile({ pageURL, filename, output }) {
-  if (pageURL == "/" && !filename) {
-  console.log("createFile");
-  console.log({ pageURL, filename, output });
-  }
+  // if (pageURL == "/" && !filename) {
+  // console.log("createFile");
+  // console.log({ pageURL, filename, output });
+  // }
 
   const writePath = GENERATED_FILES_FOLDER + pageURL;
 
@@ -133,7 +135,11 @@ console.log("⏱️ ", chalk.cyan("Starting build"));
 console.log(chalk.cyan("- - - - - - - - - - - - - - - - - - - - - - -"));
 console.log("");
 
-getPostsByURL().then(urls => {
-  build([...Object.keys(config.redirects), ...urls]);
+refreshData().then(() => {
+  build([
+    ...getPostURLs(),
+    ...getCategoryURLs(), 
+    ...Object.keys(config.redirects)
+  ]);
 });
 

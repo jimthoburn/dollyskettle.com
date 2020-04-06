@@ -1,22 +1,43 @@
 
 import jsBeautify            from "js-beautify";
 
-import { config }            from "../_config.js";
 import { render }            from "../web_modules/preact-render-to-string.js";
+import { config }            from "../_config.js";
 import { getPublicURLs,
          getMostRecentPostURL,
          getPostsAlphabetically,
-         getPost }           from "../data/post.js";
-
+         getPost,
+         getCategory }       from "../data/post.js";
+import { getNormalizedCategory } from "../helpers/post.js";
 import { DefaultLayout }     from "../layouts/default.js";
 import { RedirectLayout }    from "../layouts/redirect.js";
 import { RobotsText }        from "../layouts/robots.txt.js";
 import { SiteMapXML }        from "../layouts/sitemap.xml.js";
 import { PostPage }          from "../pages/post.js";
+import { CategoryPage }      from "../pages/category.js";
 import { IndexPage }         from "../pages/index.js";
+
 
 const FIRST_POST = "FIRST_POST";
 
+
+function getIndexHTML() {
+  return new Promise((resolve, reject) => {
+    const html = DefaultLayout({
+      title: "Recipe List",
+      content: render(IndexPage({
+        posts: getPostsAlphabetically()
+      }))
+      // openGraphImage:
+      //   openGraphImage && (openGraphImage.indexOf("http") === 0 || config.host) ?
+      //     openGraphImage.indexOf("http") != 0 && config.host
+      //       ? `${config.host}${openGraphImage}`
+      //       : openGraphImage
+      //     : null
+    });
+    resolve(html);
+  });
+}
 
 function getPostHTML(url) {
   return new Promise((resolve, reject) => {
@@ -42,12 +63,16 @@ function getPostHTML(url) {
   });
 }
 
-function getIndexPage() {
+function getCategoryHTML(url) {
   return new Promise((resolve, reject) => {
+    const category = getCategory(url);
+
     const html = DefaultLayout({
-      title: "Recipe List",
-      content: render(IndexPage({
-        posts: getPostsAlphabetically()
+      title: category.name,
+      content: render(CategoryPage({
+        posts: getPostsAlphabetically().filter(post => 
+          getNormalizedCategory({ post }).url === category.url
+        )
       }))
       // openGraphImage:
       //   openGraphImage && (openGraphImage.indexOf("http") === 0 || config.host) ?
@@ -81,11 +106,11 @@ function getSiteMapXML() {
 }
 
 function getRedirectHTML(redirectTo) {
-  console.log("getRedirectHTML");
+  // console.log("getRedirectHTML");
   return new Promise((resolve, reject) => {
     const html = RedirectLayout({ url: redirectTo });
-    console.log("getRedirectHTML html: ");
-    console.log(html);
+    // console.log("getRedirectHTML html: ");
+    // console.log(html);
     resolve(html);
   });
 }
@@ -100,10 +125,10 @@ function getSourceByURL(url) {
       redirect = getMostRecentPostURL();
     }
 
-    if (url === "/") {
-      console.log("redirect");
-      console.log(redirect);
-    }
+    // if (url === "/") {
+    //   console.log("redirect");
+    //   console.log(redirect);
+    // }
 
     if (url === "/sitemap.xml") {
       getSiteMapXML()
@@ -115,7 +140,10 @@ function getSourceByURL(url) {
       getRedirectHTML(redirect)
         .then(resolve);
     } else if (url === "/index/") {
-      getIndexPage()
+      getIndexHTML()
+        .then(resolve);
+    } else if (getCategory(url)) {
+      getCategoryHTML(url)
         .then(resolve);
     } else if (getPost(url)) {
       getPostHTML(url)

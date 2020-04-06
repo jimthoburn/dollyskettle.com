@@ -1,8 +1,20 @@
 
 import { config } from "../_config.js";
+import { taggedLiteral as html } from "../helpers/tagged-literal.js";
+import { getCategoryURLs, getCategory } from "../data/post.js";
 
-// 📚 SHIM: Behaves just like the default template string. This is just so we can use html`` for color coding
-const html = (...theArgs) => theArgs.shift().map(string => string + (theArgs.shift() || "")).join("");
+function getCategoriesHTML() {
+  let items = [];
+  getCategoryURLs().map(url => {
+    const category = getCategory(url);
+    console.log("Addding category");
+    console.log(category);
+    items.push(html`
+      <li><a href="${ category.url }">${ category.label }</a></li>
+    `);
+  })
+  return items.join("");
+}
 
 export const DefaultLayout = ({ title, content, openGraphImage, headlineColor, linkColor }) => {
   return html`
@@ -95,64 +107,15 @@ export const DefaultLayout = ({ title, content, openGraphImage, headlineColor, l
           <section>
             <h2>Categories</h2>
             <ul>
-              <li class="cat-item cat-item-5"><a href="https://dollyskettle.com/category/appetizers/">Appetizers</a>
-              </li>
-              <li class="cat-item cat-item-23"><a href="https://dollyskettle.com/category/blogs-on-health/">Blogs on Health</a>
-              </li>
-              <li class="cat-item cat-item-7"><a href="https://dollyskettle.com/category/breads/">Breads</a>
-              </li>
-              <li class="cat-item cat-item-16"><a href="https://dollyskettle.com/category/breakfast/">Breakfast</a>
-              </li>
-              <li class="cat-item cat-item-29"><a href="https://dollyskettle.com/category/christmas/">Christmas</a>
-              </li>
-              <li class="cat-item cat-item-8"><a href="https://dollyskettle.com/category/cookies/">Cookies</a>
-              </li>
-              <li class="cat-item cat-item-3"><a href="https://dollyskettle.com/category/desserts/">Desserts</a>
-              </li>
-              <li class="cat-item cat-item-22"><a href="https://dollyskettle.com/category/farmers-markets/">Farmers Markets</a>
-              </li>
-              <li class="cat-item cat-item-17"><a href="https://dollyskettle.com/category/gluten-free/">Gluten Free</a>
-              </li>
-              <li class="cat-item cat-item-27"><a href="https://dollyskettle.com/category/keto-paleo-low-carb/">Keto/Paleo/Low Carb</a>
-              </li>
-              <li class="cat-item cat-item-19"><a href="https://dollyskettle.com/category/low-carb/">Low Carb</a>
-              </li>
-              <li class="cat-item cat-item-20"><a href="https://dollyskettle.com/category/lunch/">Lunch</a>
-              </li>
-              <li class="cat-item cat-item-14"><a href="https://dollyskettle.com/category/main-dishes/">Main Dishes</a>
-              </li>
-              <li class="cat-item cat-item-1"><a href="https://dollyskettle.com/category/miscellaneous/">Miscellaneous</a>
-              </li>
-              <li class="cat-item cat-item-25"><a href="https://dollyskettle.com/category/paleo/">Paleo</a>
-              </li>
-              <li class="cat-item cat-item-6"><a href="https://dollyskettle.com/category/pasta/">Pasta</a>
-              </li>
-              <li class="cat-item cat-item-9"><a href="https://dollyskettle.com/category/pastries/">Pastries</a>
-              </li>
-              <li class="cat-item cat-item-13"><a href="https://dollyskettle.com/category/pizza/">Pizza</a>
-              </li>
-              <li class="cat-item cat-item-12"><a href="https://dollyskettle.com/category/salads/">Salads</a>
-              </li>
-              <li class="cat-item cat-item-15"><a href="https://dollyskettle.com/category/sides/">Sides</a>
-              </li>
-              <li class="cat-item cat-item-4"><a href="https://dollyskettle.com/category/soups/">Soups</a>
-              </li>
-              <li class="cat-item cat-item-28"><a href="https://dollyskettle.com/category/stews/">Stews</a>
-              </li>
-              <li class="cat-item cat-item-26"><a href="https://dollyskettle.com/category/thanksgiving/">Thanksgiving</a>
-              </li>
-              <li class="cat-item cat-item-24"><a href="https://dollyskettle.com/category/vegetarianvegan/">Vegetarian/Vegan</a>
-              </li>
-              <li class="cat-item cat-item-10"><a href="https://dollyskettle.com/category/wraps/">Wraps</a>
-              </li>
+              ${ getCategoriesHTML() }
             </ul>
           </section>
 
           <section>
             <h2>Pages</h2>
             <ul>
-              <li class="page_item page-item-49"><a href="https://dollyskettle.com/about/">About</a></li>
-              <li class="page_item page-item-471"><a href="https://dollyskettle.com/index/">Recipe List</a></li>
+              <!-- <li class="page_item page-item-49"><a href="/about/">About</a></li> -->
+              <li class="page_item page-item-471"><a href="/index/">Recipe List</a></li>
             </ul>
           </section>
 

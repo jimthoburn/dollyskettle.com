@@ -3,11 +3,13 @@ import fetch            from "node-fetch";
 
 import { fetchJSON }    from "../helpers/fetch.js";
 import { normalizeURL } from "../helpers/url.js";
+import { getNormalizedCategory } from "../helpers/post.js";
 
 import { config }       from "../_config.js";
 
 
 const urls = {};
+const categories = {};
 let mostRecentPostURL;
 
 
@@ -16,14 +18,13 @@ async function* fetchPosts() {
   let posts;
   do {
     console.log(`Fetching page ${ pageNumber } of posts`);
-    posts = await fetchJSON({ url: `${config.postsDataURL}&page=${ pageNumber }`, fetch});
+    posts = await fetchJSON({ url: `${config.data.post}&page=${ pageNumber }`, fetch});
     yield posts;
     pageNumber++;
-  } while(pageNumber < 2 && posts != null && posts.length > 0)
+  } while(posts != null && posts.length > 0)
 }
 
-
-async function getPostsByURL() {
+async function refreshData() {
   let allPosts = [];
   for await (let nextPage of fetchPosts()) {
     if (nextPage != null && nextPage.length > 0) {
@@ -39,23 +40,37 @@ async function getPostsByURL() {
     const next = published[index + 1] || published[0];
     const previous = published[index - 1] || published[published.length - 1];
     const url = `/${normalizeURL(post.link)}/`;
+    const category = getNormalizedCategory({ post });
     urls[url] = {
       ...post,
       next,
       previous 
     }
+    console.log("category");
+    console.log(category);
+    if (category && !categories[category.url]) categories[category.url] = category;
 
     if (mostRecentPostURL == null || urls[mostRecentPostURL].date_gmt < post.date_gmt) {
       mostRecentPostURL = url;
     }
     console.log({mostRecentPostURL});
   }
+}
 
+function getPostURLs() {
   return Object.keys(urls);
+}
+
+function getCategoryURLs() {
+  return Object.keys(categories);
 }
 
 function getPost(url) {
   return urls[url];
+}
+
+function getCategory(url) {
+  return categories[url];
 }
 
 function getMostRecentPostURL() {
@@ -82,8 +97,11 @@ function getPostsAlphabetically() {
 
 
 export {
-  getPostsByURL,
+  refreshData,
+  getPostURLs,
   getPost,
+  getCategoryURLs,
+  getCategory,
   getMostRecentPostURL,
   getPostsAlphabetically,
   getPublicURLs

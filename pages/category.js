@@ -6,7 +6,7 @@ const    html = htm.bind(createElement);
 import { normalizeURL } from "../helpers/url.js";
 
 
-function IndexPage({ posts }) {
+function CategoryPage({ posts }) {
 
   return html`
   <header>
@@ -17,24 +17,19 @@ function IndexPage({ posts }) {
 
   <div class="alphabetical-recipe-list">
     <ul>
-      ${posts.map(post => {
+      ${
+        posts.map(post => {
           return html`
           <li><a href="/${ normalizeURL(post.link) }/" dangerouslySetInnerHTML=${ { __html: post.title.rendered } }></a></li>
           `;
-      })}
+        })
+      }
     </ul>
   </div>
   `;
 
-  // return html`
-  //   <${PictureGallery}
-  //     album="${album}"
-  //     pictures="${pictures}"
-  //     story="${story}"
-  //     getPageURL="${getPageURL}" />
-  // `;
 }
 
 
-export { IndexPage };
+export { CategoryPage };
 

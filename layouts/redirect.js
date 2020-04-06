@@ -1,8 +1,6 @@
 
 import { config } from "../_config.js";
-
-// 📚 SHIM: Behaves just like the default template string. This is just so we can use html`` for color coding
-const html = (...theArgs) => theArgs.shift().map(string => string + (theArgs.shift() || "")).join("");
+import { taggedLiteral as html } from "../helpers/tagged-literal.js";
 
 export const RedirectLayout = ({ url }) => {
   return html`
