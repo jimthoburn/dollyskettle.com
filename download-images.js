@@ -74,8 +74,7 @@ function download(urls) {
 
   processNext = function() {
     cursor++;
-    // if (cursor >= urls.length) return;
-    if (cursor >= 2) return;
+    if (cursor >= urls.length) return;
 
     downloadImage(urls[cursor]);
   }
