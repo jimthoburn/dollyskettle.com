@@ -15,6 +15,7 @@ import { config }       from "../_config.js";
 const posts      = {};
 const categories = {};
 const pages      = {};
+const media      = {};
 
 let mostRecentPostURL;
 
@@ -124,19 +125,28 @@ async function refreshPages({ url, useLocalData }) {
   }
 }
 
-async function refreshCollection({ url, collection, useLocalData }) {
+async function refreshMedia({ url, useLocalData }) {
   const items = await fetchAllItems({ url, useLocalData });
 
+  console.log(items[0].media_details);
+
   for (let item of items) {
-    const url = `/${normalizeURL(item.link)}/`;
-    collection[url] = item;
+    const url = `/${normalizeURL(item.source_url)}`;
+    media[url] = item;
+
+    if (item["media_details"] && item["media_details"]["sizes"]) {
+      for (let [name, size] of Object.entries(item["media_details"]["sizes"])) {
+        const url = `/${normalizeURL(size.source_url)}`;
+        media[url] = size;
+      }
+    }
   }
 }
 
 async function refreshData() {
   await refreshPosts({ url: config.data.posts, useLocalData: config.useLocalData });
   await refreshPages({ url: config.data.pages, useLocalData: config.useLocalData });
-  // await refreshCollection({ url: config.data.media, collection: {}, useLocalData: config.useLocalData });
+  await refreshMedia({ url: config.data.media, useLocalData: config.useLocalData });
   // await refreshCollection({ url: config.data.categories, collection: {}, useLocalData: config.useLocalData });
 }
 
@@ -152,6 +162,10 @@ function getPageURLs() {
   return Object.keys(pages).sort();
 }
 
+function getMediaURLs() {
+  return Object.keys(media).sort();
+}
+
 function getPost(url) {
   return posts[url];
 }
@@ -162,6 +176,10 @@ function getCategory(url) {
 
 function getPage(url) {
   return pages[url];
+}
+
+function getMedia(url) {
+  return media[url];
 }
 
 function getMostRecentPostURL() {
@@ -200,6 +218,8 @@ export {
   getCategory,
   getPageURLs,
   getPage,
+  getMediaURLs,
+  getMedia,
   getMostRecentPostURL,
   getPostsAlphabetically,
   getPublicURLs
