@@ -3,6 +3,7 @@ import { createElement }  from "../web_modules/preact.js";
 import   htm              from "../web_modules/htm.js";
 const    html = htm.bind(createElement);
 
+import { htmlDecode }   from "../helpers/html-decode.js";
 import { normalizeURL } from "../helpers/url.js";
 import { getPostImage } from "../helpers/post.js";
 
@@ -27,7 +28,7 @@ function CategoryPage({ title, posts }) {
             <li class="has-image">
               <a href="/${ normalizeURL(post.link) }/">
                 <img src="${ getPostImage({ post }).src }" alt="" />
-                <span dangerouslySetInnerHTML=${ { __html: post.title.rendered } }></span>
+                ${ htmlDecode(post.title.rendered) }
               </a>
             </li>
           `;
@@ -35,7 +36,7 @@ function CategoryPage({ title, posts }) {
           return html`
             <li>
               <a href="/${ normalizeURL(post.link) }/">
-                <span dangerouslySetInnerHTML=${ { __html: post.title.rendered } }></span>
+                ${ htmlDecode(post.title.rendered) }
               </a>
             </li>
           `;

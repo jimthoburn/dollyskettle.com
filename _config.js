@@ -1,4 +1,6 @@
 
+export const MOST_RECENT_POST = "MOST_RECENT_POST";
+
 export const config = {
 
   // The place where this site will be published (this is used for open graph images and the site map).
@@ -22,7 +24,7 @@ export const config = {
   ],
 
   "redirects": {
-    "/": "FIRST_POST"
+    "/": MOST_RECENT_POST
   }
 
 };

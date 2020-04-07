@@ -2,7 +2,7 @@
 import jsBeautify            from "js-beautify";
 
 import { renderToString }    from "../web_modules/preact-render-to-string.js";
-import { config }            from "../_config.js";
+import { config, MOST_RECENT_POST }            from "../_config.js";
 import { getPublicURLs,
          getMostRecentPostURL,
          getPostsAlphabetically,
@@ -19,9 +19,6 @@ import { DefaultPage }       from "../pages/default.js";
 import { PostPage }          from "../pages/post.js";
 import { CategoryPage }      from "../pages/category.js";
 import { IndexPage }         from "../pages/index.js";
-
-
-const FIRST_POST = "FIRST_POST";
 
 
 function render(...theParameters) {
@@ -161,7 +158,7 @@ function getSourceByURL(url) {
   return new Promise(async (resolve, reject) => {
 
     let redirect = config.redirects[url];
-    if (redirect === FIRST_POST) {
+    if (redirect === MOST_RECENT_POST) {
       redirect = getMostRecentPostURL();
     }
 

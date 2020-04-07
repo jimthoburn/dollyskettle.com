@@ -3,6 +3,7 @@ import { createElement }  from "../web_modules/preact.js";
 import   htm              from "../web_modules/htm.js";
 const    html = htm.bind(createElement);
 
+import { htmlDecode }   from "../helpers/html-decode.js";
 import { normalizeURL } from "../helpers/url.js";
 
 
@@ -19,7 +20,7 @@ function IndexPage({ posts }) {
     <ul>
       ${posts.map(post => {
           return html`
-          <li><a href="/${ normalizeURL(post.link) }/" dangerouslySetInnerHTML=${ { __html: post.title.rendered } }></a></li>
+          <li><a href="/${ normalizeURL(post.link) }/">${ htmlDecode(post.title.rendered) }</a></li>
           `;
       })}
     </ul>

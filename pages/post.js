@@ -3,11 +3,13 @@ import { createElement }  from "../web_modules/preact.js";
 import   htm              from "../web_modules/htm.js";
 const    html = htm.bind(createElement);
 
-import { normalizeURL }          from "../helpers/url.js";
+import { sanitize }                from "../helpers/sanitize.js";
+import { htmlDecode }              from "../helpers/html-decode.js";
+import { normalizeURL }            from "../helpers/url.js";
 import { getBackgroundImage,
          getNormalizedCategories } from "../helpers/post.js";
 
-import { PageHeader }            from "../components/page-header.js";
+import { PageHeader }              from "../components/page-header.js";
 
 
 function PostPage({ post }) {
@@ -24,7 +26,11 @@ function PostPage({ post }) {
 
       <${PageHeader} page="${post}" />
 
-      <div class="body" dangerouslySetInnerHTML=${ { __html: post.content.rendered } }></div>
+      <div class="body"
+        dangerouslySetInnerHTML=${
+          { __html: sanitize(post.content.rendered) }
+        }>
+      </div>
 
       <footer>
         ${ categories && categories.length
@@ -49,7 +55,7 @@ function PostPage({ post }) {
                     <li class="next">
                       <span>Next: </span>
                       <a href="/${ normalizeURL(post.next.link) }/">
-                        ${ post.next.title.rendered }
+                        ${ htmlDecode(post.next.title.rendered) }
                       </a>
                     </li>`
                 : ""}
@@ -58,7 +64,7 @@ function PostPage({ post }) {
                     <li class="previous">
                       <span>Previous: </span>
                       <a href="/${ normalizeURL(post.previous.link) }/">
-                        ${ post.previous.title.rendered }
+                        ${ htmlDecode(post.previous.title.rendered) }
                       </a>
                     </li>`
                 : ""}

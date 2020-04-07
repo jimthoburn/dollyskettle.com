@@ -5,6 +5,7 @@ const    html = htm.bind(createElement);
 
 import { config }         from "../_config.js";
 
+import { htmlDecode }     from "../helpers/html-decode.js";
 import { normalizeURL }   from "../helpers/url.js";
 import { getCategoryURLs,
          getCategory,
@@ -56,7 +57,7 @@ export const DefaultLayout = ({ title, content, openGraphImage }) => {
               ${getCategoryURLs().map(url => {
                 const category = getCategory(url);
                 return html`
-                <li><a href="${ category.url }">${ category.label }</a></li>
+                <li><a href="${ category.url }">${ category.title }</a></li>
                 `;
               })}
             </ul>
@@ -68,7 +69,7 @@ export const DefaultLayout = ({ title, content, openGraphImage }) => {
               ${getPageURLs().map(url => {
                 const page = getPage(url);
                 return html`
-                <li><a href="/${ normalizeURL(page.link) }/" dangerouslySetInnerHTML=${ { __html: page.title.rendered } }></a></li>
+                <li><a href="/${ normalizeURL(page.link) }/">${ htmlDecode(page.title.rendered) }</a></li>
                 `;
               })}
             </ul>

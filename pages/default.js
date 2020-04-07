@@ -3,9 +3,10 @@ import { createElement }  from "../web_modules/preact.js";
 import   htm              from "../web_modules/htm.js";
 const    html = htm.bind(createElement);
 
-import { normalizeURL }      from "../helpers/url.js";
+import { sanitize }       from "../helpers/sanitize.js";
+import { normalizeURL }   from "../helpers/url.js";
 
-import { PageHeader }        from "../components/page-header.js";
+import { PageHeader }     from "../components/page-header.js";
 
 
 function DefaultPage({ page }) {
@@ -14,7 +15,11 @@ function DefaultPage({ page }) {
 
       <${PageHeader} page="${page}" />
 
-      <div class="body" dangerouslySetInnerHTML=${ { __html: page.content.rendered } }></div>
+      <div class="body"
+        dangerouslySetInnerHTML=${
+          { __html: sanitize(page.content.rendered) }
+        }>
+      </div>
 
     </article>
   `;
