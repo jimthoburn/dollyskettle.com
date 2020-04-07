@@ -169,7 +169,12 @@ function getMostRecentPostURL() {
 }
 
 function getPublicURLs() {
-  return Object.keys(posts);
+  return [
+    ...getPostURLs(),
+    ...getPageURLs(),
+    ...getCategoryURLs(),
+    ...Object.keys(config.redirects)
+  ].sort();
 }
 
 function getPostsAlphabetically() {

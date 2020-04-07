@@ -6,9 +6,7 @@ import chalk                from "chalk";
 import { config }           from "./_config.js";
 
 import { refreshData,
-         getPostURLs,
-         getCategoryURLs,
-         getPageURLs }      from "./data/post.js";
+         getPublicURLs }    from "./data/post.js";
 import { getSourceByURL,
          getError404HTML }  from "./get-source/by-url.js";
 
@@ -78,10 +76,18 @@ function buildStaticFiles() {
   }
 
   // _public is a general folder for any static file to be served from “/”
-  const source      = `./_public`;
-  const destination = `${GENERATED_FILES_FOLDER}`;
-
-  copy({source, destination});
+  (function() {
+    const source      = `./_public`;
+    const destination = `${GENERATED_FILES_FOLDER}`;
+    copy({source, destination});
+  })();
+  
+  // _pictures is a special case, to emulate WordPress URLs
+  (function() {
+    const source      = `./_pictures`;
+    const destination = `${GENERATED_FILES_FOLDER}/wp_content/uploads/`;
+    copy({source, destination});
+  })();
 }
 
 function buildPages(urls) {
@@ -137,11 +143,6 @@ console.log(chalk.cyan("- - - - - - - - - - - - - - - - - - - - - - -"));
 console.log("");
 
 refreshData().then(() => {
-  build([
-    ...getPostURLs(),
-    ...getCategoryURLs(), 
-    ...getPageURLs(),
-    ...Object.keys(config.redirects)
-  ]);
+  build(getPublicURLs());
 });
 
