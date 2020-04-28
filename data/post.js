@@ -144,9 +144,9 @@ async function refreshMedia({ url, useLocalData }) {
 }
 
 async function refreshData() {
-  await refreshPosts({ url: config.data.posts, useLocalData: config.useLocalData });
-  await refreshPages({ url: config.data.pages, useLocalData: config.useLocalData });
-  await refreshMedia({ url: config.data.media, useLocalData: config.useLocalData });
+  await refreshPosts({ url: `${config.data.host}${config.data.posts}`, useLocalData: config.useLocalData });
+  await refreshPages({ url: `${config.data.host}${config.data.pages}`, useLocalData: config.useLocalData });
+  await refreshMedia({ url: `${config.data.host}${config.data.media}`, useLocalData: config.useLocalData });
   // await refreshCollection({ url: config.data.categories, collection: {}, useLocalData: config.useLocalData });
 }
 

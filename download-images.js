@@ -21,14 +21,14 @@ function downloadImage(url) {
   // ./_pictures/2020/04/
   const writePath = `./_pictures/${imagePath}/`.replace("/wp-content/uploads/", "/");
 
-  if (fs.existsSync(`${writePath}${imageName}`)) {
-    console.log("Skipping because the file already exists: ")
-    console.log(`${writePath}${imageName}`)
-    processNext();
-    return;
-  }
+  // if (fs.existsSync(`${writePath}${imageName}`)) {
+  //   console.log("Skipping because the file already exists: ")
+  //   console.log(`${writePath}${imageName}`)
+  //   processNext();
+  //   return;
+  // }
 
-  fetch(`${config.host}${url}`)
+  fetch(`${config.data.host}${url}`)
     .then(res => {
       return new Promise((resolve, reject) => {
         mkdirp(writePath, function(err) {
@@ -53,14 +53,13 @@ function downloadImage(url) {
     .then(() => {
       console.log("successfully downloaded: ");
       console.log(url);
-      processNext();
     })
     .catch(err => {
       console.log("error while downloading: ");
       console.log(url);
       console.log(err);
-      processNext();
-    });
+    })
+    .finally(processNext);
 
   // saveMarkdown(filename, data)
 }
