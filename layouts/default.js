@@ -34,6 +34,10 @@ export const DefaultLayout = ({ title, content, openGraphImage, redirect }) => {
           ? html`<meta http-equiv="refresh" content="0; url=${ redirect }" />`
           : ""}
 
+        ${ redirect && config.host 
+          ? html`<link rel="canonical" href="${ config.host }${ redirect }" />`
+          : ""}
+
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Italianno&display=swap" /> 
         <link rel="stylesheet" href="/css/shared.css" />
 
