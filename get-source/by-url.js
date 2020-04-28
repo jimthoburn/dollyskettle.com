@@ -18,7 +18,7 @@ import { Error404Page,
 import { DefaultPage }       from "../pages/default.js";
 import { PostPage }          from "../pages/post.js";
 import { CategoryPage }      from "../pages/category.js";
-import { IndexPage }         from "../pages/index.js";
+import { RecipesPage }       from "../pages/recipes.js";
 
 
 function render(...theParameters) {
@@ -28,11 +28,11 @@ ${renderToString(theParameters)}
 }
 
 
-function getIndexHTML() {
+function getRecipesHTML() {
   return new Promise((resolve, reject) => {
     const html = render(DefaultLayout({
       title: "Recipe List",
-      content: IndexPage({
+      content: RecipesPage({
         posts: getPostsAlphabetically()
       })
       // openGraphImage:
@@ -176,8 +176,8 @@ function getSourceByURL(url) {
     } else if (redirect) {
       getRedirectHTML(redirect)
         .then(resolve);
-    } else if (url === "/index/") {
-      getIndexHTML()
+    } else if (url === "/recipes/") {
+      getRecipesHTML()
         .then(resolve);
     } else if (getCategory(url)) {
       getCategoryHTML(url)

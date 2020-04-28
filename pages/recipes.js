@@ -7,7 +7,7 @@ import { htmlDecode }   from "../helpers/html-decode.js";
 import { normalizeURL } from "../helpers/url.js";
 
 
-function IndexPage({ posts }) {
+function RecipesPage({ posts }) {
 
   return html`
   <header>
@@ -37,5 +37,5 @@ function IndexPage({ posts }) {
 }
 
 
-export { IndexPage };
+export { RecipesPage };
 

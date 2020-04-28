@@ -21,7 +21,7 @@ let mostRecentPostURL;
 
 function saveJSON({ url, json, filename }) {
   const writePath = "./_api/" + encodeURIComponent(url);
-  const fullPath = `${writePath}/${filename ? filename : "index.json"}`;
+  const fullPath = `${writePath}/${filename ? filename : "recipes.json"}`;
   console.log(`Saving JSON file to: ${ fullPath }`);
 
   mkdirp(writePath, function (err) {
@@ -43,7 +43,7 @@ async function* fetchData({ url, useLocalData }) {
   do {
     const urlWithPageNumber = url.replace(/\$\{[\s]*pageNumber[\s]*\}/g, pageNumber);
     if (useLocalData === true) {
-      const localURL = `/api/${encodeURIComponent(urlWithPageNumber)}/index.json`;
+      const localURL = `/api/${encodeURIComponent(urlWithPageNumber)}/recipes.json`;
       console.log(`Fetching page ${ pageNumber } from local data: ${ localURL }`);
       items = await fetchJSON({
         url: localURL,
