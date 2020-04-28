@@ -115,10 +115,23 @@ function getSiteMapXML() {
 function getRedirectHTML(redirectTo) {
   // console.log("getRedirectHTML");
   return new Promise((resolve, reject) => {
-    const html = render(RedirectLayout({ url: redirectTo }));
-    // console.log("getRedirectHTML html: ");
-    // console.log(html);
-    resolve(html);
+    if (getPost(redirectTo)) {
+      const post = getPost(redirectTo);
+
+      const html = render(DefaultLayout({
+        title: post.title.rendered,
+        content: PostPage({ post }),
+        openGraphImage: getBackgroundImage({ post }).src,
+        redirect: redirectTo
+      }));
+
+      resolve(html);
+    } else {
+      const html = render(RedirectLayout({ url: redirectTo }));
+      // console.log("getRedirectHTML html: ");
+      // console.log(html);
+      resolve(html);
+    }
   });
 }
 

@@ -13,7 +13,7 @@ import { getCategoryURLs,
          getPage }        from "../data/post.js";
 
 
-export const DefaultLayout = ({ title, content, openGraphImage }) => {
+export const DefaultLayout = ({ title, content, openGraphImage, redirect }) => {
   return html`
     <html lang="en" dir="ltr">
       <head>
@@ -28,6 +28,10 @@ export const DefaultLayout = ({ title, content, openGraphImage }) => {
 
         ${ openGraphImage 
           ? html`<meta property="og:image" content="${ openGraphImage }" />`
+          : ""}
+
+        ${ redirect 
+          ? html`<meta http-equiv="refresh" content="0; url=${ redirect }" />`
           : ""}
 
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Italianno&display=swap" /> 

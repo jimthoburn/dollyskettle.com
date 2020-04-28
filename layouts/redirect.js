@@ -13,7 +13,7 @@ export const RedirectLayout = ({ url }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
         <title>This page has moved</title>
-        
+
         <meta http-equiv="refresh" content="0; url=${ url }" />
 
         ${ config.host 
