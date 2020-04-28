@@ -16,7 +16,7 @@ export const config = {
   },
 
   // If true, use a local copy of files from the WordPress API
-  "useLocalData": true,
+  // "useLocalData": true,
 
   // Path to favicon in public folder
   // "favicon": "/favicon.png",
