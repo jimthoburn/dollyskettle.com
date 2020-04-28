@@ -9,6 +9,7 @@ import { getPublicURLs,
          getPost,
          getPage,
          getCategory }       from "../data/post.js";
+import { getBackgroundImage } from "../helpers/post.js";
 import { DefaultLayout }     from "../layouts/default.js";
 import { RedirectLayout }    from "../layouts/redirect.js";
 import { RobotsText }        from "../layouts/robots.txt.js";
@@ -34,13 +35,8 @@ function getRecipesHTML() {
       title: "Recipe List",
       content: RecipesPage({
         posts: getPostsAlphabetically()
-      })
-      // openGraphImage:
-      //   openGraphImage && (openGraphImage.indexOf("http") === 0 || config.host) ?
-      //     openGraphImage.indexOf("http") != 0 && config.host
-      //       ? `${config.host}${openGraphImage}`
-      //       : openGraphImage
-      //     : null
+      }),
+      openGraphImage: `${config.data.host}${config.data.openGraphImage}`
     }));
     resolve(html);
   });
@@ -50,20 +46,10 @@ function getPostHTML(url) {
   return new Promise((resolve, reject) => {
     const post = getPost(url);
 
-    // const openGraphImage = getOpenGraphImage({
-    //   getPageURL,
-    //   album
-    // });
-
     const html = render(DefaultLayout({
       title: post.title.rendered,
-      content: PostPage({ post })
-      // openGraphImage:
-      //   openGraphImage && (openGraphImage.indexOf("http") === 0 || config.host) ?
-      //     openGraphImage.indexOf("http") != 0 && config.host
-      //       ? `${config.host}${openGraphImage}`
-      //       : openGraphImage
-      //     : null
+      content: PostPage({ post }),
+      openGraphImage: getBackgroundImage({ post }).src
     }));
 
     resolve(html);
@@ -74,20 +60,10 @@ function getPageHTML(url) {
   return new Promise((resolve, reject) => {
     const page = getPage(url);
 
-    // const openGraphImage = getOpenGraphImage({
-    //   getPageURL,
-    //   album
-    // });
-
     const html = render(DefaultLayout({
       title: page.title.rendered,
-      content: DefaultPage({ page })
-      // openGraphImage:
-      //   openGraphImage && (openGraphImage.indexOf("http") === 0 || config.host) ?
-      //     openGraphImage.indexOf("http") != 0 && config.host
-      //       ? `${config.host}${openGraphImage}`
-      //       : openGraphImage
-      //     : null
+      content: DefaultPage({ page }),
+      openGraphImage: `${config.data.host}${config.data.openGraphImage}`
     }));
 
     resolve(html);
@@ -98,15 +74,19 @@ function getCategoryHTML(url) {
   return new Promise((resolve, reject) => {
     const category = getCategory(url);
 
+    let openGraphImage;
+    try {
+      openGraphImage = getBackgroundImage({ post: category.posts[0] }).src
+    } catch (error) {
+      openGraphImage = `${config.data.host}${config.data.openGraphImage}`;
+      console.error(`Warning: Unable to get open graph image for: ${url}`)
+      console.error(error);
+    }
+
     const html = render(DefaultLayout({
       title: category.title,
-      content: CategoryPage(category)
-      // openGraphImage:
-      //   openGraphImage && (openGraphImage.indexOf("http") === 0 || config.host) ?
-      //     openGraphImage.indexOf("http") != 0 && config.host
-      //       ? `${config.host}${openGraphImage}`
-      //       : openGraphImage
-      //     : null
+      content: CategoryPage(category),
+      openGraphImage
     }));
     resolve(html);
   });
