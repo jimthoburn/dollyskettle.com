@@ -146,7 +146,7 @@ function getError404HTML() {
 }
 
 
-function getSourceByURL(url) {
+function _getSourceByURL(url) {
   // if (url.indexOf("portrait") >= 0) console.log(`getSourceByURL: ${url}`);
   return new Promise(async (resolve, reject) => {
 
@@ -183,6 +183,18 @@ function getSourceByURL(url) {
         .then(resolve);
     } else {
       throw new Error(`An unexpected URL was passed to getSourceByURL: ${url}`);
+    }
+  });
+}
+
+
+function getSourceByURL(url) {
+  return new Promise(async (resolve, reject) => {
+    const html = await _getSourceByURL(url);
+    if (config.useLocalContent) {
+      resolve(html.replace(/https:\/\/content\.dollyskettle\.com\/wp-content/g, "/wp-content"));
+    } else {
+      resolve(html);
     }
   });
 }

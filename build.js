@@ -47,11 +47,17 @@ function removeFile({ pageURL, filename }) {
 function copy({source, destination}) {
   // console.log(`📂 Copying files from: ${source}`);
 
-  // https://www.npmjs.com/package/fs-extra
-  fs.copy(source, destination, function (err) {
-    if (err){
-      console.log('An error occured while copying the folder.')
-      return console.error(err)
+  mkdirp(destination, function (err) {
+    if (err) {
+      console.error(err);
+    } else {
+      // https://www.npmjs.com/package/fs-extra
+      fs.copy(source, destination, function (err) {
+        if (err){
+          console.log('An error occured while copying the folder.')
+          return console.error(err)
+        }
+      });
     }
   });
 }
@@ -85,7 +91,7 @@ function buildStaticFiles() {
   // _pictures is a special case, to emulate WordPress URLs
   (function() {
     const source      = `./_pictures`;
-    const destination = `${GENERATED_FILES_FOLDER}/wp_content/uploads/`;
+    const destination = `${GENERATED_FILES_FOLDER}/wp-content/uploads/`;
     copy({source, destination});
   })();
 }

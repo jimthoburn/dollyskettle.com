@@ -15,7 +15,7 @@ function downloadImage(url) {
   // IMG_8473-770x1024.jpg
   const imageName = urlBits.pop();
 
-  // wp_content/uploads/2020/04
+  // wp-content/uploads/2020/04
   const imagePath = urlBits.join("/");
 
   // ./_pictures/2020/04/

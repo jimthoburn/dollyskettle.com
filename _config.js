@@ -16,8 +16,11 @@ export const config = {
     // "categories" : "/wp-json/wp/v2/categories?per_page=100&page=${ pageNumber }&_embed=1"
   },
 
-  // If true, use a local copy of files from the WordPress API
+  // If true, use a saved copy of files from the WordPress API
   // "useLocalData": true,
+
+  // If true, use a saved copy of files from /wp-content/
+  // "useLocalContent": true,
 
   // Path to favicon in public folder
   // "favicon": "/favicon.png",
