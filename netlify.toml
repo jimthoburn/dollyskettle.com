@@ -15,6 +15,11 @@
   # headers = {X-From = "Netlify"}
   # signed = "API_SIGNATURE_TOKEN"
 
+[[redirects]]
+  from = "/wp-admin/*"
+  to = "https://content.dollyskettle.com/wp-admin/:splat"
+  status = 302
+
 # https://docs.netlify.com/routing/redirects/rewrites-proxies/#proxy-to-another-service
 [[redirects]]
   from = "/wp-content/*"
