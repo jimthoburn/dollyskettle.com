@@ -12,6 +12,8 @@ import { getCategoryURLs,
          getPageURLs,
          getPage }        from "../data/post.js";
 
+import { Analytics }      from "../components/analytics.js";
+
 
 export const DefaultLayout = ({ title, content, openGraphImage, redirect }) => {
   return html`
@@ -40,6 +42,8 @@ export const DefaultLayout = ({ title, content, openGraphImage, redirect }) => {
 
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Italianno&display=swap" /> 
         <link rel="stylesheet" href="/css/shared.css" />
+
+        <${Analytics} id="${ config.analytics }" />
 
       </head>
       <body>

@@ -4,6 +4,8 @@
   publish = "_site/"
   command = "npm run build"
 
+# https://www.netlify.com/products/dev/
+# https://github.com/netlify/cli/blob/master/docs/netlify-dev.md
 [dev]
   publish    = "_site/"
   command    = "npm start"
