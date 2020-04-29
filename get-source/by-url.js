@@ -14,6 +14,7 @@ import { DefaultLayout }     from "../layouts/default.js";
 import { RedirectLayout }    from "../layouts/redirect.js";
 import { RobotsText }        from "../layouts/robots.txt.js";
 import { SiteMapXML }        from "../layouts/sitemap.xml.js";
+import { RedirectsText }     from "../layouts/_redirects.js";
 import { Error404Page,
          error404PageTitle } from "../pages/404.js";
 import { DefaultPage }       from "../pages/default.js";
@@ -106,9 +107,24 @@ function getSiteMapXML() {
     const publicURLs = getPublicURLs();
     const xml = SiteMapXML({
       host: config.host,
-      urls: publicURLs
+      urls: ["/", ...publicURLs]
     });
     resolve(xml);
+  });
+}
+
+function getRedirectsText() {
+  return new Promise((resolve, reject) => {
+    const text = RedirectsText({
+      redirects: Object.entries(config.redirects).map( ([key, value]) => {
+        if (value === MOST_RECENT_POST) value = getMostRecentPostURL();
+        return {
+          from: key,
+          to: value
+        };
+      })
+    });
+    resolve(text);
   });
 }
 
@@ -166,6 +182,9 @@ function _getSourceByURL(url) {
     } else if (url === "/robots.txt") {
       getRobotsText()
         .then(resolve);
+    } else if (url === "/_redirects") {
+      getRedirectsText()
+        .then(resolve);
     } else if (redirect) {
       getRedirectHTML(redirect)
         .then(resolve);
@@ -192,7 +211,7 @@ function getSourceByURL(url) {
   return new Promise(async (resolve, reject) => {
     const html = await _getSourceByURL(url);
     if (config.useLocalContent) {
-      resolve(html.replace(/https:\/\/content\.dollyskettle\.com\/wp-content/g, "/wp-content"));
+      resolve(html.replace(new RegExp(`${config.data.host}/wp-content/`, "g"), "/wp-content/"));
     } else {
       resolve(html);
     }

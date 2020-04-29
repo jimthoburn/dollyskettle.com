@@ -4,6 +4,13 @@
   publish = "_site/"
   command = "npm run build"
 
+[dev]
+  publish    = "_site/"
+  command    = "npm start"
+  targetPort = 4000
+  port       = 8888
+  autoLaunch = true
+
 # https://docs.netlify.com/routing/redirects/#syntax-for-the-netlify-configuration-file
 [[redirects]]
   from = "/index/"
@@ -14,6 +21,11 @@
   # conditions = {Language = ["en"], Country = ["US"], Role = ["admin"]}
   # headers = {X-From = "Netlify"}
   # signed = "API_SIGNATURE_TOKEN"
+
+[[redirects]]
+  from = "/wp-admin/*"
+  to = "https://content.dollyskettle.com/wp-admin/:splat"
+  status = 302
 
 # https://docs.netlify.com/routing/redirects/rewrites-proxies/#proxy-to-another-service
 [[redirects]]

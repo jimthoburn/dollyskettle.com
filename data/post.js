@@ -128,7 +128,7 @@ async function refreshPages({ url, useLocalData }) {
 async function refreshMedia({ url, useLocalData }) {
   const items = await fetchAllItems({ url, useLocalData });
 
-  console.log(items[0].media_details);
+  // console.log(items[0].media_details);
 
   for (let item of items) {
     const url = `/${normalizeURL(item.source_url)}`;
@@ -190,8 +190,7 @@ function getPublicURLs() {
   return [
     ...getPostURLs(),
     ...getPageURLs(),
-    ...getCategoryURLs(),
-    ...Object.keys(config.redirects)
+    ...getCategoryURLs()
   ].sort();
 }
 
