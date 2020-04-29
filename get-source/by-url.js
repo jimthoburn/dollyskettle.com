@@ -14,6 +14,7 @@ import { DefaultLayout }     from "../layouts/default.js";
 import { RedirectLayout }    from "../layouts/redirect.js";
 import { RobotsText }        from "../layouts/robots.txt.js";
 import { SiteMapXML }        from "../layouts/sitemap.xml.js";
+import { RedirectsText }     from "../layouts/_redirects.js";
 import { Error404Page,
          error404PageTitle } from "../pages/404.js";
 import { DefaultPage }       from "../pages/default.js";
@@ -106,9 +107,24 @@ function getSiteMapXML() {
     const publicURLs = getPublicURLs();
     const xml = SiteMapXML({
       host: config.host,
-      urls: publicURLs
+      urls: ["/", ...publicURLs]
     });
     resolve(xml);
+  });
+}
+
+function getRedirectsText() {
+  return new Promise((resolve, reject) => {
+    const text = RedirectsText({
+      redirects: Object.entries(config.redirects).map( ([key, value]) => {
+        if (value === MOST_RECENT_POST) value = getMostRecentPostURL();
+        return {
+          from: key,
+          to: value
+        };
+      })
+    });
+    resolve(text);
   });
 }
 
@@ -165,6 +181,9 @@ function _getSourceByURL(url) {
         .then(resolve);
     } else if (url === "/robots.txt") {
       getRobotsText()
+        .then(resolve);
+    } else if (url === "/_redirects") {
+      getRedirectsText()
         .then(resolve);
     } else if (redirect) {
       getRedirectHTML(redirect)

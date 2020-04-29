@@ -119,6 +119,13 @@ function buildSiteMap() {
     .catch(err => console.error(err));
 }
 
+function buildRedirectsFile() {
+  console.log(`🗺  Preparing _redirects`);
+  getSourceByURL("/_redirects")
+    .then(text => createFile({ pageURL: "/", filename: "_redirects", output: text }))
+    .catch(err => console.error(err));
+}
+
 function buildError404Page() {
   console.log(`🚥 Preparing 404 "not found" page`);
   createFile({ pageURL: "/", filename: "404.html", output: getError404HTML() });
@@ -133,8 +140,9 @@ function build(urls) {
   buildRobotsText();
   buildSiteMap();
 
+  buildRedirectsFile();
   buildError404Page();
-  
+
   console.log("");
   console.log(chalk.cyan("- - - - - - - - - - - - - - - - - - - - - - -"));
   console.log("🏁", chalk.cyan(`Build files saved to`), chalk.italic(config.buildFolder));
