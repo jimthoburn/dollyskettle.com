@@ -14,3 +14,10 @@
   # conditions = {Language = ["en"], Country = ["US"], Role = ["admin"]}
   # headers = {X-From = "Netlify"}
   # signed = "API_SIGNATURE_TOKEN"
+
+# https://docs.netlify.com/routing/redirects/rewrites-proxies/#proxy-to-another-service
+[[redirects]]
+  from = "/wp-content/*"
+  to = "https://content.dollyskettle.com/wp-content/:splat"
+  status = 200
+  force = true
