@@ -192,7 +192,7 @@ function getSourceByURL(url) {
   return new Promise(async (resolve, reject) => {
     const html = await _getSourceByURL(url);
     if (config.useLocalContent) {
-      resolve(html.replace(/https:\/\/content\.dollyskettle\.com\/wp-content/g, "/wp-content"));
+      resolve(html.replace(new RegExp(`${config.data.host}/wp-content/`, "g"), "/wp-content/"));
     } else {
       resolve(html);
     }
