@@ -19,8 +19,9 @@ export const config = {
   // If true, use a saved copy of files from the WordPress API
   // "useLocalData": true,
 
-  // If true, use a saved copy of files from /wp-content/
-  // "useLocalContent": true,
+  // If true, load content from a relative URL. For example:
+  // This URL `https://content.dollyskettle.com/wp-content/` is translated to `/wp-content/`
+  "useLocalContent": true,
 
   // Path to favicon in public folder
   // "favicon": "/favicon.png",
