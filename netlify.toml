@@ -4,6 +4,13 @@
   publish = "_site/"
   command = "npm run build"
 
+[dev]
+  publish    = "_site/"
+  command    = "npm start"
+  targetPort = 4000
+  port       = 8888
+  autoLaunch = true
+
 # https://docs.netlify.com/routing/redirects/#syntax-for-the-netlify-configuration-file
 [[redirects]]
   from = "/index/"

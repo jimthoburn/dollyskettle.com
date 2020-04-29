@@ -14,15 +14,12 @@ export const RedirectsText = ({ redirects }) => {
   // https://docs.netlify.com/routing/redirects/rewrites-proxies/#shadowing
   const force = "!";
 
-  const text = `
+  const text = `${redirects.map( ({from, to}) =>
 
-${redirects.map( ({from, to}) =>
-
-`${from} ${to} ${status} ${force}
+`${from} ${to} ${status}${force}
 `
 
 )}
-
 `;
   return text;
 };
