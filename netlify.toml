@@ -3,3 +3,14 @@
 [build]
   publish = "_site/"
   command = "npm run build"
+
+# https://docs.netlify.com/routing/redirects/#syntax-for-the-netlify-configuration-file
+[[redirects]]
+  from = "/index/"
+  to = "/recipes/"
+  status = 302
+  force = true
+  # query = {path = ":path"}
+  # conditions = {Language = ["en"], Country = ["US"], Role = ["admin"]}
+  # headers = {X-From = "Netlify"}
+  # signed = "API_SIGNATURE_TOKEN"

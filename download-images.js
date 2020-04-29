@@ -21,12 +21,17 @@ function downloadImage(url) {
   // ./_pictures/2020/04/
   const writePath = `./_pictures/${imagePath}/`.replace("/wp-content/uploads/", "/");
 
-  // if (fs.existsSync(`${writePath}${imageName}`)) {
-  //   console.log("Skipping because the file already exists: ")
-  //   console.log(`${writePath}${imageName}`)
-  //   processNext();
-  //   return;
-  // }
+  if (fs.existsSync(`${writePath}${imageName}`)) {
+    console.log("Skipping because the file already exists: ")
+    console.log(`${writePath}${imageName}`);
+
+    // https://stackoverflow.com/questions/20936486/node-js-maximum-call-stack-size-exceeded
+    setTimeout( function() {
+      processNext();
+    }, 0 );
+
+    return;
+  }
 
   fetch(`${config.data.host}${url}`)
     .then(res => {
