@@ -6,6 +6,9 @@ export const config = {
   // The place where this site will be published (this is used for open graph images and the site map).
   "host": "https://dollyskettle.com",
 
+  // Google Analytics ID
+  "analytics": "UA-164971049-1",
+
   // Location of the WordPress API
   "data": {
     "host"       : "https://content.dollyskettle.com",
