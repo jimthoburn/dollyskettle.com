@@ -1,7 +1,7 @@
 
 # Dolly’s Kettle _beta_
 
-A static site generated with data from the WordPress API, and published with Netlify.
+A static web site, generated with data from the WordPress API and published with Netlify.
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/1e26749f-d049-4396-9099-bfa8905c9f67/deploy-status)](https://app.netlify.com/sites/staging-dollyskettle-com/deploys)
 
