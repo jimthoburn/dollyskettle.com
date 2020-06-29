@@ -32,8 +32,8 @@ This will create a folder called `_site` that can be published on any host, incl
 This project is an experiment to see how easily a web site can be created with the benefits of both a CMS (like WordPress) and static site (like Jekyll)…
 
 - [x] Content can be created and updated with an easy-to-use CMS, like WordPress
-- [ ] Changes to the content are versioned with a tool like Git
-- [ ] The web site can be continuously deployed in a way that is reliable, scalable and secure
+- [x] Changes to the content are versioned with a tool like Git
+- [x] The web site can be continuously deployed in a way that is reliable, scalable and secure
 - [ ] The CMS can be hosted separately from the site, with limited access
 - [ ] The web site is still available, even if something goes wrong in the CMS
 
