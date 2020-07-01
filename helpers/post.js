@@ -1,6 +1,14 @@
 
 import { normalizeURL }      from "../helpers/url.js";
 
+// SHIM: Use a fallback image, just in case the post image isn’t available in the API
+//       https://core.trac.wordpress.org/ticket/41445
+const fallbackImage = {
+  src: "https://dollyskettle.com/wp-content/themes/kettle/images/farmhouse.jpg",
+  width: 3600,
+  height: 2520
+};
+
 function getBackgroundImage({ post }) {
   try {
     const image = post._embedded["wp:featuredmedia"][0];
@@ -12,6 +20,7 @@ function getBackgroundImage({ post }) {
   } catch(error) {
     console.log(`Couldn’t find a featured image for post: ${ post.link }`);
     console.error(error);
+    return fallbackImage;
   }
 }
 
@@ -26,6 +35,7 @@ function getPostImage({ post }) {
   } catch(error) {
     console.log(`Couldn’t find an image for post: ${ post.link }`);
     console.error(error);
+    return fallbackImage;
   }
 }
 
