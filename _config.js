@@ -12,11 +12,16 @@ export const config = {
   // Location of the WordPress API
   "data": {
     "host"       : "https://content.dollyskettle.com",
-    "openGraphImage": "/wp-content/themes/kettle/images/farmhouse.jpg",
     "posts"      : "/wp-json/wp/v2/posts?per_page=100&page=${ pageNumber }&_embed=1",
     "pages"      : "/wp-json/wp/v2/pages?per_page=100&page=${ pageNumber }&_embed=1",
-    "media"      : "/wp-json/wp/v2/media?per_page=100&page=${ pageNumber }&_embed=1"
+    "media"      : "/wp-json/wp/v2/media?per_page=100&page=${ pageNumber }&_embed=1",
     // "categories" : "/wp-json/wp/v2/categories?per_page=100&page=${ pageNumber }&_embed=1"
+    "openGraphImage": "/wp-content/themes/kettle/images/farmhouse.jpg",
+    "postFeaturedImageFallback": {
+      src: "/wp-content/themes/kettle/images/farmhouse.jpg",
+      width: 3600,
+      height: 2520
+    }
   },
 
   // If true, use a saved copy of files from the WordPress API

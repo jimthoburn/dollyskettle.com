@@ -19,22 +19,21 @@ const media      = {};
 
 let mostRecentPostURL;
 
-function saveJSON({ url, json, filename }) {
+async function saveJSON({ url, json, filename }) {
   const writePath = "./_api/" + encodeURIComponent(url);
   const fullPath = `${writePath}/${filename ? filename : "recipes.json"}`;
   console.log(`Saving JSON file to: ${ fullPath }`);
 
-  mkdirp(writePath, function (err) {
-    if (err) {
-      console.error(err);
-    } else {
-      fs.writeFileSync(fullPath, JSON.stringify(json, null, '  '), 'utf8', (err) => {
-        if (err) {
-          console.log(err);
-        }
-      });
-    }
-  });
+  try {
+    const folder = await mkdirp(writePath);
+    fs.writeFileSync(fullPath, JSON.stringify(json, null, '  '), 'utf8', (err) => {
+      if (err) {
+        console.log(err);
+      }
+    });
+  } catch(e) {
+    console.error(err);
+  }
 }
 
 async function* fetchData({ url, useLocalData }) {

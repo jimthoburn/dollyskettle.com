@@ -16,8 +16,7 @@
     "start": "npm run build && npm run serve"
   },
   "dependencies": {
-    "@babel/core": "^7.9.0",
-    "chalk": "^3.0.0",
+    "chalk": "^4.1.0",
     "dompurify": "^2.0.8",
     "fs-extra": "^9.0.0",
     "htm": "^3.0.3",
@@ -27,16 +26,17 @@
     "preact": "^10.3.4",
     "preact-render-to-string": "^5.1.4",
     "serve": "^11.3.0",
-    "snowpack": "^1.6.0"
+    "snowpack": "^2.9.3"
   },
   "snowpack": {
-    "webDependencies": [
+    "install": [
       "htm",
       "preact",
       "preact/hooks",
       "preact-render-to-string"
     ],
     "installOptions": {
+      "polyfillNode": true,
       "clean": true,
       "optimize": false,
       "sourceMap": true

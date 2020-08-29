@@ -35,24 +35,23 @@ function downloadImage(url) {
 
   fetch(`${config.data.host}${url}`)
     .then(res => {
-      return new Promise((resolve, reject) => {
-        mkdirp(writePath, function(err) {
-          if (err) {
-            console.error(err);
-          } else {
-            const dest = fs.createWriteStream(`${writePath}${imageName}`);
-            res.body.pipe(dest);
-            res.body.on("error", err => {
-              reject(err);
-            });
-            dest.on("finish", () => {
-              resolve();
-            });
-            dest.on("error", err => {
-              reject(err);
-            });
-          }
-        });
+      return new Promise(async (resolve, reject) => {
+        try {
+          const folder = await mkdirp(writePath);
+          const dest = fs.createWriteStream(`${writePath}${imageName}`);
+          res.body.pipe(dest);
+          res.body.on("error", err => {
+            reject(err);
+          });
+          dest.on("finish", () => {
+            resolve();
+          });
+          dest.on("error", err => {
+            reject(err);
+          });
+        } catch(e) {
+          console.error(err);
+        }
       });
     })
     .then(() => {

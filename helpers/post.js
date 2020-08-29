@@ -1,13 +1,10 @@
 
+import { config }            from "../_config.js";
 import { normalizeURL }      from "../helpers/url.js";
 
 // SHIM: Use a fallback image, just in case the post image isn’t available in the API
 //       https://core.trac.wordpress.org/ticket/41445
-const fallbackImage = {
-  src: "https://dollyskettle.com/wp-content/themes/kettle/images/farmhouse.jpg",
-  width: 3600,
-  height: 2520
-};
+const fallbackImage = config.postFeaturedImageFallback;
 
 function getBackgroundImage({ post }) {
   try {

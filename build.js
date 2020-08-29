@@ -13,8 +13,7 @@ import { getSourceByURL,
 
 const GENERATED_FILES_FOLDER = `./${config.buildFolder}`;
 
-
-function createFile({ pageURL, filename, output }) {
+async function createFile({ pageURL, filename, output }) {
   // if (pageURL == "/" && !filename) {
   // console.log("createFile");
   // console.log({ pageURL, filename, output });
@@ -22,17 +21,16 @@ function createFile({ pageURL, filename, output }) {
 
   const writePath = GENERATED_FILES_FOLDER + pageURL;
 
-  mkdirp(writePath, function (err) {
-    if (err) {
-      console.error(err);
-    } else {
-      fs.writeFileSync(`${writePath}/${filename ? filename : "index.html"}`, output, 'utf8', (err) => {
-        if (err) {
-          console.log(err);
-        }
-      });
-    }
-  });
+  try {
+    const folder = await mkdirp(writePath);
+    fs.writeFileSync(`${writePath}/${filename ? filename : "index.html"}`, output, 'utf8', (err) => {
+      if (err) {
+        console.log(err);
+      }
+    });
+  } catch(e) {
+    console.error(err);
+  }
 }
 
 function removeFile({ pageURL, filename }) {
@@ -44,22 +42,21 @@ function removeFile({ pageURL, filename }) {
   }
 }
 
-function copy({source, destination}) {
+async function copy({source, destination}) {
   // console.log(`📂 Copying files from: ${source}`);
 
-  mkdirp(destination, function (err) {
-    if (err) {
-      console.error(err);
-    } else {
-      // https://www.npmjs.com/package/fs-extra
-      fs.copy(source, destination, function (err) {
-        if (err){
-          console.log('An error occured while copying the folder.')
-          return console.error(err)
-        }
-      });
-    }
-  });
+  try {
+    const folder = await mkdirp(destination);
+    // https://www.npmjs.com/package/fs-extra
+    fs.copy(source, destination, function (err) {
+      if (err){
+        console.log('An error occured while copying the folder.')
+        return console.error(err)
+      }
+    });
+  } catch(e) {
+    console.error(err);
+  }
 }
 
 function buildStaticFiles() {
