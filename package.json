@@ -4,6 +4,7 @@
   "description": "A collection of recipes and pictures",
   "repository": "github:jimthoburn/dollyskettle.com",
   "license": "UNLICENSED",
+  "private": "true",
   "engines": {
     "node": "14.9.0"
   },
