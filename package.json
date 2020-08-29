@@ -4,14 +4,15 @@
   "description": "A collection of recipes and pictures",
   "repository": "github:jimthoburn/dollyskettle.com",
   "license": "UNLICENSED",
+  "private": "true",
   "engines": {
-    "node": ">=12.14.0"
+    "node": "14.9.0"
   },
   "type": "module",
   "scripts": {
     "prepare": "snowpack",
-    "build": "node --experimental-modules build.js",
-    "download:images": "node --experimental-modules download-images.js",
+    "build": "node build.js",
+    "download:images": "node download-images.js",
     "serve": "serve ./_site/ --listen=4000",
     "start": "npm run build && npm run serve"
   },
