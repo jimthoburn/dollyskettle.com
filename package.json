@@ -6,11 +6,11 @@
   "license": "UNLICENSED",
   "private": "true",
   "engines": {
-    "node": "12.18.3"
+    "node": ">=12.18.3"
   },
   "type": "module",
   "scripts": {
-    "prepare": "snowpack",
+    "snowpack": "snowpack",
     "build": "node --experimental-modules build.js",
     "download:images": "node --experimental-modules download-images.js",
     "serve": "serve ./_site/ --listen=4000",

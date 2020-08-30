@@ -27,6 +27,26 @@ $ npm run build
 
 This will create a folder called `_site` that can be published on any host, including [Netlify](https://www.netlify.com/).
 
+## Running locally
+
+You can run the site locally with the [Netlify CLI](https://docs.netlify.com/cli/get-started/).
+
+```
+$ npm install netlify-cli -g
+$ netlify dev
+```
+
+## How to update “web_modules”
+
+This project was originally created with _Snowpack 1_, and hasn’t yet been
+migrated to [Snowpack 2](https://www.snowpack.dev/posts/2020-05-26-snowpack-2-0-release).
+
+In the mean time, you can run this command to update the `web_modules` folder:
+
+```
+sh web_modules_build.sh
+```
+
 ## Project goals
 
 This project is an experiment to see how easily a web site can be created with the benefits of both a CMS (like WordPress) and static site (like Jekyll)…
