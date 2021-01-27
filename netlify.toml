@@ -2,7 +2,8 @@
 # https://docs.netlify.com/configure-builds/file-based-configuration/#sample-file
 [build]
   publish = "_site/"
-  command = "npm run build"
+  # https://docs.netlify.com/configure-builds/file-based-configuration/#inject-environment-variable-values
+  command = 'sed -i "s|HEADER_PLACEHOLDER|${AUTHORIZATION_HEADER_VALUE}|g" netlify.toml && npm run build'
 
 # https://www.netlify.com/products/dev/
 # https://github.com/netlify/cli/blob/master/docs/netlify-dev.md
@@ -35,3 +36,4 @@
   to = "https://content.dollyskettle.com/wp-content/:splat"
   status = 200
   force = true
+  headers = {Authorization = "HEADER_PLACEHOLDER"}

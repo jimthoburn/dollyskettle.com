@@ -11,7 +11,7 @@
   "type": "module",
   "scripts": {
     "snowpack": "snowpack",
-    "build": "node --experimental-modules build.js",
+    "build": "node --experimental-modules --require dotenv/config build.js",
     "download:images": "node --experimental-modules download-images.js",
     "serve": "serve ./_site/ --listen=4000",
     "start": "npm run build && npm run serve"
@@ -19,6 +19,7 @@
   "dependencies": {
     "chalk": "^4.1.0",
     "dompurify": "^2.0.17",
+    "dotenv": "^8.2.0",
     "fs-extra": "^9.0.0",
     "htm": "^3.0.3",
     "js-beautify": "^1.10.3",

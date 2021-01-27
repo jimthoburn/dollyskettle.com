@@ -11,6 +11,15 @@ import { getNormalizedCategories } from "../helpers/post.js";
 
 import { config }       from "../_config.js";
 
+const { AUTHORIZATION_HEADER_VALUE } = process.env;
+
+const authorizedFetch = function(url) {
+  return fetch(url, {
+    headers: {
+      'Authorization': AUTHORIZATION_HEADER_VALUE,
+    },
+  });
+}
 
 const posts      = {};
 const categories = {};
@@ -52,7 +61,7 @@ async function* fetchData({ url, useLocalData }) {
       console.log(`Fetching page ${ pageNumber } from remote data: ${ urlWithPageNumber }`);
       items = await fetchJSON({
         url: urlWithPageNumber,
-        fetch
+        fetch: authorizedFetch
       });
       saveJSON({
         url: urlWithPageNumber,
