@@ -5,6 +5,7 @@ const    html = htm.bind(createElement);
 
 import { config }         from "../_config.js";
 
+import { sanitize }       from "../helpers/sanitize.js";
 import { htmlDecode }     from "../helpers/html-decode.js";
 import { normalizeURL }   from "../helpers/url.js";
 import { getCategoryURLs,
@@ -22,7 +23,11 @@ export const DefaultLayout = ({ title, content, openGraphImage, redirect }) => {
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-        <title>${ title } – Dolly’s Kettle</title>
+        <title
+          dangerouslySetInnerHTML=${
+            { __html: `${sanitize(title)} – Dolly’s Kettle` }
+          }>
+        </title>
 
         ${ config.favicon
           ? html`<link rel="icon" href="${ config.favicon }" />`
