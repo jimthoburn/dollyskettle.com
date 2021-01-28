@@ -5,26 +5,21 @@ function fetchText({url, fetch}) {
     fetch(url)
       .then(r => {
         response = r;
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.text();
+        response.text().then(function (text) {
+          if (response.ok || JSON.parse(text).code === "rest_post_invalid_page_number") {
+            resolve(text);
+          } else {
+            throw new Error('Network response was not ok');
+          }
+        }).catch(err => { throw err; });
       })
-      .then(resolve)
-      .catch(error => {
-        // console.error(error);
-        // console.log({ url });
-        // if (response) {
-        //   console.log({ responseStatus: response.status });
-        // }
-        resolve(null);
-      });
+      .catch(err => { throw err; });
   });
 }
 
 function fetchJSON({url, fetch}) {
   return new Promise(async (resolve, reject) => {
-    const text = await fetchText({url, fetch});
+    const text = await fetchText({url, fetch}).catch(err => { throw err; });
     try {
       const json = JSON.parse(text);
       resolve(json);
