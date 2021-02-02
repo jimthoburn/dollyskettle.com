@@ -64,7 +64,7 @@ function getPageHTML(url) {
     const html = render(DefaultLayout({
       title: page.title.rendered,
       content: DefaultPage({ page }),
-      openGraphImage: `${config.host}${config.data.openGraphImage}`
+      openGraphImage: `${config.host}${config.data.openGraphImage}`,
     }));
 
     resolve(html);
@@ -77,9 +77,9 @@ function getCategoryHTML(url) {
 
     let openGraphImage;
     try {
-      openGraphImage = getBackgroundImage({ post: category.posts[0] }).src
+      openGraphImage = getBackgroundImage({ post: category.posts[0] }).src;
     } catch (error) {
-      openGraphImage = `${config.host}${config.data.openGraphImage}`;
+      openGraphImage = config.data.openGraphImage;
       console.error(`Warning: Unable to get open graph image for: ${url}`)
       console.error(error);
     }
@@ -87,7 +87,7 @@ function getCategoryHTML(url) {
     const html = render(DefaultLayout({
       title: category.title,
       content: CategoryPage(category),
-      openGraphImage
+      openGraphImage: `${config.host}${openGraphImage}`,
     }));
     resolve(html);
   });
