@@ -9,7 +9,7 @@
 # https://github.com/netlify/cli/blob/master/docs/netlify-dev.md
 [dev]
   publish    = "_site/"
-  command    = "npm start"
+  command    = "npm run serve"
   targetPort = 4000
   port       = 8888
   autoLaunch = true
