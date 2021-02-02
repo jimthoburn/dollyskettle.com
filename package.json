@@ -12,7 +12,7 @@
   "scripts": {
     "snowpack": "snowpack",
     "build": "node --experimental-modules --require dotenv/config build.js",
-    "download:images": "node --experimental-modules download-images.js",
+    "download:images": "node --experimental-modules --require dotenv/config download-images.js",
     "serve": "serve ./_site/ --listen=4000",
     "start": "npm run build && npm run serve"
   },

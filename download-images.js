@@ -9,6 +9,16 @@ import { normalizeURL } from "./helpers/url.js";
 import { refreshData,
          getMediaURLs } from "./data/post.js";
 
+const { AUTHORIZATION_HEADER_VALUE } = process.env;
+
+const authorizedFetch = function(url) {
+  return fetch(url, {
+    headers: {
+      'Authorization': AUTHORIZATION_HEADER_VALUE,
+    },
+  });
+}
+
 function downloadImage(url) {
   const urlBits = normalizeURL(url).split("/");
 
@@ -33,7 +43,7 @@ function downloadImage(url) {
     return;
   }
 
-  fetch(`${config.data.host}${url}`)
+  authorizedFetch(`${config.data.host}${url}`)
     .then(res => {
       return new Promise(async (resolve, reject) => {
         try {
@@ -88,5 +98,3 @@ function download(urls) {
 refreshData().then(() => {
   download(getMediaURLs());
 });
-
-
