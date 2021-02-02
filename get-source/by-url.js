@@ -37,7 +37,7 @@ function getRecipesHTML() {
       content: RecipesPage({
         posts: getPostsAlphabetically()
       }),
-      openGraphImage: `${config.data.host}${config.data.openGraphImage}`
+      openGraphImage: `${config.host}${config.data.openGraphImage}`
     }));
     resolve(html);
   });
@@ -64,7 +64,7 @@ function getPageHTML(url) {
     const html = render(DefaultLayout({
       title: page.title.rendered,
       content: DefaultPage({ page }),
-      openGraphImage: `${config.data.host}${config.data.openGraphImage}`
+      openGraphImage: `${config.host}${config.data.openGraphImage}`
     }));
 
     resolve(html);
@@ -79,7 +79,7 @@ function getCategoryHTML(url) {
     try {
       openGraphImage = getBackgroundImage({ post: category.posts[0] }).src
     } catch (error) {
-      openGraphImage = `${config.data.host}${config.data.openGraphImage}`;
+      openGraphImage = `${config.host}${config.data.openGraphImage}`;
       console.error(`Warning: Unable to get open graph image for: ${url}`)
       console.error(error);
     }
@@ -211,7 +211,7 @@ function getSourceByURL(url) {
   return new Promise(async (resolve, reject) => {
     const html = await _getSourceByURL(url);
     if (config.useLocalContent) {
-      resolve(html.replace(new RegExp(`${config.data.host}/wp-content/`, "g"), "/wp-content/"));
+      resolve(html.replace(new RegExp(`${config.data.host}/`, "g"), "/"));
     } else {
       resolve(html);
     }

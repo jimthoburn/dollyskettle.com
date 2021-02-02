@@ -69,7 +69,7 @@ export const DefaultLayout = ({ title, content, openGraphImage, redirect }) => {
         <nav id="navigation">
 
           <a href="/">
-            <h1><img src="${config.data.host}/wp-content/themes/kettle/images/kettle.gif" height="125" alt="" /> Dolly’s Kettle</h1>
+            <h1><img src="/wp-content/themes/kettle/images/kettle.gif" height="125" alt="" /> Dolly’s Kettle</h1>
             <p>Nutritious Cooking for a Healthy Life</p>
           </a>
 
@@ -112,7 +112,7 @@ export const DefaultLayout = ({ title, content, openGraphImage, redirect }) => {
 
         </nav>
 
-        <img src="${config.data.host}/wp-content/themes/kettle/images/farmhouse.jpg" alt="" class="footer-image" width="700" />
+        <img src="/wp-content/themes/kettle/images/farmhouse.jpg" alt="" class="footer-image" width="700" />
 
         ${ config.askSearchEnginesNotToIndex 
           ? html`<p role="status"><mark><em>This page contains a noindex meta element and won’t be indexed by search engines.</em></mark></p>`
