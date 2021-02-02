@@ -45,6 +45,11 @@ export const DefaultLayout = ({ title, content, openGraphImage, redirect }) => {
           ? html`<link rel="canonical" href="${ config.host }${ redirect }" />`
           : ""}
 
+        ${ config.askSearchEnginesNotToIndex 
+          ? html`<meta name="robots" content="noindex" />`
+          : ""}
+
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Italianno&display=swap" /> 
         <link rel="stylesheet" href="/css/shared.css" />
 
@@ -108,6 +113,10 @@ export const DefaultLayout = ({ title, content, openGraphImage, redirect }) => {
         </nav>
 
         <img src="${config.data.host}/wp-content/themes/kettle/images/farmhouse.jpg" alt="" class="footer-image" width="700" />
+
+        ${ config.askSearchEnginesNotToIndex 
+          ? html`<p role="status"><mark><em>This page contains a noindex meta element and won’t be indexed by search engines.</em></mark></p>`
+          : ""}
 
       </body>
     </html>

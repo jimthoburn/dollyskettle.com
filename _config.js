@@ -25,6 +25,9 @@ export const config = {
     }
   },
 
+  // “noindex” the entire site
+  // "askSearchEnginesNotToIndex": true,
+
   // If true, use a saved copy of files from the WordPress API
   // "useLocalData": true,
 
