@@ -47,10 +47,19 @@ function getPostHTML(url) {
   return new Promise((resolve, reject) => {
     const post = getPost(url);
 
+    let openGraphImage;
+    try {
+      openGraphImage = getBackgroundImage({ post }).src;
+    } catch (error) {
+      openGraphImage = config.data.openGraphImage;
+      console.error(`Warning: Unable to get open graph image for: ${url}`)
+      console.error(error);
+    }
+
     const html = render(DefaultLayout({
       title: post.title.rendered,
       content: PostPage({ post }),
-      openGraphImage: getBackgroundImage({ post }).src
+      openGraphImage: `${config.host}${openGraphImage}`,
     }));
 
     resolve(html);
