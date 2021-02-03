@@ -11,7 +11,10 @@ import { getNormalizedCategories } from "../helpers/post.js";
 
 import { config }       from "../_config.js";
 
-const { AUTHORIZATION_HEADER_VALUE } = process.env;
+const {
+  AUTHORIZATION_HEADER_VALUE,
+  USE_LOCAL_DATA,
+} = process.env;
 
 const authorizedFetch = function(url) {
   return fetch(url, {
@@ -50,7 +53,7 @@ async function* fetchData({ url, useLocalData }) {
   let items;
   do {
     const urlWithPageNumber = url.replace(/\$\{[\s]*pageNumber[\s]*\}/g, pageNumber);
-    if (useLocalData === true) {
+    if (useLocalData) {
       const localURL = `/api/${encodeURIComponent(urlWithPageNumber)}/recipes.json`;
       console.log(`Fetching page ${ pageNumber } from local data: ${ localURL }`);
       items = await fetchJSON({
@@ -152,10 +155,10 @@ async function refreshMedia({ url, useLocalData }) {
 }
 
 async function refreshData() {
-  await refreshPosts({ url: `${config.data.host}${config.data.posts}`, useLocalData: config.useLocalData });
-  await refreshPages({ url: `${config.data.host}${config.data.pages}`, useLocalData: config.useLocalData });
-  await refreshMedia({ url: `${config.data.host}${config.data.media}`, useLocalData: config.useLocalData });
-  // await refreshCollection({ url: config.data.categories, collection: {}, useLocalData: config.useLocalData });
+  await refreshPosts({ url: `${config.data.host}${config.data.posts}`, useLocalData: USE_LOCAL_DATA });
+  await refreshPages({ url: `${config.data.host}${config.data.pages}`, useLocalData: USE_LOCAL_DATA });
+  await refreshMedia({ url: `${config.data.host}${config.data.media}`, useLocalData: USE_LOCAL_DATA });
+  // await refreshCollection({ url: config.data.categories, collection: {}, useLocalData: USE_LOCAL_DATA });
 }
 
 function getPostURLs() {

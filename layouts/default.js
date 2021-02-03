@@ -15,6 +15,9 @@ import { getCategoryURLs,
 
 import { Analytics }      from "../components/analytics.js";
 
+const {
+  ASK_SEARCH_ENGINES_NOT_TO_INDEX,
+} = process.env;
 
 export const DefaultLayout = ({ title, content, openGraphImage, redirect }) => {
   return html`
@@ -45,7 +48,7 @@ export const DefaultLayout = ({ title, content, openGraphImage, redirect }) => {
           ? html`<link rel="canonical" href="${ config.host }${ redirect }" />`
           : ""}
 
-        ${ config.askSearchEnginesNotToIndex 
+        ${ ASK_SEARCH_ENGINES_NOT_TO_INDEX
           ? html`<meta name="robots" content="noindex" />`
           : ""}
 
@@ -114,7 +117,7 @@ export const DefaultLayout = ({ title, content, openGraphImage, redirect }) => {
 
         <img src="/wp-content/themes/kettle/images/farmhouse.jpg" alt="" class="footer-image" width="700" />
 
-        ${ config.askSearchEnginesNotToIndex 
+        ${ ASK_SEARCH_ENGINES_NOT_TO_INDEX 
           ? html`<p role="status"><mark><em>This page contains a noindex meta element and won’t be indexed by search engines.</em></mark></p>`
           : ""}
 

@@ -25,12 +25,6 @@ export const config = {
     }
   },
 
-  // “noindex” the entire site
-  // "askSearchEnginesNotToIndex": true,
-
-  // If true, use a saved copy of files from the WordPress API
-  // "useLocalData": true,
-
   // If true, load content from a relative URL. For example:
   // This URL `https://content.dollyskettle.com/wp-content/` is translated to `/wp-content/`
   "useLocalContent": true,
