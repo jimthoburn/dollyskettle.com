@@ -155,10 +155,10 @@ async function refreshMedia({ url, useLocalData }) {
 }
 
 async function refreshData() {
-  await refreshPosts({ url: `${config.data.host}${config.data.posts}`, useLocalData: USE_LOCAL_DATA });
-  await refreshPages({ url: `${config.data.host}${config.data.pages}`, useLocalData: USE_LOCAL_DATA });
-  await refreshMedia({ url: `${config.data.host}${config.data.media}`, useLocalData: USE_LOCAL_DATA });
-  // await refreshCollection({ url: config.data.categories, collection: {}, useLocalData: USE_LOCAL_DATA });
+  await refreshPosts({ url: `${config.data.host}${config.data.posts}`, useLocalData: USE_LOCAL_DATA == 1 });
+  await refreshPages({ url: `${config.data.host}${config.data.pages}`, useLocalData: USE_LOCAL_DATA == 1 });
+  await refreshMedia({ url: `${config.data.host}${config.data.media}`, useLocalData: USE_LOCAL_DATA == 1 });
+  // await refreshCollection({ url: config.data.categories, collection: {}, useLocalData: USE_LOCAL_DATA == 1 });
 }
 
 function getPostURLs() {

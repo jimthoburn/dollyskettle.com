@@ -48,7 +48,7 @@ export const DefaultLayout = ({ title, content, openGraphImage, redirect }) => {
           ? html`<link rel="canonical" href="${ config.host }${ redirect }" />`
           : ""}
 
-        ${ ASK_SEARCH_ENGINES_NOT_TO_INDEX
+        ${ ASK_SEARCH_ENGINES_NOT_TO_INDEX == 1
           ? html`<meta name="robots" content="noindex" />`
           : ""}
 
@@ -117,7 +117,7 @@ export const DefaultLayout = ({ title, content, openGraphImage, redirect }) => {
 
         <img src="/wp-content/themes/kettle/images/farmhouse.jpg" alt="" class="footer-image" width="700" />
 
-        ${ ASK_SEARCH_ENGINES_NOT_TO_INDEX 
+        ${ ASK_SEARCH_ENGINES_NOT_TO_INDEX == 1
           ? html`<p role="status"><mark><em>This page contains a noindex meta element and won’t be indexed by search engines.</em></mark></p>`
           : ""}
 
