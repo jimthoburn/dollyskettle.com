@@ -1,18 +1,17 @@
 {
   "name": "dollys-kettle",
-  "version": "0.2.0-beta",
-  "description": "A collection of recipes and pictures",
+  "version": "0.3.0-beta",
+  "description": "Static web site, generated with data from the WordPress API",
   "repository": "github:jimthoburn/dollyskettle.com",
-  "license": "UNLICENSED",
-  "private": "true",
+  "license": "MIT",
   "engines": {
     "node": ">=14.15.4"
   },
   "type": "module",
   "scripts": {
     "snowpack": "snowpack",
-    "build": "node --experimental-modules --require dotenv/config build.js",
-    "download:images": "node --experimental-modules --require dotenv/config download-images.js",
+    "build": "node --require dotenv/config build.js",
+    "download:images": "node --require dotenv/config download-images.js",
     "serve": "serve ./_site/ --listen=4000",
     "start": "npm run build && npm run serve"
   },
