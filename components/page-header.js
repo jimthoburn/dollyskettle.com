@@ -12,7 +12,7 @@ function PageHeader({ page }) {
     <header>
       <div class="container">
         <h1>${ htmlDecode(page.title.rendered) }</h1>
-        <p class="meta">Published on ${ getFormattedDate({ date: page.date_gmt }) }</p>
+        <p class="meta">Published on ${ getFormattedDate({ date: page.date }) }</p>
       </div>
     </header>
   `;

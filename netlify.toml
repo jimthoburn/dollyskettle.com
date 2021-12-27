@@ -13,6 +13,8 @@
   targetPort = 4000
   port       = 8888
   autoLaunch = true
+  # https://docs.netlify.com/configure-builds/file-based-configuration/#netlify-dev
+  framework  = "#custom"
 
 [[redirects]]
   from = "https://www.dollyskettle.com/*"
