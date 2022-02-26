@@ -7,7 +7,9 @@ import { config }       from "./_config.js";
 import { normalizeURL } from "./helpers/url.js";
 
 import { refreshData,
-         getMediaURLs } from "./data/post.js";
+         getMediaURLs,
+         getMedia,
+         getPreviouslyDownloadedMedia } from "./data/post.js";
 
 const { AUTHORIZATION_HEADER_VALUE } = process.env;
 
@@ -31,9 +33,12 @@ function downloadImage(url) {
   // ./_pictures/2020/04/
   const writePath = `./_pictures/${imagePath}/`.replace("/wp-content/uploads/", "/");
 
-  if (fs.existsSync(`${writePath}${imageName}`)) {
-    console.log("Skipping because the file already exists: ")
-    console.log(`${writePath}${imageName}`);
+  const image = getMedia(url);
+  const previouslyDownloadedImage = getPreviouslyDownloadedMedia(url);
+
+  if (previouslyDownloadedImage && previouslyDownloadedImage.modified_gmt === image.modified_gmt) {
+    // console.log("Skipping because the file has already been downloaded: ")
+    // console.log(`${writePath}${imageName}`);
 
     // https://stackoverflow.com/questions/20936486/node-js-maximum-call-stack-size-exceeded
     setTimeout( function() {

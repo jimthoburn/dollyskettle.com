@@ -28,6 +28,7 @@ const posts      = {};
 const categories = {};
 const pages      = {};
 const media      = {};
+const previouslyDownloadedMedia = {};
 
 let mostRecentPostURL;
 
@@ -136,6 +137,24 @@ async function refreshPages({ url, useLocalData }) {
   }
 }
 
+async function refreshPreviouslyDownloadedMedia({ url }) {
+  const items = await fetchAllItems({ url, useLocalData: 1 });
+
+  // console.log(items[0].media_details);
+
+  for (let item of items) {
+    const url = `/${normalizeURL(item.source_url)}`;
+    previouslyDownloadedMedia[url] = item;
+
+    if (item["media_details"] && item["media_details"]["sizes"]) {
+      for (let [name, size] of Object.entries(item["media_details"]["sizes"])) {
+        const url = `/${normalizeURL(size.source_url)}`;
+        previouslyDownloadedMedia[url] = size;
+      }
+    }
+  }
+}
+
 async function refreshMedia({ url, useLocalData }) {
   const items = await fetchAllItems({ url, useLocalData });
 
@@ -157,6 +176,7 @@ async function refreshMedia({ url, useLocalData }) {
 async function refreshData() {
   await refreshPosts({ url: `${config.data.host}${config.data.posts}`, useLocalData: USE_LOCAL_DATA == 1 });
   await refreshPages({ url: `${config.data.host}${config.data.pages}`, useLocalData: USE_LOCAL_DATA == 1 });
+  await refreshPreviouslyDownloadedMedia({ url: `${config.data.host}${config.data.media}` });
   await refreshMedia({ url: `${config.data.host}${config.data.media}`, useLocalData: USE_LOCAL_DATA == 1 });
   // await refreshCollection({ url: config.data.categories, collection: {}, useLocalData: USE_LOCAL_DATA == 1 });
 }
@@ -191,6 +211,10 @@ function getPage(url) {
 
 function getMedia(url) {
   return media[url];
+}
+
+function getPreviouslyDownloadedMedia(url) {
+  return previouslyDownloadedMedia[url];
 }
 
 function getMostRecentPostURL() {
@@ -230,6 +254,7 @@ export {
   getPage,
   getMediaURLs,
   getMedia,
+  getPreviouslyDownloadedMedia,
   getMostRecentPostURL,
   getPostsAlphabetically,
   getPublicURLs
