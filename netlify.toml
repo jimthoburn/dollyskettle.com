@@ -2,8 +2,9 @@
 # https://docs.netlify.com/configure-builds/file-based-configuration/#sample-file
 [build]
   publish = "_site/"
+  command = 'npm run download:images:build'
   # https://docs.netlify.com/configure-builds/file-based-configuration/#inject-environment-variable-values
-  command = 'sed -i "s|HEADER_PLACEHOLDER|${AUTHORIZATION_HEADER_VALUE}|g" netlify.toml && npm run build'
+  # command = 'sed -i "s|HEADER_PLACEHOLDER|${AUTHORIZATION_HEADER_VALUE}|g" netlify.toml && npm run build'
 
 # https://www.netlify.com/products/dev/
 # https://github.com/netlify/cli/blob/master/docs/netlify-dev.md
