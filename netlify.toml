@@ -54,16 +54,16 @@
 # Deploy Preview context:
 # All deploys generated from a pull/merge request
 # will inherit these settings.
-# [context.deploy-preview.environment]
+[context.deploy-preview.environment]
+  ASK_SEARCH_ENGINES_NOT_TO_INDEX = "1"
 
 # Branch deploy context:
 # All deploys that are not from a pull/merge request
 # or from the production branch will inherit these settings.
-# [context.branch-deploy.environment]
+[context.branch-deploy.environment]
+  ASK_SEARCH_ENGINES_NOT_TO_INDEX = "1"
 
 # Specific branch context:
 # Deploys from this branch will take these settings
 # and override their current ones.
-[context."automatically-cached-content".environment]
-  ASK_SEARCH_ENGINES_NOT_TO_INDEX = "1"
-  USE_LOCAL_DATA = "1"
+# [context."staging".environment]
