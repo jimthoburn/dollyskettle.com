@@ -11,6 +11,7 @@
   "scripts": {
     "snowpack": "snowpack",
     "build": "node --require dotenv/config build.js",
+    "download:data": "node --require dotenv/config download-data.js",
     "download:images": "node --require dotenv/config download-images.js",
     "download:images:build": "npm run download:images && USE_LOCAL_DATA=1 npm run build",
     "serve": "serve ./_site/ --listen=4000",
