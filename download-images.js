@@ -36,7 +36,7 @@ function downloadImage(url) {
   const image = getMedia(url);
   const previouslyDownloadedImage = getPreviouslyDownloadedMedia(url);
 
-  if (previouslyDownloadedImage && previouslyDownloadedImage.modified_gmt === image.modified_gmt) {
+  if (fs.existsSync(`${writePath}${imageName}`) && previouslyDownloadedImage && previouslyDownloadedImage.modified_gmt === image.modified_gmt) {
     // console.log("Skipping because the file has already been downloaded: ")
     // console.log(`${writePath}${imageName}`);
 
