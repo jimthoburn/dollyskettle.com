@@ -55,7 +55,7 @@ This project is an experiment to see how easily a web site can be created with t
 - [x] Changes to the content are versioned with a tool like Git
 - [x] The web site can be continuously deployed in a way that is reliable, scalable and secure
 - [x] The CMS can be hosted separately from the site, with limited access
-- [ ] The web site is still available, even if something goes wrong in the CMS
+- [x] The web site is still available, even if something goes wrong in the CMS
 
 ## Helpful resources
 
