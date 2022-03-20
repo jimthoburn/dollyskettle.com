@@ -7,7 +7,7 @@ A static web site, generated with data from the WordPress API and published with
 
 This is a work in progress 🚧 
 
-I’m using it to practice with new tools and to share recipes and pictures 🍎 🖼
+I’m using it to practice with new tools, and to help a family member who’s publishing recipes & pictures 🍎 🖼
 
 If you’d like to re-use this code to make your own web site based on WordPress, the basic steps are…
 
@@ -39,7 +39,7 @@ $ netlify dev
 ## How to update “web_modules”
 
 This project was originally created with _Snowpack 1_, and hasn’t yet been
-migrated to [Snowpack 2](https://www.snowpack.dev/posts/2020-05-26-snowpack-2-0-release).
+migrated to a new version of [Snowpack](https://www.snowpack.dev).
 
 In the mean time, you can run this command to update the `web_modules` folder:
 
