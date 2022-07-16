@@ -27,13 +27,6 @@ function RecipesPage({ posts }) {
   </div>
   `;
 
-  // return html`
-  //   <${PictureGallery}
-  //     album="${album}"
-  //     pictures="${pictures}"
-  //     story="${story}"
-  //     getPageURL="${getPageURL}" />
-  // `;
 }
 
 
