@@ -9,7 +9,7 @@
   },
   "type": "module",
   "scripts": {
-    "snowpack": "snowpack",
+    "install-web-modules": "node install-web-modules.js",
     "build": "node --require dotenv/config build.js",
     "download:data": "node --require dotenv/config download-data.js",
     "download:images": "node --require dotenv/config download-images.js",
@@ -18,31 +18,23 @@
     "start": "npm run build && npm run serve"
   },
   "dependencies": {
-    "chalk": "^4.1.0",
-    "dompurify": "^2.0.17",
-    "dotenv": "^8.2.0",
-    "fs-extra": "^9.0.0",
-    "htm": "^3.0.3",
-    "js-beautify": "^1.10.3",
-    "jsdom": "^16.2.2",
-    "node-fetch": "^2.6.1",
-    "preact": "^10.3.4",
-    "preact-render-to-string": "^5.1.4",
-    "serve": "^11.3.0",
-    "snowpack": "^2.9.3"
+    "chalk": "^5.2.0",
+    "dompurify": "^3.0.3",
+    "dotenv": "^16.3.1",
+    "esinstall": "^1.1.7",
+    "fs-extra": "^11.1.1",
+    "htm": "^3.1.1",
+    "js-beautify": "^1.14.8",
+    "jsdom": "^22.1.0",
+    "node-fetch": "^3.3.1",
+    "preact": "^10.15.1",
+    "preact-render-to-string": "^6.1.0",
+    "serve": "^14.2.0"
   },
-  "snowpack": {
-    "install": [
-      "htm",
-      "preact",
-      "preact/hooks",
-      "preact-render-to-string"
-    ],
-    "installOptions": {
-      "polyfillNode": true,
-      "clean": true,
-      "optimize": false,
-      "sourceMap": true
-    }
-  }
+  "install-web-modules": [
+    "htm",
+    "preact",
+    "preact/hooks",
+    "preact-render-to-string"
+  ]
 }
