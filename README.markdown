@@ -36,15 +36,20 @@ $ npm install netlify-cli -g
 $ netlify dev
 ```
 
-## How to update “web_modules”
+## How to update the `web_modules` folder
 
-This project was originally created with _Snowpack 1_, and hasn’t yet been
-migrated to a new version of [Snowpack](https://www.snowpack.dev).
+The `web_modules` folder is automatically generated with [esinstall](https://github.com/FredKSchott/snowpack/tree/main/esinstall). If you’d like to update it, here are the basic steps...
 
-In the mean time, you can run this command to update the `web_modules` folder:
+1. Install [Node.js](https://nodejs.org) dependencies
 
+```shell
+npm install
 ```
-sh web_modules_build.sh
+
+2. Use the `dependencies` listed in the package.json file to update the web_modules folder:
+
+```shell
+npm run install-web-modules
 ```
 
 ## Project goals
