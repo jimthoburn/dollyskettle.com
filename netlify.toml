@@ -1,19 +1,20 @@
 
-# https://docs.netlify.com/configure-builds/file-based-configuration/#sample-file
+# https://docs.netlify.com/configure-builds/file-based-configuration/#sample-netlify-toml-file
 [build]
   publish = "_site/"
-  command = 'npm run download:images:build'
+  command = 'npm run build'
+  environment = { NODE_VERSION = "18.16.0" }
   # https://docs.netlify.com/configure-builds/file-based-configuration/#inject-environment-variable-values
   # command = 'sed -i "s|HEADER_PLACEHOLDER|${AUTHORIZATION_HEADER_VALUE}|g" netlify.toml && npm run build'
 
 # https://www.netlify.com/products/dev/
-# https://github.com/netlify/cli/blob/master/docs/netlify-dev.md
+# https://github.com/netlify/cli/blob/main/docs/netlify-dev.md
 [dev]
   publish    = "_site/"
-  command    = "npm run serve"
-  targetPort = 4000
-  port       = 8888
-  autoLaunch = true
+  command = "deno task dev" # Command to start your dev server
+  targetPort = 4000 # The port for your application server, framework or site generator
+  port = 8888 # The port that the netlify dev will be accessible on
+  autoLaunch = true # a Boolean value that determines if Netlify Dev launches the local server address in your browser
   # https://docs.netlify.com/configure-builds/file-based-configuration/#netlify-dev
   framework  = "#custom"
 

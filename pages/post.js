@@ -3,7 +3,6 @@ import { createElement }  from "../web_modules/preact.js";
 import   htm              from "../web_modules/htm.js";
 const    html = htm.bind(createElement);
 
-import { sanitize }                from "../helpers/sanitize.js";
 import { htmlDecode }              from "../helpers/html-decode.js";
 import { normalizeURL }            from "../helpers/url.js";
 import { getBackgroundImage,
@@ -12,7 +11,7 @@ import { getBackgroundImage,
 import { PageHeader }              from "../components/page-header.js";
 
 
-function PostPage({ post }) {
+function PostPage({ post, DOMParser }) {
 
   const backgroundImage = getBackgroundImage({ post });
   const categories = getNormalizedCategories({ post });
@@ -24,11 +23,11 @@ function PostPage({ post }) {
 
     <article style="--headline-color: ${ post["Headline Color"] || "unset" };">
 
-      <${PageHeader} page="${post}" />
+      <${PageHeader} page="${post}" DOMParser="${DOMParser}" />
 
       <div class="body"
         dangerouslySetInnerHTML=${
-          { __html: sanitize(post.content.rendered) }
+          { __html: post.content.rendered }
         }>
       </div>
 
@@ -55,7 +54,7 @@ function PostPage({ post }) {
                     <li class="next">
                       <span>Next: </span>
                       <a href="/${ normalizeURL(post.next.link) }/">
-                        ${ htmlDecode(post.next.title.rendered) }
+                        ${ htmlDecode({ html: post.next.title.rendered, DOMParser }) }
                       </a>
                     </li>`
                 : ""}
@@ -64,7 +63,7 @@ function PostPage({ post }) {
                     <li class="previous">
                       <span>Previous: </span>
                       <a href="/${ normalizeURL(post.previous.link) }/">
-                        ${ htmlDecode(post.previous.title.rendered) }
+                        ${ htmlDecode({ html: post.previous.title.rendered, DOMParser }) }
                       </a>
                     </li>`
                 : ""}

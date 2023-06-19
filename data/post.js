@@ -1,6 +1,5 @@
 
 import fs               from "fs-extra";
-import mkdirp           from "mkdirp";
 import fetch            from "node-fetch";
 
 import { fetchFromFileSystem }
@@ -11,17 +10,14 @@ import { getNormalizedCategories } from "../helpers/post.js";
 
 import { config }       from "../_config.js";
 
-const {
-  AUTHORIZATION_HEADER_VALUE,
-  USE_LOCAL_DATA,
-} = process.env;
-
-const authorizedFetch = function(url) {
-  return fetch(url, {
-    headers: {
-      'Authorization': AUTHORIZATION_HEADER_VALUE,
-    },
-  });
+function getAuthorizedFetch({ authorization }) {
+  return function(url) {
+    return fetch(url, {
+      headers: {
+        'Authorization': authorization,
+      },
+    });
+  }
 }
 
 const posts      = {};
@@ -32,7 +28,7 @@ const previouslyDownloadedMedia = {};
 
 let mostRecentPostURL;
 
-async function saveJSON({ url, json, filename }) {
+async function saveJSON({ url, json, filename, mkdirp }) {
   const writePath = "./_api/" + encodeURIComponent(url);
   const fullPath = `${writePath}/${filename ? filename : "recipes.json"}`;
   console.log(`Saving JSON file to: ${ fullPath }`);
@@ -49,7 +45,7 @@ async function saveJSON({ url, json, filename }) {
   }
 }
 
-async function* fetchData({ url, useLocalData }) {
+async function* fetchData({ url, useLocalData, authorization, mkdirp }) {
   let pageNumber = 1;
   let items;
   do {
@@ -65,11 +61,12 @@ async function* fetchData({ url, useLocalData }) {
       console.log(`Fetching page ${ pageNumber } from remote data: ${ urlWithPageNumber }`);
       items = await fetchJSON({
         url: urlWithPageNumber,
-        fetch: authorizedFetch
+        fetch: getAuthorizedFetch({ authorization })
       });
       saveJSON({
         url: urlWithPageNumber,
-        json: items
+        json: items,
+        mkdirp,
       });
     }
     yield items;
@@ -77,9 +74,9 @@ async function* fetchData({ url, useLocalData }) {
   } while(items != null && items.length > 0)
 }
 
-async function fetchAllItems({ url, useLocalData }) {
+async function fetchAllItems({ url, useLocalData, authorization, mkdirp }) {
   let allItems = [];
-  for await (let nextItems of fetchData({ url, useLocalData })) {
+  for await (let nextItems of fetchData({ url, useLocalData, authorization, mkdirp })) {
     if (nextItems != null && nextItems.length > 0) {
       allItems = allItems.concat(nextItems);
     }
@@ -87,8 +84,8 @@ async function fetchAllItems({ url, useLocalData }) {
   return allItems;
 }
 
-async function refreshPosts({ url, useLocalData }) {
-  const items = await fetchAllItems({ url, useLocalData });
+async function refreshPosts({ url, useLocalData, authorization, mkdirp }) {
+  const items = await fetchAllItems({ url, useLocalData, authorization, mkdirp });
   const published = items.filter(item => item.status === "publish");
   console.log(`There are ${ published.length } published posts`);
 
@@ -126,8 +123,8 @@ async function refreshPosts({ url, useLocalData }) {
   }
 }
 
-async function refreshPages({ url, useLocalData }) {
-  const items = await fetchAllItems({ url, useLocalData });
+async function refreshPages({ url, useLocalData, authorization, mkdirp }) {
+  const items = await fetchAllItems({ url, useLocalData, authorization, mkdirp });
   const published = items.filter(item => item.status === "publish");
   console.log(`There are ${ published.length } published pages`);
 
@@ -137,8 +134,8 @@ async function refreshPages({ url, useLocalData }) {
   }
 }
 
-async function refreshPreviouslyDownloadedMedia({ url }) {
-  const items = await fetchAllItems({ url, useLocalData: 1 });
+async function refreshPreviouslyDownloadedMedia({ url, authorization, mkdirp }) {
+  const items = await fetchAllItems({ url, useLocalData: 1, authorization, mkdirp });
 
   // console.log(items[0].media_details);
 
@@ -155,8 +152,8 @@ async function refreshPreviouslyDownloadedMedia({ url }) {
   }
 }
 
-async function refreshMedia({ url, useLocalData }) {
-  const items = await fetchAllItems({ url, useLocalData });
+async function refreshMedia({ url, useLocalData, authorization, mkdirp }) {
+  const items = await fetchAllItems({ url, useLocalData, authorization, mkdirp });
 
   // console.log(items[0].media_details);
 
@@ -173,12 +170,30 @@ async function refreshMedia({ url, useLocalData }) {
   }
 }
 
-async function refreshData() {
-  await refreshPosts({ url: `${config.data.host}${config.data.posts}`, useLocalData: USE_LOCAL_DATA == 1 });
-  await refreshPages({ url: `${config.data.host}${config.data.pages}`, useLocalData: USE_LOCAL_DATA == 1 });
-  await refreshPreviouslyDownloadedMedia({ url: `${config.data.host}${config.data.media}` });
-  await refreshMedia({ url: `${config.data.host}${config.data.media}`, useLocalData: USE_LOCAL_DATA == 1 });
-  // await refreshCollection({ url: config.data.categories, collection: {}, useLocalData: USE_LOCAL_DATA == 1 });
+async function refreshData({ env, mkdirp }) {
+  await refreshPosts({
+    url: `${config.data.host}${config.data.posts}`,
+    useLocalData: env.USE_LOCAL_DATA == 1,
+    authorization: env.AUTHORIZATION_HEADER_VALUE,
+    mkdirp
+  });
+  await refreshPages({
+    url: `${config.data.host}${config.data.pages}`,
+    useLocalData: env.USE_LOCAL_DATA == 1,
+    authorization: env.AUTHORIZATION_HEADER_VALUE,
+    mkdirp
+  });
+  await refreshPreviouslyDownloadedMedia({
+    url: `${config.data.host}${config.data.media}`,
+    authorization: env.AUTHORIZATION_HEADER_VALUE,
+    mkdirp
+  });
+  await refreshMedia({
+    url: `${config.data.host}${config.data.media}`,
+    useLocalData: env.USE_LOCAL_DATA == 1,
+    authorization: env.AUTHORIZATION_HEADER_VALUE,
+    mkdirp
+  });
 }
 
 function getPostURLs() {

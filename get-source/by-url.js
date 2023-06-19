@@ -30,20 +30,23 @@ ${renderToString(theParameters)}
 }
 
 
-function getRecipesHTML() {
+function getRecipesHTML({ askSearchEnginesNotToIndex, DOMParser }) {
   return new Promise((resolve, reject) => {
     const html = render(DefaultLayout({
       title: "Recipe List",
       content: RecipesPage({
-        posts: getPostsAlphabetically()
+        posts: getPostsAlphabetically(),
+        DOMParser,
       }),
-      openGraphImage: `${config.host}${config.data.openGraphImage}`
+      openGraphImage: `${config.host}${config.data.openGraphImage}`,
+      askSearchEnginesNotToIndex,
+      DOMParser,
     }));
     resolve(html);
   });
 }
 
-function getPostHTML(url) {
+function getPostHTML({ url, askSearchEnginesNotToIndex, DOMParser }) {
   return new Promise((resolve, reject) => {
     const post = getPost(url);
 
@@ -58,29 +61,33 @@ function getPostHTML(url) {
 
     const html = render(DefaultLayout({
       title: post.title.rendered,
-      content: PostPage({ post }),
+      content: PostPage({ post, DOMParser }),
       openGraphImage: `${config.host}${openGraphImage}`,
+      askSearchEnginesNotToIndex,
+      DOMParser,
     }));
 
     resolve(html);
   });
 }
 
-function getPageHTML(url) {
+function getPageHTML({ url, askSearchEnginesNotToIndex, DOMParser }) {
   return new Promise((resolve, reject) => {
     const page = getPage(url);
 
     const html = render(DefaultLayout({
       title: page.title.rendered,
-      content: DefaultPage({ page }),
+      content: DefaultPage({ page, DOMParser }),
       openGraphImage: `${config.host}${config.data.openGraphImage}`,
+      askSearchEnginesNotToIndex,
+      DOMParser,
     }));
 
     resolve(html);
   });
 }
 
-function getCategoryHTML(url) {
+function getCategoryHTML({ url, askSearchEnginesNotToIndex, DOMParser }) {
   return new Promise((resolve, reject) => {
     const category = getCategory(url);
 
@@ -95,8 +102,10 @@ function getCategoryHTML(url) {
 
     const html = render(DefaultLayout({
       title: category.title,
-      content: CategoryPage(category),
+      content: CategoryPage({...category, DOMParser}),
       openGraphImage: `${config.host}${openGraphImage}`,
+      askSearchEnginesNotToIndex,
+      DOMParser,
     }));
     resolve(html);
   });
@@ -137,53 +146,48 @@ function getRedirectsText() {
   });
 }
 
-function getRedirectHTML(redirectTo) {
-  // console.log("getRedirectHTML");
+function getRedirectHTML({ redirectTo, askSearchEnginesNotToIndex, DOMParser }) {
   return new Promise((resolve, reject) => {
     if (getPost(redirectTo)) {
       const post = getPost(redirectTo);
 
       const html = render(DefaultLayout({
         title: post.title.rendered,
-        content: PostPage({ post }),
+        content: PostPage({ post, DOMParser }),
         openGraphImage: getBackgroundImage({ post }).src,
-        redirect: redirectTo
+        redirect: redirectTo,
+        askSearchEnginesNotToIndex,
+        DOMParser,
       }));
 
       resolve(html);
     } else {
       const html = render(RedirectLayout({ url: redirectTo }));
-      // console.log("getRedirectHTML html: ");
-      // console.log(html);
       resolve(html);
     }
   });
 }
 
-function getError404HTML() {
+function getError404HTML({ askSearchEnginesNotToIndex, DOMParser }) {
   const html = render(DefaultLayout({
     title: error404PageTitle,
     content: Error404Page(),
-    includeClientJS: false
+    includeClientJS: false,
+    askSearchEnginesNotToIndex,
+    DOMParser,
   }));
 
   return html;
 }
 
 
-function _getSourceByURL(url) {
-  // if (url.indexOf("portrait") >= 0) console.log(`getSourceByURL: ${url}`);
+function _getSourceByURL({ url, askSearchEnginesNotToIndex, DOMParser }) {
   return new Promise(async (resolve, reject) => {
 
     let redirect = config.redirects[url];
     if (redirect === MOST_RECENT_POST) {
       redirect = getMostRecentPostURL();
     }
-
-    // if (url === "/") {
-    //   console.log("redirect");
-    //   console.log(redirect);
-    // }
 
     if (url === "/sitemap.xml") {
       getSiteMapXML()
@@ -195,19 +199,19 @@ function _getSourceByURL(url) {
       getRedirectsText()
         .then(resolve);
     } else if (redirect) {
-      getRedirectHTML(redirect)
+      getRedirectHTML({ redirect, askSearchEnginesNotToIndex, DOMParser })
         .then(resolve);
     } else if (url === "/recipes/") {
-      getRecipesHTML()
+      getRecipesHTML({ askSearchEnginesNotToIndex, DOMParser })
         .then(resolve);
     } else if (getCategory(url)) {
-      getCategoryHTML(url)
+      getCategoryHTML({ url, askSearchEnginesNotToIndex, DOMParser })
         .then(resolve);
     } else if (getPost(url)) {
-      getPostHTML(url)
+      getPostHTML({ url, askSearchEnginesNotToIndex, DOMParser })
         .then(resolve);
     } else if (getPage(url)) {
-      getPageHTML(url)
+      getPageHTML({ url, askSearchEnginesNotToIndex, DOMParser })
         .then(resolve);
     } else {
       throw new Error(`An unexpected URL was passed to getSourceByURL: ${url}`);
@@ -216,9 +220,9 @@ function _getSourceByURL(url) {
 }
 
 
-function getSourceByURL(url) {
+function getSourceByURL({ url, askSearchEnginesNotToIndex, DOMParser }) {
   return new Promise(async (resolve, reject) => {
-    const html = await _getSourceByURL(url);
+    const html = await _getSourceByURL({ url, askSearchEnginesNotToIndex, DOMParser });
     if (config.useLocalContent) {
       resolve(html.replace(new RegExp(`${config.data.host}/`, "g"), "/"));
     } else {
