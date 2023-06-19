@@ -1,7 +1,7 @@
 {
   "imports": {
     "chalk": "https://esm.sh/chalk@5.2.0",
-    "dotenv/": "https://deno.land/std@0.188.0/dotenv/",
+    "dotenv/": "https://deno.land/std@0.192.0/dotenv/",
     "deno_dom/": "https://deno.land/x/deno_dom@v0.1.38/",
     "fs-extra": "npm:fs-extra@11.1.1",
     "js-beautify": "https://esm.sh/js-beautify@1.14.8",
@@ -9,7 +9,7 @@
     "node-fetch": "https://esm.sh/node-fetch@3.3.1"
   },
   "tasks": {
-    "dev": "cd ./_site && deno run --allow-read=./ --allow-net=0.0.0.0:4000 https://deno.land/std@0.188.0/http/file_server.ts  ./ --port=4000",
+    "dev": "cd ./_site && deno run --allow-read=./ --allow-net=0.0.0.0:4000 https://deno.land/std@0.192.0/http/file_server.ts  ./ --port=4000",
     "build": "deno task download:images && deno task build:pages",
 
     "build:pages": "deno run --allow-env --allow-read=./ --allow-write=./_api,./_site --allow-sys=uid --allow-net=content.dollyskettle.com build-deno.js",
