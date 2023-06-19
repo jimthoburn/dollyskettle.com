@@ -1,7 +1,6 @@
 {
   "imports": {
     "chalk": "https://esm.sh/chalk@5.2.0",
-    "dompurify": "https://esm.sh/dompurify@3.0.3",
     "dotenv/": "https://deno.land/std@0.188.0/dotenv/",
     "deno_dom/": "https://deno.land/x/deno_dom@v0.1.38/",
     "fs-extra": "npm:fs-extra@11.1.1",
