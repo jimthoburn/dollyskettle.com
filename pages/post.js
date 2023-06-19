@@ -4,6 +4,7 @@ import   htm              from "../web_modules/htm.js";
 const    html = htm.bind(createElement);
 
 import { htmlDecode }              from "../helpers/html-decode.js";
+import { prepareImagesForLoading } from "../helpers/html-images.js";
 import { normalizeURL }            from "../helpers/url.js";
 import { getBackgroundImage,
          getNormalizedCategories } from "../helpers/post.js";
@@ -27,7 +28,7 @@ function PostPage({ post, DOMParser }) {
 
       <div class="body"
         dangerouslySetInnerHTML=${
-          { __html: post.content.rendered }
+          { __html: prepareImagesForLoading({ html: post.content.rendered, DOMParser }) }
         }>
       </div>
 
