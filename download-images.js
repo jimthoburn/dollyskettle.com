@@ -1,27 +1,21 @@
 import fs from "fs-extra";
-import mkdirp from "mkdirp";
 import fetch from "node-fetch";
 
 import { config }       from "./_config.js";
 
 import { normalizeURL } from "./helpers/url.js";
 
-import { refreshData,
-         getMediaURLs,
-         getMedia,
-         getPreviouslyDownloadedMedia } from "./data/post.js";
+import { getMedia, getPreviouslyDownloadedMedia } from "./data/post.js";
 
-const { AUTHORIZATION_HEADER_VALUE } = process.env;
-
-const authorizedFetch = function(url) {
+const authorizedFetch = function({ url, authorization }) {
   return fetch(url, {
     headers: {
-      'Authorization': AUTHORIZATION_HEADER_VALUE,
+      'Authorization': authorization,
     },
   });
 }
 
-function downloadImage(url) {
+function downloadImage({ url, authorization, mkdirp }) {
   const urlBits = normalizeURL(url).split("/");
 
   // IMG_8473-770x1024.jpg
@@ -48,7 +42,7 @@ function downloadImage(url) {
     return;
   }
 
-  authorizedFetch(`${config.data.host}${url}`)
+  authorizedFetch({ url: `${config.data.host}${url}`, authorization })
     .then(res => {
       return new Promise(async (resolve, reject) => {
         try {
@@ -85,7 +79,7 @@ function downloadImage(url) {
 
 let processNext;
 
-function download(urls) {
+function downloadImages({ urls, env, mkdirp }) {
   console.log(urls);
 
   let cursor = -1;
@@ -94,12 +88,12 @@ function download(urls) {
     cursor++;
     if (cursor >= urls.length) return;
 
-    downloadImage(urls[cursor]);
+    downloadImage({ url: urls[cursor], authorization: env.AUTHORIZATION_HEADER_VALUE, mkdirp });
   }
 
   processNext();
 }
 
-refreshData().then(() => {
-  download(getMediaURLs());
-});
+export {
+  downloadImages
+}

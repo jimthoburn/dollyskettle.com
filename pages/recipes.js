@@ -22,7 +22,7 @@ function compareTwoPostsByTitle(a, b) {
   return 0;
 }
 
-function RecipesPage({ posts }) {
+function RecipesPage({ posts, DOMParser }) {
 
   // Alphabetize the posts by title
   const sortedPosts = posts.sort(compareTwoPostsByTitle);
@@ -38,7 +38,7 @@ function RecipesPage({ posts }) {
     <ul>
       ${sortedPosts.map(post => {
           return html`
-          <li><a href="/${ normalizeURL(post.link) }/">${ htmlDecode(post.title.rendered) }</a></li>
+          <li><a href="/${ normalizeURL(post.link) }/">${ htmlDecode({ html: post.title.rendered, DOMParser }) }</a></li>
           `;
       })}
     </ul>

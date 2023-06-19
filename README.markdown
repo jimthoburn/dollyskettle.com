@@ -11,29 +11,38 @@ I’m using it to practice with new tools, and to help a family member who’s p
 
 If you’d like to re-use this code to make your own web site based on WordPress, the basic steps are…
 
-1. Install [Node.js](https://nodejs.org)
+1. Install [Node.js](https://nodejs.org) and [Deno](https://deno.com/runtime)
+
 2. Edit the URLs in `_config.js` so they point to your WordPress installation
-3. Install the project’s dependencies
 
-```
-$ npm install
+3. Delete the example data in `_api` and `_pictures`
+
+4. Update the layouts and styles to your liking
+
+5. From the root of your project, generate the site...
+
+```shell
+deno task build
 ```
 
-4. Generate the site
+This will create a folder called `_site` that you can publish to a static host like [Netlify](https://www.netlify.com/) or [Vercel](https://vercel.com) using these settings:
 
-```
-$ npm run build
-```
+Install command  
+`npm run install`
 
-This will create a folder called `_site` that can be published on any host, including [Netlify](https://www.netlify.com/).
+Build command  
+`npm run build`
+
+Publish directory  
+`_site`
 
 ## Running locally
 
 You can run the site locally with the [Netlify CLI](https://docs.netlify.com/cli/get-started/).
 
-```
-$ npm install netlify-cli -g
-$ netlify dev
+```shell
+npm install netlify-cli -g
+netlify dev
 ```
 
 ## How to update the `web_modules` folder

@@ -8,7 +8,7 @@ import { normalizeURL } from "../helpers/url.js";
 import { getPostImage } from "../helpers/post.js";
 
 
-function CategoryPage({ title, posts }) {
+function CategoryPage({ title, posts, DOMParser }) {
 
   return html`
   <header>
@@ -28,7 +28,7 @@ function CategoryPage({ title, posts }) {
             <li class="has-image">
               <a href="/${ normalizeURL(post.link) }/">
                 <img src="${ getPostImage({ post }).src }" alt="" />
-                ${ htmlDecode(post.title.rendered) }
+                ${ htmlDecode({ html: post.title.rendered, DOMParser }) }
               </a>
             </li>
           `;
@@ -36,7 +36,7 @@ function CategoryPage({ title, posts }) {
           return html`
             <li>
               <a href="/${ normalizeURL(post.link) }/">
-                ${ htmlDecode(post.title.rendered) }
+                ${ htmlDecode({ html: post.title.rendered, DOMParser }) }
               </a>
             </li>
           `;

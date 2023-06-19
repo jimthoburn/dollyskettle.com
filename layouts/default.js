@@ -5,7 +5,6 @@ const    html = htm.bind(createElement);
 
 import { config }         from "../_config.js";
 
-import { sanitize }       from "../helpers/sanitize.js";
 import { htmlDecode }     from "../helpers/html-decode.js";
 import { normalizeURL }   from "../helpers/url.js";
 import { getCategoryURLs,
@@ -15,11 +14,7 @@ import { getCategoryURLs,
 
 import { Analytics }      from "../components/analytics.js";
 
-const {
-  ASK_SEARCH_ENGINES_NOT_TO_INDEX,
-} = process.env;
-
-export const DefaultLayout = ({ title, content, openGraphImage, redirect }) => {
+export const DefaultLayout = ({ title, content, openGraphImage, redirect, askSearchEnginesNotToIndex, DOMParser }) => {
   return html`
     <html lang="en" dir="ltr">
       <head>
@@ -28,7 +23,7 @@ export const DefaultLayout = ({ title, content, openGraphImage, redirect }) => {
   
         <title
           dangerouslySetInnerHTML=${
-            { __html: `${sanitize(title)} – Dolly’s Kettle` }
+            { __html: `${title} – Dolly’s Kettle` }
           }>
         </title>
 
@@ -48,7 +43,7 @@ export const DefaultLayout = ({ title, content, openGraphImage, redirect }) => {
           ? html`<link rel="canonical" href="${ config.host }${ redirect }" />`
           : ""}
 
-        ${ ASK_SEARCH_ENGINES_NOT_TO_INDEX == 1
+        ${ askSearchEnginesNotToIndex == 1
           ? html`<meta name="robots" content="noindex" />`
           : ""}
 
@@ -94,7 +89,7 @@ export const DefaultLayout = ({ title, content, openGraphImage, redirect }) => {
               ${getPageURLs().map(url => {
                 const page = getPage(url);
                 return html`
-                <li><a href="/${ normalizeURL(page.link) }/">${ htmlDecode(page.title.rendered) }</a></li>
+                <li><a href="/${ normalizeURL(page.link) }/">${ htmlDecode({ html: page.title.rendered, DOMParser }) }</a></li>
                 `;
               })}
             </ul>
@@ -117,7 +112,7 @@ export const DefaultLayout = ({ title, content, openGraphImage, redirect }) => {
 
         <img src="/wp-content/themes/kettle/images/farmhouse.jpg" alt="" class="footer-image" width="700" />
 
-        ${ ASK_SEARCH_ENGINES_NOT_TO_INDEX == 1
+        ${ askSearchEnginesNotToIndex == 1
           ? html`<p role="status"><mark><em>This page contains a noindex meta element and won’t be indexed by search engines.</em></mark></p>`
           : ""}
 
