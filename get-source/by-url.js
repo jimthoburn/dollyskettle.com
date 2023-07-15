@@ -1,7 +1,7 @@
 
 import jsBeautify            from "js-beautify";
 
-import { renderToString }    from "../web_modules/preact-render-to-string.js";
+import { renderToString }    from "preact-render-to-string";
 import { config, MOST_RECENT_POST }            from "../_config.js";
 import { getPublicURLs,
          getMostRecentPostURL,

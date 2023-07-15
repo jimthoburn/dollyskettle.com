@@ -1,4 +1,4 @@
-import mkdirp from "mkdirp";
+import { mkdirp } from "mkdirp";
 // https://stackoverflow.com/questions/11398419/trying-to-use-the-domparser-with-node-js#answer-54096238
 import jsdom from "jsdom";
 const { JSDOM } = jsdom;

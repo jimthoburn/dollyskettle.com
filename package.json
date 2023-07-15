@@ -4,25 +4,20 @@
   },
   "type": "module",
   "scripts": {
-    "dev": "serve ./_site/ --listen=4000",
-    "build": "node --require dotenv/config build-node.js",
-    "download:data": "node --require dotenv/config download-data-node.js",
-    "download:images": "node --require dotenv/config download-images-node.js",
-    "download:images:build": "npm run download:images && USE_LOCAL_DATA=1 npm run build",
-    "install-web-modules": "node install-web-modules.js"
+    "build": "node --require dotenv/config build-node.js"
   },
   "dependencies": {
     "chalk": "^5.3.0",
     "dotenv": "^16.3.1",
-    "esinstall": "^1.1.7",
     "fs-extra": "^11.1.1",
-    "htm": "^3.1.1",
     "js-beautify": "^1.14.8",
     "jsdom": "^22.1.0",
+    "mkdirp": "^3.0.1",
     "node-fetch": "^3.3.1",
-    "preact": "^10.15.1",
-    "preact-render-to-string": "^6.1.0",
-    "serve": "^14.2.0"
+
+    "htm": "^3.1.1",
+    "preact": "^10.16.0",
+    "preact-render-to-string": "^6.2.0"
   },
   "install-web-modules": [
     "htm",
