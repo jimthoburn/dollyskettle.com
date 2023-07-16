@@ -4,7 +4,7 @@
   publish = "_site/"
   command = "npm run build"
   # https://docs.netlify.com/configure-builds/manage-dependencies/
-  environment = { NODE_VERSION = "18.16.0", NODE_ENV = "production" }
+  environment = { NODE_VERSION = "18.16.1", NODE_ENV = "production" }
   # https://docs.netlify.com/configure-builds/file-based-configuration/#inject-environment-variable-values
   # command = 'sed -i "s|HEADER_PLACEHOLDER|${AUTHORIZATION_HEADER_VALUE}|g" netlify.toml && npm run build'
 
