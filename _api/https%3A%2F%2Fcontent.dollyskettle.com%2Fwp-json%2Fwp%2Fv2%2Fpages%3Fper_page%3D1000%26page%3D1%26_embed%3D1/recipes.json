@@ -16,7 +16,7 @@
       "rendered": "Orange County Home &#038; Garden"
     },
     "content": {
-      "rendered": "<figure><img decoding=\"async\" loading=\"lazy\" src=\"https://content.dollyskettle.com/wp-content/uploads/2012/04/1.jpg\" alt=\"Grayce Flanagan’s photo in Orange County Home and Garden\" width=\"1000\" height=\"1288\" /></figure>\n<figure><img decoding=\"async\" loading=\"lazy\" src=\"https://content.dollyskettle.com/wp-content/uploads/2012/04/2.jpg\" alt=\"Page 2\" width=\"La Fête article, page 37 of Orange County Home and Garden\" height=\"1287\" /></figure>\n<figure><img decoding=\"async\" loading=\"lazy\" src=\"https://content.dollyskettle.com/wp-content/uploads/2012/04/3.jpg\" alt=\"Page 3\" width=\"La Fête article, page 38 of Orange County Home and Garden\" height=\"1288\" /></figure>\n<figure><img decoding=\"async\" loading=\"lazy\" src=\"https://content.dollyskettle.com/wp-content/uploads/2012/04/4.jpg\" alt=\"Page 4\" width=\"La Fête article, page 39 of Orange County Home and Garden\" height=\"1290\" /></figure>\n",
+      "rendered": "<figure><img decoding=\"async\" loading=\"lazy\" src=\"https://content.dollyskettle.com/wp-content/uploads/2012/04/1.jpg\" alt=\"Grayce Flanagan’s photo in Orange County Home and Garden\" width=\"1000\" height=\"1288\" /></figure>\n<figure><img decoding=\"async\" src=\"https://content.dollyskettle.com/wp-content/uploads/2012/04/2.jpg\" alt=\"Page 2\" width=\"La Fête article, page 37 of Orange County Home and Garden\" height=\"1287\" /></figure>\n<figure><img decoding=\"async\" src=\"https://content.dollyskettle.com/wp-content/uploads/2012/04/3.jpg\" alt=\"Page 3\" width=\"La Fête article, page 38 of Orange County Home and Garden\" height=\"1288\" /></figure>\n<figure><img decoding=\"async\" src=\"https://content.dollyskettle.com/wp-content/uploads/2012/04/4.jpg\" alt=\"Page 4\" width=\"La Fête article, page 39 of Orange County Home and Garden\" height=\"1290\" /></figure>\n",
       "protected": false
     },
     "excerpt": {
@@ -30,7 +30,9 @@
     "comment_status": "open",
     "ping_status": "closed",
     "template": "",
-    "meta": [],
+    "meta": {
+      "footnotes": ""
+    },
     "_links": {
       "self": [
         {
@@ -176,7 +178,9 @@
     "comment_status": "closed",
     "ping_status": "open",
     "template": "",
-    "meta": [],
+    "meta": {
+      "footnotes": ""
+    },
     "_links": {
       "self": [
         {
@@ -286,7 +290,9 @@
     "comment_status": "open",
     "ping_status": "open",
     "template": "",
-    "meta": [],
+    "meta": {
+      "footnotes": ""
+    },
     "_links": {
       "self": [
         {
