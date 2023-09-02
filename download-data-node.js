@@ -1,4 +1,4 @@
-import mkdirp from "mkdirp";
+import { mkdirp } from "mkdirp";
 import { refreshData } from "./data/post.js";
 
 const env = globalThis.process.env;

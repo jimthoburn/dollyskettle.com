@@ -4,7 +4,9 @@
   },
   "type": "module",
   "scripts": {
-    "build": "node --require dotenv/config build-node.js"
+    "build": "npm run download-images-node && USE_LOCAL_DATA=1 npm run build-node",
+    "download-images-node": "node --require dotenv/config download-images-node.js",
+    "build-node": "node --require dotenv/config build-node.js"
   },
   "dependencies": {
     "chalk": "^5.3.0",
