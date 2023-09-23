@@ -29,7 +29,7 @@ function prepareImagesForLoading({ html, DOMParser }) {
 
     }
 
-    return doc.documentElement.outerHTML;
+    return doc.documentElement.querySelector("body").innerHTML;
 
   } catch(e) {
     console.log(e);
