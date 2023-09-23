@@ -12,8 +12,6 @@ import { getCategoryURLs,
          getPageURLs,
          getPage }        from "../data/post.js";
 
-import { Analytics }      from "../components/analytics.js";
-
 export const DefaultLayout = ({ title, content, openGraphImage, redirect, askSearchEnginesNotToIndex, DOMParser }) => {
   return html`
     <html lang="en" dir="ltr">
@@ -50,9 +48,6 @@ export const DefaultLayout = ({ title, content, openGraphImage, redirect, askSea
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Italianno&display=swap" /> 
         <link rel="stylesheet" href="/css/shared.css" />
-
-        <${Analytics} id="${ config.analytics }" />
-
       </head>
       <body>
         <nav class="jump">
