@@ -1,5 +1,38 @@
 {
-  "version": "2",
+  "version": "3",
+  "packages": {
+    "specifiers": {
+      "npm:fs-extra@11.1.1": "npm:fs-extra@11.1.1"
+    },
+    "npm": {
+      "fs-extra@11.1.1": {
+        "integrity": "sha512-MGIE4HOvQCeUCzmlHs0vXpih4ysz4wg9qiSAu6cd42lVwPbTM1TjV7RusoyQqMmk/95gdQZX72u+YW+c3eEpFQ==",
+        "dependencies": {
+          "graceful-fs": "graceful-fs@4.2.11",
+          "jsonfile": "jsonfile@6.1.0",
+          "universalify": "universalify@2.0.0"
+        }
+      },
+      "graceful-fs@4.2.11": {
+        "integrity": "sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==",
+        "dependencies": {}
+      },
+      "jsonfile@6.1.0": {
+        "integrity": "sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==",
+        "dependencies": {
+          "graceful-fs": "graceful-fs@4.2.11",
+          "universalify": "universalify@2.0.0"
+        }
+      },
+      "universalify@2.0.0": {
+        "integrity": "sha512-hAZsKq7Yy11Zu1DE0OzWjw7nnLZmJZYTDZZyEFHZdUhV8FkH5MCfoU1XMaxXovpyW5nq5scPqq0ZDP9Zyl04oQ==",
+        "dependencies": {}
+      }
+    }
+  },
+  "redirects": {
+    "https://esm.sh/v128/@types/js-beautify@^1/index.d.ts": "https://esm.sh/v128/@types/js-beautify@1.13.3/index.d.ts"
+  },
   "remote": {
     "https://deno.land/std@0.177.0/_util/asserts.ts": "178dfc49a464aee693a7e285567b3d0b555dc805ff490505a8aae34f9cfb1462",
     "https://deno.land/std@0.177.0/_util/os.ts": "d932f56d41e4f6a6093d56044e29ce637f8dcc43c5a90af43504a889cf1775e3",
@@ -316,6 +349,7 @@
     "https://esm.sh/mkdirp@3.0.1": "26d8c21cfe037117f066daf09e987935b83e47b038e9f7e07148ac3479c1ab66",
     "https://esm.sh/node-fetch@3.3.1": "bf0c9a5a4a17203695261b4930eae24ec9f7b2a57e8cb7f06db4434038010cc3",
     "https://esm.sh/stable/preact@10.16.0/denonext/preact.mjs": "01dc8bdf124926c611c0711081b9c162cf2735cccad7c2bc9914766f633ddb1d",
+    "https://esm.sh/stable/preact@10.18.0/denonext/preact.mjs": "e3c31c5279cde34539f0199f7fbf9d78082313d57e2e63d76afd8c715bd265a3",
     "https://esm.sh/v122/@types/node@18.16.9/buffer.d.ts": "0a633bb66b85463b05d55dd917f50af40d8dc3be758150067dec5f43034877d4",
     "https://esm.sh/v122/@types/node@18.16.9/crypto.d.ts": "84863cbf5dc49a46c15697055961392f7273305235d22ac47aa94d520f0396b7",
     "https://esm.sh/v122/@types/node@18.16.9/dns.d.ts": "1a85d8ab68d2c47add934792b246d62da1ca0c5cd66fcf16e52bea7984f98cac",
@@ -395,41 +429,17 @@
     "https://esm.sh/v128/node-fetch@3.3.1": "916dcee177a69fb0e46970c528cb66fcd4973488f861844c0a235bfc645b0506",
     "https://esm.sh/v128/node-fetch@3.3.1/denonext/node-fetch.mjs": "dc3a8f1f2fc9eb26d0d33e49f3750acc265d51a1a54bbd670c5d9f640b633a93",
     "https://esm.sh/v128/node-fetch@3.3.1/denonext/src/utils/multipart-parser.js": "713b1b8cbafc4bfb7358debeb35d507e0d2328f0a28b8a2a7d79a3e5e4f5e5b8",
+    "https://esm.sh/v128/node-fetch@3.3.2": "be537fd2930f174c1abc8f1bc705bed314cc4f60847dd5a0d3a78ab4cf4046ed",
+    "https://esm.sh/v128/node-fetch@3.3.2/denonext/node-fetch.mjs": "fa2d759d2197a0a5853d04581b03f657045cb061018321e3f1a555f8034e06db",
+    "https://esm.sh/v128/node-fetch@3.3.2/denonext/src/utils/multipart-parser.js": "d64c3affceb8e5b3511dc77fb7f45a68676389feb1e03ac710978ef4369e4c27",
     "https://esm.sh/v128/preact-render-to-string@6.1.0/X-ZS9wcmVhY3Q/denonext/preact-render-to-string.mjs": "8ce71d44f2a197f8fafa24c8d1ac19e0d7fac5a171efae6154f8d754e1ae0ae4",
     "https://esm.sh/v128/preact-render-to-string@6.1.0?external=preact": "230a2d5193df203c835203554fd081e57ff25957d49b2695c69335b8f23dab88",
     "https://esm.sh/v128/preact-render-to-string@6.2.0/X-ZS9wcmVhY3Q/denonext/preact-render-to-string.mjs": "835eb2413a25f1142bcb87ea4df7d85bb3dbf48569ec3aa693b80a618cec3706",
     "https://esm.sh/v128/preact-render-to-string@6.2.0?external=preact": "dde1c40d7721107972f0c5f544ae39f3ca16834f0977f4be4c5bd7fc90cc8530",
+    "https://esm.sh/v128/preact-render-to-string@6.2.1/X-ZS9wcmVhY3Q/denonext/preact-render-to-string.mjs": "7a5a7c19872e0cb93fe6aa398c20510b3d9f34bd6565c0ccc30cb1a90d53a6c4",
+    "https://esm.sh/v128/preact-render-to-string@6.2.1?external=preact": "950d76951a98e6ffcdcb8452dae0337c66d20b9eaba1fd086b9d65aba925ff37",
     "https://esm.sh/v128/preact@10.16.0": "5229650cdac537f87cae81d5001e88d4e7a38cc7e77be978961d2897a733117d",
+    "https://esm.sh/v128/preact@10.18.0": "eb218a62b0eff905c648b05fbc424efb0553f0e7b529bdb9a63e0516f84ddc4a",
     "https://esm.sh/v128/web-streams-polyfill@3.2.1/denonext/dist/ponyfill.es2018.js": "a2edb52a93494cda06386b3d6a168016b366e78f02c5eff1f94a0240be12ac96"
-  },
-  "npm": {
-    "specifiers": {
-      "fs-extra@11.1.1": "fs-extra@11.1.1"
-    },
-    "packages": {
-      "fs-extra@11.1.1": {
-        "integrity": "sha512-MGIE4HOvQCeUCzmlHs0vXpih4ysz4wg9qiSAu6cd42lVwPbTM1TjV7RusoyQqMmk/95gdQZX72u+YW+c3eEpFQ==",
-        "dependencies": {
-          "graceful-fs": "graceful-fs@4.2.11",
-          "jsonfile": "jsonfile@6.1.0",
-          "universalify": "universalify@2.0.0"
-        }
-      },
-      "graceful-fs@4.2.11": {
-        "integrity": "sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==",
-        "dependencies": {}
-      },
-      "jsonfile@6.1.0": {
-        "integrity": "sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==",
-        "dependencies": {
-          "graceful-fs": "graceful-fs@4.2.11",
-          "universalify": "universalify@2.0.0"
-        }
-      },
-      "universalify@2.0.0": {
-        "integrity": "sha512-hAZsKq7Yy11Zu1DE0OzWjw7nnLZmJZYTDZZyEFHZdUhV8FkH5MCfoU1XMaxXovpyW5nq5scPqq0ZDP9Zyl04oQ==",
-        "dependencies": {}
-      }
-    }
   }
 }

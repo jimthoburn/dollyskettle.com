@@ -6,12 +6,12 @@
     "fs-extra": "npm:fs-extra@11.1.1",
     "js-beautify": "https://esm.sh/v128/js-beautify@1.14.9",
     "mkdirp": "https://esm.sh/v128/mkdirp@3.0.1",
-    "node-fetch": "https://esm.sh/v128/node-fetch@3.3.1",
+    "node-fetch": "https://esm.sh/v128/node-fetch@3.3.2",
 
     "htm": "https://esm.sh/v128/htm@3.1.1",
-    "preact": "https://esm.sh/v128/preact@10.16.0",
-    "preact/hooks": "https://esm.sh/v128/preact@10.16.0/hooks?external=preact",
-    "preact-render-to-string": "https://esm.sh/v128/preact-render-to-string@6.2.0?external=preact"
+    "preact": "https://esm.sh/v128/preact@10.18.0",
+    "preact/hooks": "https://esm.sh/v128/preact@10.18.0/hooks?external=preact",
+    "preact-render-to-string": "https://esm.sh/v128/preact-render-to-string@6.2.1?external=preact"
   },
   "tasks": {
     "dev": "cd ./_site && deno run --allow-read=./ --allow-net=0.0.0.0:4000 https://deno.land/std@0.194.0/http/file_server.ts  ./ --port=4000",
