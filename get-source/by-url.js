@@ -30,7 +30,7 @@ ${renderToString(theParameters)}
 }
 
 
-function getRecipesHTML({ askSearchEnginesNotToIndex, DOMParser }) {
+function getRecipesHTML({ url, askSearchEnginesNotToIndex, DOMParser }) {
   return new Promise((resolve, reject) => {
     const html = render(DefaultLayout({
       title: "Recipe List",
@@ -39,6 +39,7 @@ function getRecipesHTML({ askSearchEnginesNotToIndex, DOMParser }) {
         DOMParser,
       }),
       openGraphImage: `${config.host}${config.data.openGraphImage}`,
+      url,
       askSearchEnginesNotToIndex,
       DOMParser,
     }));
@@ -63,6 +64,7 @@ function getPostHTML({ url, askSearchEnginesNotToIndex, DOMParser }) {
       title: post.title.rendered,
       content: PostPage({ post, DOMParser }),
       openGraphImage: `${config.host}${openGraphImage}`,
+      url,
       askSearchEnginesNotToIndex,
       DOMParser,
     }));
@@ -79,6 +81,7 @@ function getPageHTML({ url, askSearchEnginesNotToIndex, DOMParser }) {
       title: page.title.rendered,
       content: DefaultPage({ page, DOMParser }),
       openGraphImage: `${config.host}${config.data.openGraphImage}`,
+      url,
       askSearchEnginesNotToIndex,
       DOMParser,
     }));
@@ -104,6 +107,7 @@ function getCategoryHTML({ url, askSearchEnginesNotToIndex, DOMParser }) {
       title: category.title,
       content: CategoryPage({...category, DOMParser}),
       openGraphImage: `${config.host}${openGraphImage}`,
+      url,
       askSearchEnginesNotToIndex,
       DOMParser,
     }));
@@ -202,7 +206,7 @@ function _getSourceByURL({ url, askSearchEnginesNotToIndex, DOMParser }) {
       getRedirectHTML({ redirect, askSearchEnginesNotToIndex, DOMParser })
         .then(resolve);
     } else if (url === "/recipes/") {
-      getRecipesHTML({ askSearchEnginesNotToIndex, DOMParser })
+      getRecipesHTML({ url, askSearchEnginesNotToIndex, DOMParser })
         .then(resolve);
     } else if (getCategory(url)) {
       getCategoryHTML({ url, askSearchEnginesNotToIndex, DOMParser })

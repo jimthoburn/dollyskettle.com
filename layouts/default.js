@@ -12,7 +12,7 @@ import { getCategoryURLs,
          getPageURLs,
          getPage }        from "../data/post.js";
 
-export const DefaultLayout = ({ title, content, openGraphImage, redirect, askSearchEnginesNotToIndex, DOMParser }) => {
+export const DefaultLayout = ({ title, content, openGraphImage, redirect, url, askSearchEnginesNotToIndex, DOMParser }) => {
   return html`
     <html lang="en" dir="ltr">
       <head>
@@ -39,6 +39,10 @@ export const DefaultLayout = ({ title, content, openGraphImage, redirect, askSea
 
         ${ redirect && config.host 
           ? html`<link rel="canonical" href="${ config.host }${ redirect }" />`
+          : ""}
+
+        ${ url && !redirect && config.host
+          ? html`<link rel="canonical" href="${ config.host }${ url }" />`
           : ""}
 
         ${ askSearchEnginesNotToIndex == 1
