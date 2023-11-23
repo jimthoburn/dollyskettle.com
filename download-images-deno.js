@@ -6,6 +6,7 @@ import { downloadImages } from "./download-images.js";
 // https://deno.land/std/dotenv/mod.ts
 const env = await load();
 
-refreshData({ env, mkdirp }).then(() => {
-  downloadImages({ urls: getMediaURLs(), env, mkdirp });
+refreshData({ env, mkdirp }).then(async () => {
+  await downloadImages({ urls: getMediaURLs(), env, mkdirp });
+  console.log("Finished downloading images")
 });
