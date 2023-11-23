@@ -80,18 +80,23 @@ function downloadImage({ url, authorization, mkdirp }) {
 let processNext;
 
 function downloadImages({ urls, env, mkdirp }) {
-  console.log(urls);
+  return new Promise(async (resolve, reject) => {
+    console.log(urls);
 
-  let cursor = -1;
+    let cursor = -1;
 
-  processNext = function() {
-    cursor++;
-    if (cursor >= urls.length) return;
+    processNext = function() {
+      cursor++;
+      if (cursor >= urls.length) {
+        resolve();
+        return;
+      }
 
-    downloadImage({ url: urls[cursor], authorization: env.AUTHORIZATION_HEADER_VALUE, mkdirp });
-  }
+      downloadImage({ url: urls[cursor], authorization: env.AUTHORIZATION_HEADER_VALUE, mkdirp });
+    }
 
-  processNext();
+    processNext();
+  });
 }
 
 export {
