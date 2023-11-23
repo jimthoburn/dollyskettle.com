@@ -15,7 +15,7 @@
   },
   "tasks": {
     "dev": "cd ./_site && deno run --allow-read=./ --allow-net=0.0.0.0:4000 https://deno.land/std@0.194.0/http/file_server.ts  ./ --port=4000",
-    "build": "deno run --allow-env --allow-read=./ --allow-write=./_api,./_pictures,./_site --allow-sys=uid --allow-net=content.dollyskettle.com deno run download-and-build.js",
+    "build": "deno run --allow-env --allow-read=./ --allow-write=./_api,./_pictures,./_site --allow-sys=uid --allow-net=content.dollyskettle.com download-and-build.js",
 
     "build:pages": "deno run --allow-env --allow-read=./ --allow-write=./_api,./_site --allow-sys=uid --allow-net=content.dollyskettle.com build-deno.js",
     "download:data": "deno run --allow-env --allow-read=./ --allow-write=./_api --allow-net=content.dollyskettle.com download-data-deno.js",
