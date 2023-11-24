@@ -82,40 +82,6 @@ function serveStaticFiles({ folder }) {
   handlers["/*"] = getStaticFileHandler({ folder, pathPrefix: "" });
 }
 
-function serveRedirects({ folder }) {
-  console.log(`🚧 Preparing redirects`);
-  console.log("");
-  handlers["/404/"] = async function ({ request }) {
-
-    // Try returning a 404.html file, if one exists
-    try {
-      const filepath = `${folder}/_redirects`;
-      const file = await Deno.open(filepath, { read: true });
-
-      // Build a readable stream so the file doesn't have to be fully loaded into
-      // memory while we send it
-      const readableStream = file.readable;
-  
-      return new Response(readableStream, {
-        status: 302,
-        headers: {
-          "content-type": "text/html; charset=utf-8",
-        },
-      });
-
-      Response.redirect(destination, 302);
-    } catch {
-      // If a 404.html file does’t exist, return a simple message
-      return new Response("<html><title>Not found</title><body>Not found</body></html>", {
-        status: 404,
-        headers: {
-          "content-type": "text/html; charset=utf-8",
-        },
-      });
-    }
-  };
-}
-
 function serveError404Page({ folder }) {
   console.log(`🚥 Preparing 404 "not found" page`);
   console.log("");
@@ -150,23 +116,32 @@ function serveError404Page({ folder }) {
 
 async function getRedirects({ folder, redirectsFilePath }) {
 
-  // https://docs.deno.com/deploy/api/runtime-fs#denoreadtextfile
-  const redirectsText = await Deno.readTextFile(`${folder}${redirectsFilePath}`);
-
-  const redirectsLines = redirectsText.split("\n");
-
   const redirects = [];
-  for (const line of redirectsLines) {
-    const [from, to] = line.split(/\s+/);
-    if (from && to) {
-      // handlers[from] = () => Response.redirect(to, 302);
-      redirects.push({ from, to });
+  // Try opening a redirects file, if one exists
+  try {
+    // https://docs.deno.com/deploy/api/runtime-fs#denoreadtextfile
+    const redirectsText = await Deno.readTextFile(`${folder}${redirectsFilePath}`);
+
+    const redirectsLines = redirectsText.split("\n");
+
+    for (const line of redirectsLines) {
+      const [from, to] = line.split(/\s+/);
+      if (from && to) {
+        // handlers[from] = () => Response.redirect(to, 302);
+        redirects.push({ from, to });
+      }
     }
+  } catch {
+    console.log(`Something went wrong while getting redirects from: ${folder}${redirectsFilePath}`);
   }
 
   console.log({ redirects });
-
   return redirects;
+}
+
+function removeTrailingSlash(url) {
+  if (url === "/") return url;
+  return url.replace(/\/$/, "");
 }
 
 async function serve({ folder, redirectsFilePath, port, hostname }) {
@@ -177,7 +152,6 @@ async function serve({ folder, redirectsFilePath, port, hostname }) {
   console.log("");
 
   serveStaticFiles({ folder });
-  serveRedirects({ folder });
   serveError404Page({ folder });
 
   const redirects = await getRedirects({ folder, redirectsFilePath });
@@ -191,7 +165,7 @@ async function serve({ folder, redirectsFilePath, port, hostname }) {
     // }
 
     for (const redirect of redirects) {
-      if (url.pathname === redirect.from) {
+      if (removeTrailingSlash(url.pathname) === removeTrailingSlash(redirect.from)) {
         return Response.redirect(url.origin + redirect.to, 302);
       }
     }
