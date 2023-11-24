@@ -6,6 +6,10 @@ export const config = {
   // The place where this site will be published (this is used for open graph images and the site map).
   "host": "https://dollyskettle.com",
 
+  // For the file server
+  "serverPort"    : "4000",
+  "serverHostname" : "0.0.0.0",
+
   // Location of the WordPress API
   "data": {
     "host"       : "https://content.dollyskettle.com",
