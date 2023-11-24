@@ -1,9 +1,7 @@
 
 # Dolly’s Kettle _beta_
 
-A static web site, generated with data from the WordPress API and published with Netlify.
-
-[![Netlify Status](https://api.netlify.com/api/v1/badges/1e26749f-d049-4396-9099-bfa8905c9f67/deploy-status)](https://app.netlify.com/sites/staging-dollyskettle-com/deploys)
+A static web site, generated with data from the WordPress API.
 
 This is a work in progress 🚧 
 
@@ -11,7 +9,7 @@ I’m using it to practice with new tools, and to help a family member who’s p
 
 If you’d like to re-use this code to make your own web site based on WordPress, the basic steps are…
 
-1. Install [Node.js](https://nodejs.org) and [Deno](https://deno.com/runtime)
+1. Install [Deno](https://deno.com/runtime) (version `1.37.2` or greater).
 
 2. Edit the URLs in `_config.js` so they point to your WordPress installation
 
@@ -38,11 +36,10 @@ Publish directory
 
 ## Running locally
 
-You can run the site locally with the [Netlify CLI](https://docs.netlify.com/cli/get-started/).
+You can test the site locally by running...
 
 ```shell
-npm install netlify-cli -g
-netlify dev
+deno task dev
 ```
 
 ## Project goals

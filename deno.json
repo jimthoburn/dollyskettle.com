@@ -14,7 +14,7 @@
     "preact-render-to-string": "https://esm.sh/v128/preact-render-to-string@6.2.2?external=preact"
   },
   "tasks": {
-    "dev": "cd ./_site && deno run --allow-read=./ --allow-net=0.0.0.0:4000 https://deno.land/std@0.194.0/http/file_server.ts  ./ --port=4000",
+    "dev": "cd ./_site && deno run --allow-read=./ --allow-net=0.0.0.0:4000 ../file-server.js",
 
     "build": "deno run --allow-env --allow-read=./ --allow-write=./_api,./_pictures,./_site --allow-sys=uid --allow-net=content.dollyskettle.com download-and-build.js",
     "file-server": "cd ./_site && deno run --allow-read=./ --allow-net=0.0.0.0:4000 ../file-server.js",

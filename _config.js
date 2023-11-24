@@ -40,8 +40,15 @@ export const config = {
     "css"
   ],
 
-  "redirects": {
-    "/": MOST_RECENT_POST
-  }
+  "redirects": [
+    {
+      from: "/",
+      to: MOST_RECENT_POST,
+    },
+    {
+      from: "/index/",
+      to: "/recipes/",
+    },
+  ],
 
 };

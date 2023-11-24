@@ -136,14 +136,15 @@ function getSiteMapXML() {
 }
 
 function getRedirectsText() {
+  console.log({"getRedirectsText": 1, redirects: config.redirects});
   return new Promise((resolve, reject) => {
     const text = RedirectsText({
-      redirects: Object.entries(config.redirects).map( ([key, value]) => {
-        if (value === MOST_RECENT_POST) value = getMostRecentPostURL();
+      redirects: config.redirects.map((redirect) => {
+        const to = redirect.to === MOST_RECENT_POST ? getMostRecentPostURL() : redirect.to;
         return {
-          from: key,
-          to: value
-        };
+          ...redirect,
+          to,
+        }
       })
     });
     resolve(text);
