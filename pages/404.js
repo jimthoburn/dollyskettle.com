@@ -12,7 +12,7 @@ function Error404Page() {
   return html`
   <section class="dialog">
     <header><h1 style="max-width: none">Oops, this page couldn’t be found.</h1></header>
-    <p>You might find what you’re looking for in the <a href="/index">recipe list</a>.</p>
+    <p>You might find what you’re looking for in the <a href="/recipes">recipe list</a>.</p>
   </section>
   `;
 }
