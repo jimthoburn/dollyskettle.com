@@ -49,6 +49,11 @@ export const config = {
       from: "/index/",
       to: "/recipes/",
     },
+    {
+      from: "/wp-admin/",
+      to: "https://content.dollyskettle.com/wp-admin/",
+    },
+    
   ],
 
 };
