@@ -185,6 +185,13 @@ function getError404HTML({ askSearchEnginesNotToIndex, DOMParser }) {
   return html;
 }
 
+function useLocalContentIfNeeded(html) {
+  if (config.useLocalContent) {
+    return html.replace(new RegExp(`${config.data.host}/`, "g"), "/");
+  } else {
+    return html;
+  }
+}
 
 function _getSourceByURL({ url, askSearchEnginesNotToIndex, DOMParser }) {
   return new Promise(async (resolve, reject) => {
@@ -193,6 +200,8 @@ function _getSourceByURL({ url, askSearchEnginesNotToIndex, DOMParser }) {
     if (redirect === MOST_RECENT_POST) {
       redirect = getMostRecentPostURL();
     }
+
+    const resolveHTML = (html) => resolve(useLocalContentIfNeeded(html));
 
     if (url === "/sitemap.xml") {
       getSiteMapXML()
@@ -205,19 +214,19 @@ function _getSourceByURL({ url, askSearchEnginesNotToIndex, DOMParser }) {
         .then(resolve);
     } else if (redirect) {
       getRedirectHTML({ redirect, askSearchEnginesNotToIndex, DOMParser })
-        .then(resolve);
+        .then(resolveHTML);
     } else if (url === "/recipes/") {
       getRecipesHTML({ url, askSearchEnginesNotToIndex, DOMParser })
-        .then(resolve);
+        .then(resolveHTML);
     } else if (getCategory(url)) {
       getCategoryHTML({ url, askSearchEnginesNotToIndex, DOMParser })
-        .then(resolve);
+        .then(resolveHTML);
     } else if (getPost(url)) {
       getPostHTML({ url, askSearchEnginesNotToIndex, DOMParser })
-        .then(resolve);
+        .then(resolveHTML);
     } else if (getPage(url)) {
       getPageHTML({ url, askSearchEnginesNotToIndex, DOMParser })
-        .then(resolve);
+        .then(resolveHTML);
     } else {
       throw new Error(`An unexpected URL was passed to getSourceByURL: ${url}`);
     }
@@ -227,12 +236,8 @@ function _getSourceByURL({ url, askSearchEnginesNotToIndex, DOMParser }) {
 
 function getSourceByURL({ url, askSearchEnginesNotToIndex, DOMParser }) {
   return new Promise(async (resolve, reject) => {
-    const html = await _getSourceByURL({ url, askSearchEnginesNotToIndex, DOMParser });
-    if (config.useLocalContent) {
-      resolve(html.replace(new RegExp(`${config.data.host}/`, "g"), "/"));
-    } else {
-      resolve(html);
-    }
+    const text = await _getSourceByURL({ url, askSearchEnginesNotToIndex, DOMParser });
+    resolve(text);
   });
 }
 

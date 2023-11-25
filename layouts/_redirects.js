@@ -22,7 +22,7 @@ export const RedirectsText = ({ redirects }) => {
 
   const text = redirectLines.join("\n");
 
-  console.log({ text });
+  console.log({ redirectLines });
 
   return text;
 };

@@ -166,7 +166,11 @@ async function serve({ folder, redirectsFilePath, port, hostname }) {
 
     for (const redirect of redirects) {
       if (removeTrailingSlash(url.pathname) === removeTrailingSlash(redirect.from)) {
-        return Response.redirect(url.origin + redirect.to, 302);
+        const redirectTo =
+          redirect.to.startsWith("http")
+            ? redirect.to
+            : url.origin + redirect.to
+        return Response.redirect(redirectTo, 302);
       }
     }
 
