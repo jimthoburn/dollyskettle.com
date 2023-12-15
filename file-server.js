@@ -135,7 +135,6 @@ async function getRedirects({ folder, redirectsFilePath }) {
     console.log(`Something went wrong while getting redirects from: ${folder}${redirectsFilePath}`);
   }
 
-  console.log({ redirects });
   return redirects;
 }
 
@@ -187,7 +186,7 @@ async function serve({ folder, redirectsFilePath, port, hostname }) {
           const requestURL = removeTrailingSlash(request.url);
           // https://www.example.com/ahoy/there
 
-          const from = redirect.from.replace(/\/*$/, "");
+          const from = redirect.from.replace(/\/\*$/, "");
           //  https://www.example.com
 
           const to = redirect.to.replace(/\/:splat$/, "");
