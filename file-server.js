@@ -154,23 +154,54 @@ async function serve({ folder, redirectsFilePath, port, hostname }) {
   serveStaticFiles({ folder });
   serveError404Page({ folder });
 
-  const redirects = await getRedirects({ folder, redirectsFilePath });
-
-  Deno.serve({ port, hostname }, (request) => {
+  Deno.serve({ port, hostname }, async (request) => {
     const url = new URL(request.url);
     console.log({ url, pathname: url.pathname });
 
-    // if (url.hostname !== "dollyskettle.com") {
-    //   return Response.redirect("https://dollyskettle.com" + url.pathname + url.search + url.hash, 302);
-    // }
+    const redirects = await getRedirects({ folder, redirectsFilePath });
 
     for (const redirect of redirects) {
-      if (removeTrailingSlash(url.pathname) === removeTrailingSlash(redirect.from)) {
-        const redirectTo =
-          redirect.to.startsWith("http")
-            ? redirect.to
-            : url.origin + redirect.to
-        return Response.redirect(redirectTo, 302);
+      try {
+
+        // A) Simple redirect
+        if (removeTrailingSlash(url.pathname) === removeTrailingSlash(redirect.from)) {
+          const redirectTo =
+            redirect.to.startsWith("http")
+              ? redirect.to
+              : url.origin + redirect.to;
+          return Response.redirect(redirectTo, 302);
+        }
+
+        // B) Wildcard redirect (splat)
+        if (
+          redirect.from.startsWith("http") &&
+          redirect.from.endsWith("/*") &&
+          redirect.to.startsWith("http") &&
+          redirect.to.endsWith("/:splat")
+        ) {
+          // request.url:   https://www.example.com/ahoy/there/
+
+          // redirect.from: https://www.example.com/*
+          // redirect.to:   https://example.com/:splat
+
+          const requestURL = removeTrailingSlash(request.url);
+          // https://www.example.com/ahoy/there
+
+          const from = redirect.from.replace(/\/*$/, "");
+          //  https://www.example.com
+
+          const to = redirect.to.replace(/\/:splat$/, "");
+          // https://example.com
+
+          if (requestURL.includes(from)) {
+            // https://www.example.com/ahoy/there includes https://www.example.com
+
+            return Response.redirect(to + url.pathname + url.search + url.hash, 302);
+            // "https://example.com/ahoy/there"
+          }
+        };
+      } catch(e) {
+        console.error(e);
       }
     }
 
