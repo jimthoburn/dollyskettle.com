@@ -183,18 +183,13 @@ async function serve({ folder, redirectsFilePath, port, hostname }) {
           // redirect.from: https://www.example.com/*
           // redirect.to:   https://example.com/:splat
 
-          const requestURL = removeTrailingSlash(request.url);
-          // https://www.example.com/ahoy/there
-
-          const from = redirect.from.replace(/\/\*$/, "");
-          //  https://www.example.com
+          const fromURL = new URL(redirect.from);
+          // { hostname: "www.example.com", ... }
 
           const to = redirect.to.replace(/\/:splat$/, "");
           // https://example.com
 
-          if (requestURL.includes(from)) {
-            // https://www.example.com/ahoy/there includes https://www.example.com
-
+          if (url.hostname === fromURL.hostname) {
             return Response.redirect(to + url.pathname + url.search + url.hash, 302);
             // "https://example.com/ahoy/there"
           }
