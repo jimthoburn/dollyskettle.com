@@ -30,6 +30,9 @@
       }
     }
   },
+  "redirects": {
+    "https://esm.sh/v135/@types/js-beautify@~1.14/index.d.ts": "https://esm.sh/v135/@types/js-beautify@1.14.3/index.d.ts"
+  },
   "remote": {
     "https://deno.land/std@0.210.0/dotenv/mod.ts": "55d51d0c244da70e10ccbbdb68644064ce19c8af1683289d16ac802ceef64c8c",
     "https://deno.land/std@0.210.0/dotenv/parse.ts": "d76ff5a59bd7c374a40249dc28bd15c740da0428559c838b1ea5644f561bff20",
