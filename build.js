@@ -20,7 +20,7 @@ async function createFile({ pageURL, filename, output, mkdirp }) {
         console.log(err);
       }
     });
-  } catch(e) {
+  } catch(err) {
     console.error(err);
   }
 }
@@ -46,7 +46,7 @@ async function copy({source, destination, mkdirp}) {
         return console.error(err)
       }
     });
-  } catch(e) {
+  } catch(err) {
     console.error(err);
   }
 }

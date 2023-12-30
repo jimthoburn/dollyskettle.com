@@ -58,7 +58,7 @@ function downloadImage({ url, authorization, mkdirp }) {
           dest.on("error", err => {
             reject(err);
           });
-        } catch(e) {
+        } catch(err) {
           console.error(err);
         }
       });

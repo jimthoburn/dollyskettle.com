@@ -1,17 +1,17 @@
 {
   "imports": {
-    "chalk": "https://esm.sh/v128/chalk@5.3.0",
-    "dotenv/": "https://deno.land/std@0.194.0/dotenv/",
-    "deno_dom/": "https://deno.land/x/deno_dom@v0.1.38/",
-    "fs-extra": "npm:fs-extra@11.1.1",
-    "js-beautify": "https://esm.sh/v128/js-beautify@1.14.9",
-    "mkdirp": "https://esm.sh/v128/mkdirp@3.0.1",
-    "node-fetch": "https://esm.sh/v128/node-fetch@3.3.2",
+    "chalk": "https://esm.sh/v135/chalk@5.3.0",
+    "dotenv/": "https://deno.land/std@0.210.0/dotenv/",
+    "deno_dom/": "https://deno.land/x/deno_dom@v0.1.43/",
+    "fs-extra": "npm:fs-extra@11.2.0",
+    "js-beautify": "https://esm.sh/v135/js-beautify@1.14.11",
+    "mkdirp": "https://esm.sh/v135/mkdirp@3.0.1",
+    "node-fetch": "https://esm.sh/v135/node-fetch@3.3.2",
 
-    "htm": "https://esm.sh/v128/htm@3.1.1",
-    "preact": "https://esm.sh/v128/preact@10.19.1",
-    "preact/hooks": "https://esm.sh/v128/preact@10.19.1/hooks?external=preact",
-    "preact-render-to-string": "https://esm.sh/v128/preact-render-to-string@6.2.2?external=preact"
+    "htm": "https://esm.sh/v135/htm@3.1.1",
+    "preact": "https://esm.sh/v135/preact@10.19.3",
+    "preact/": "https://esm.sh/v135/preact@10.19.3/",
+    "preact-render-to-string": "https://esm.sh/v135/preact-render-to-string@6.3.1?external=preact"
   },
   "tasks": {
     "dev": "cd ./_site && deno run --allow-read=./ --allow-net=0.0.0.0:4000 ../file-server.js",

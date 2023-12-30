@@ -6,14 +6,14 @@ function withoutTrailingSlash(url) {
   return url.replace(/\/$/, "");
 }
 
-// https://deno.land/manual@v1.35.1/examples/file_server
+// https://docs.deno.com/runtime/tutorials/file_server
 async function getStaticFile ({ filepath, request }) {
   console.log({ filepath });
 
   // Try opening the file
   let file;
   try {
-    // If it's a file, open it
+    // If it's a file (has a file extension), open it
     if (new RegExp(/\.[a-zA-Z]+$/).test(filepath)) {
       file = await Deno.open(filepath, { read: true });
     } else {

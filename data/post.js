@@ -40,7 +40,7 @@ async function saveJSON({ url, json, filename, mkdirp }) {
         console.log(err);
       }
     });
-  } catch(e) {
+  } catch(err) {
     console.error(err);
   }
 }

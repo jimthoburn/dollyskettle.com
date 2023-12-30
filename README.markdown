@@ -9,7 +9,7 @@ I’m using it to practice with new tools, and to help a family member who’s p
 
 If you’d like to re-use this code to make your own web site based on WordPress, the basic steps are…
 
-1. Install [Deno](https://deno.com/runtime) (version `1.38.5` or greater).
+1. Install [Deno](https://deno.com/runtime) (version `1.39.1` or greater).
 
 2. Edit the URLs in `_config.js` so they point to your WordPress installation
 
