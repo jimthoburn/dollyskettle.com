@@ -1,5 +1,5 @@
 
-import fs                   from "fs-extra";
+import fs                   from "node:fs";
 import chalk                from "chalk";
 
 import { config }           from "./_config.js";
@@ -7,6 +7,7 @@ import { config }           from "./_config.js";
 import { getSourceByURL,
          getError404HTML }  from "./get-source/by-url.js";
 
+import { copyFolder }       from "./helpers/copy.js";
 
 const GENERATED_FILES_FOLDER = `./${config.buildFolder}`;
 
@@ -34,24 +35,7 @@ function removeFile({ pageURL, filename }) {
   }
 }
 
-async function copy({source, destination, mkdirp}) {
-  // console.log(`📂 Copying files from: ${source}`);
-
-  try {
-    const folder = await mkdirp(destination);
-    // https://www.npmjs.com/package/fs-extra
-    fs.copy(source, destination, function (err) {
-      if (err){
-        console.log('An error occured while copying the folder.')
-        return console.error(err)
-      }
-    });
-  } catch(err) {
-    console.error(err);
-  }
-}
-
-function buildStaticFiles({ mkdirp }) {
+async function buildStaticFiles({ mkdirp }) {
   console.log(`📂 Preparing static files`);
   for (let folder of config.staticFolders) {
 
@@ -60,29 +44,22 @@ function buildStaticFiles({ mkdirp }) {
     const source      = `./${folder}`;
     const destination = `${GENERATED_FILES_FOLDER}/${folderWithoutLeadingUnderscore}`;
 
-    copy({ source, destination, mkdirp });
-  }
-
-  const extras = [];
-
-  for (let source of extras) {
-    const destination = `${GENERATED_FILES_FOLDER}/${source}`;
-    copy({ source, destination, mkdirp });
+    await copyFolder({ source, destination, mkdirp }).catch(err => { throw err; });
   }
 
   // _public is a general folder for any static file to be served from “/”
-  (function() {
-    const source      = `./_public`;
-    const destination = `${GENERATED_FILES_FOLDER}`;
-    copy({ source, destination, mkdirp });
-  })();
-  
+  await copyFolder({
+    source: `./_public`,
+    destination: GENERATED_FILES_FOLDER,
+    mkdirp
+  }).catch(err => { throw err; });
+
   // _pictures is a special case, to emulate WordPress URLs
-  (function() {
-    const source      = `./_pictures`;
-    const destination = `${GENERATED_FILES_FOLDER}/wp-content/uploads/`;
-    copy({ source, destination, mkdirp });
-  })();
+  await copyFolder({
+    source: `./_pictures`,
+    destination: `${GENERATED_FILES_FOLDER}/wp-content/uploads/`,
+    mkdirp
+  }).catch(err => { throw err; });
 }
 
 function buildPages({ urls, askSearchEnginesNotToIndex, mkdirp, DOMParser }) {
@@ -144,13 +121,13 @@ function buildError404Page({ askSearchEnginesNotToIndex, mkdirp, DOMParser }) {
   });
 }
 
-function build({ urls, env, mkdirp, DOMParser }) {
+async function build({ urls, env, mkdirp, DOMParser }) {
   console.log(urls);
 
   const askSearchEnginesNotToIndex = env.ASK_SEARCH_ENGINES_NOT_TO_INDEX;
 
   buildPages({ urls, askSearchEnginesNotToIndex, mkdirp, DOMParser });
-  buildStaticFiles({ mkdirp });
+  await buildStaticFiles({ mkdirp });
 
   if (askSearchEnginesNotToIndex != 1 && config.host) {
     buildRobotsText({ askSearchEnginesNotToIndex, mkdirp, DOMParser });

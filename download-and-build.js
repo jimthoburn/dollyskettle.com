@@ -10,5 +10,5 @@ const env = await load();
 
 refreshData({ env, mkdirp }).then(async () => {
   await downloadImages({ urls: getMediaURLs(), env, mkdirp });
-  build({ urls: getPublicURLs(), env, mkdirp, DOMParser });
+  await build({ urls: getPublicURLs(), env, mkdirp, DOMParser });
 });

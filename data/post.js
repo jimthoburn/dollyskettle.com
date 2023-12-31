@@ -1,5 +1,5 @@
 
-import fs               from "fs-extra";
+import fs               from "node:fs";
 import fetch            from "node-fetch";
 
 import { fetchFromFileSystem }
@@ -56,13 +56,13 @@ async function* fetchData({ url, useLocalData, authorization, mkdirp }) {
       items = await fetchJSON({
         url: localURL,
         fetch: fetchFromFileSystem
-      });
+      }).catch(err => { throw err; });
     } else {
       console.log(`Fetching page ${ pageNumber } from remote data: ${ urlWithPageNumber }`);
       items = await fetchJSON({
         url: urlWithPageNumber,
         fetch: getAuthorizedFetch({ authorization })
-      });
+      }).catch(err => { throw err; });
       saveJSON({
         url: urlWithPageNumber,
         json: items,

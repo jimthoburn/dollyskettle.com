@@ -8,6 +8,6 @@ import { build } from "./build.js";
 
 const env = globalThis.process.env;
 
-refreshData({ env, mkdirp }).then(() => {
-  build({ urls: getPublicURLs(), env, mkdirp, DOMParser });
+refreshData({ env, mkdirp }).then(async () => {
+  await build({ urls: getPublicURLs(), env, mkdirp, DOMParser });
 });
