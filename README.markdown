@@ -26,7 +26,7 @@ deno task build
 This will create a folder called `_site` that you can publish to a static host like [Netlify](https://www.netlify.com/) or [Vercel](https://vercel.com) using these settings:
 
 Install command  
-`npm run install`
+`npm install`
 
 Build command  
 `npm run build`
