@@ -23,7 +23,7 @@ If you’d like to re-use this code to make your own web site based on WordPress
 deno task build
 ```
 
-This will create a folder called `_site` that you can publish to a static host like [Netlify](https://www.netlify.com/) or [Vercel](https://vercel.com).
+This will create a folder called `_site` that you can publish to a static host like [Netlify](https://www.netlify.com/) or [Vercel](https://vercel.com). You can also [set up your own web site](https://github.com/jimthoburn/dollyskettle.com-blueprint), using the included [file server](file-server.js).
 
 ## Running locally
 
