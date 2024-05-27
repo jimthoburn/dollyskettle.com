@@ -1,5 +1,4 @@
 import fs from "node:fs";
-import fetch from "node-fetch";
 
 import { config }       from "./_config.js";
 
