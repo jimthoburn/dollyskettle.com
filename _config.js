@@ -36,7 +36,6 @@ export const config = {
   "buildFolder"   : "_site",
 
   "staticFolders" : [
-    "_api",
     "css"
   ],
 
