@@ -45,18 +45,12 @@ function downloadImage({ url, authorization, mkdirp }) {
     .then(res => {
       return new Promise(async (resolve, reject) => {
         try {
-          const folder = await mkdirp(writePath);
-          const dest = fs.createWriteStream(`${writePath}${imageName}`);
-          res.body.pipe(dest);
-          res.body.on("error", err => {
-            reject(err);
-          });
-          dest.on("finish", () => {
-            resolve();
-          });
-          dest.on("error", err => {
-            reject(err);
-          });
+          await mkdirp(writePath);
+          const file = await Deno.open(`${writePath}${imageName}`, { write: true, create: true });
+
+          await res.body.pipeTo(file.writable);
+          resolve();
+
         } catch(err) {
           console.error(err);
         }
