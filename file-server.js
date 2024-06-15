@@ -7,7 +7,7 @@ function withoutTrailingSlash(url) {
 }
 
 // https://docs.deno.com/runtime/tutorials/file_server
-async function getStaticFile ({ filepath, request }) {
+async function getStaticFile ({ filepath, request, redirects }) {
   console.log({ filepath });
 
   // Try opening the file
@@ -28,7 +28,7 @@ async function getStaticFile ({ filepath, request }) {
     }
   } catch {
     // If the file cannot be opened, return a "404 Not Found" response
-    return handlers["/404/"]({ request });
+    return handlers["/404/"]({ request, redirects });
   }
 
   // Build a readable stream so the file doesn't have to be fully loaded into
@@ -68,12 +68,12 @@ async function getStaticFile ({ filepath, request }) {
 }
 
 function getStaticFileHandler ({ folder, pathPrefix }) {
-  return ({ request }) => {
+  return ({ request, redirects }) => {
     // Use the request pathname as filepath
     const url = new URL(request.url);
     const filepath = folder + decodeURIComponent(url.pathname).replace(pathPrefix, "");
 
-    return getStaticFile({ filepath, request });
+    return getStaticFile({ filepath, request, redirects });
   }
 }
 
@@ -82,10 +82,10 @@ function serveStaticFiles({ folder }) {
   handlers["/*"] = getStaticFileHandler({ folder, pathPrefix: "" });
 }
 
-function serveError404Page({ folder, redirects }) {
+function serveError404Page({ folder }) {
   console.log(`🚥 Preparing 404 "not found" page`);
   console.log("");
-  handlers["/404/"] = async function ({ request }) {
+  handlers["/404/"] = async function ({ request, redirects }) {
     const url = new URL(request.url);
     for (const redirect of redirects) {
       try {
@@ -163,14 +163,16 @@ async function serve({ folder, redirectsFilePath, port, hostname }) {
   console.log("- - - - - - - - - - - - - - - - - - - - - - -");
   console.log("");
 
-  const redirects = await getRedirects({ folder, redirectsFilePath });
-
   serveStaticFiles({ folder });
-  serveError404Page({ folder, redirects });
+  serveError404Page({ folder });
 
   Deno.serve({ port, hostname }, async (request) => {
     const url = new URL(request.url);
     console.log({ url, pathname: url.pathname });
+
+    // TRICKY: Load the redirects file for each request,
+    // to use the latest data without restarting the file server.
+    const redirects = await getRedirects({ folder, redirectsFilePath });
 
     for (const redirect of redirects) {
       try {
@@ -222,10 +224,10 @@ async function serve({ folder, redirectsFilePath, port, hostname }) {
         if (key.endsWith("*") === false) continue;
         const path = key.replace(/\*$/, "");
         if (url.pathname.startsWith(path)) {
-          return handlers[key]({ request });
+          return handlers[key]({ request, redirects });
         }
       }
-      return handlers["/404/"]({ request });
+      return handlers["/404/"]({ request, redirects });
     }
   });
 
