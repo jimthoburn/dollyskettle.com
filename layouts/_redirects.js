@@ -20,7 +20,7 @@ export const RedirectsText = ({ redirects }) => {
     ({from, to}) => `${from} ${to} ${status}${force}`
   );
 
-  const text = redirectLines.join("\n");
+  const text = redirectLines.join("\n") + "\n";
 
   console.log({ redirectLines });
 

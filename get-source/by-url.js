@@ -135,18 +135,48 @@ function getSiteMapXML() {
   });
 }
 
-function getRedirectsText() {
+function getRedirectsText({ postURLs }) {
   console.log({"getRedirectsText": 1, redirects: config.redirects});
   return new Promise((resolve, reject) => {
-    const text = RedirectsText({
-      redirects: config.redirects.map((redirect) => {
-        const to = redirect.to === MOST_RECENT_POST ? getMostRecentPostURL() : redirect.to;
-        return {
-          ...redirect,
-          to,
-        }
-      })
+    const redirects = config.redirects.map((redirect) => {
+      const to = redirect.to === MOST_RECENT_POST ? getMostRecentPostURL() : redirect.to;
+      return {
+        ...redirect,
+        to,
+      }
     });
+
+    const postDates = {};
+    for (const url of postURLs) {
+      const [, year, month, day] = url.split("/");
+      const date = [year, month, day].join("/");
+      if (!postDates[date]) {
+        postDates[date] = [];
+      }
+      postDates[date].push(url);
+    }
+
+    console.log({ postDates });
+
+    // Avoid creating a redirect if there’s more than one published post for a date
+    const uniqueDatePostURLs = postURLs.filter(url => {
+      const [, year, month, day] = url.split("/");
+      const date = [year, month, day].join("/");
+      return postDates[date].length === 1;
+    })
+
+    console.log({ uniqueDatePostURLs });
+
+    // Redirect old post URLs to the latest URL (assuming that each post has a unique publish date)
+    for (const url of uniqueDatePostURLs) {
+      const [, year, month, day] = url.split("/");
+      redirects.push({
+        from: `/${year}/${month}/${day}/*`,
+        to: url,
+      })
+    }
+
+    const text = RedirectsText({ redirects });
     resolve(text);
   });
 }
@@ -193,7 +223,7 @@ function useLocalContentIfNeeded(html) {
   }
 }
 
-function _getSourceByURL({ url, askSearchEnginesNotToIndex, DOMParser }) {
+function _getSourceByURL({ url, askSearchEnginesNotToIndex, DOMParser, postURLs }) {
   return new Promise(async (resolve, reject) => {
 
     let redirect = config.redirects[url];
@@ -210,7 +240,7 @@ function _getSourceByURL({ url, askSearchEnginesNotToIndex, DOMParser }) {
       getRobotsText()
         .then(resolve);
     } else if (url === "/_redirects") {
-      getRedirectsText()
+      getRedirectsText({ postURLs })
         .then(resolve);
     } else if (redirect) {
       getRedirectHTML({ redirect, askSearchEnginesNotToIndex, DOMParser })
@@ -234,9 +264,9 @@ function _getSourceByURL({ url, askSearchEnginesNotToIndex, DOMParser }) {
 }
 
 
-function getSourceByURL({ url, askSearchEnginesNotToIndex, DOMParser }) {
+function getSourceByURL({ url, askSearchEnginesNotToIndex, DOMParser, postURLs }) {
   return new Promise(async (resolve, reject) => {
-    const text = await _getSourceByURL({ url, askSearchEnginesNotToIndex, DOMParser });
+    const text = await _getSourceByURL({ url, askSearchEnginesNotToIndex, DOMParser, postURLs });
     resolve(text);
   });
 }

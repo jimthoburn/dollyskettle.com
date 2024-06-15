@@ -4,6 +4,7 @@ import chalk                from "chalk";
 
 import { config }           from "./_config.js";
 
+import { getPost }          from "./data/post.js";
 import { getSourceByURL,
          getError404HTML }  from "./get-source/by-url.js";
 
@@ -99,9 +100,10 @@ function buildSiteMap({ askSearchEnginesNotToIndex, mkdirp, DOMParser }) {
     .catch(err => console.error(err));
 }
 
-function buildRedirectsFile({ askSearchEnginesNotToIndex, mkdirp, DOMParser }) {
+function buildRedirectsFile({ askSearchEnginesNotToIndex, mkdirp, DOMParser, urls }) {
   console.log(`🗺  Preparing _redirects`);
-  getSourceByURL({ url: "/_redirects", askSearchEnginesNotToIndex, DOMParser })
+  const postURLs = urls.filter(url => getPost(url) != null);
+  getSourceByURL({ url: "/_redirects", askSearchEnginesNotToIndex, DOMParser, postURLs })
     .then(text => createFile({
       pageURL: "/",
       filename: "_redirects",
@@ -142,7 +144,7 @@ async function build({ urls, env, mkdirp, DOMParser }) {
     removeFile({ pageURL: "/", filename: "robots.txt" });
   }
 
-  buildRedirectsFile({ askSearchEnginesNotToIndex, mkdirp, DOMParser });
+  buildRedirectsFile({ askSearchEnginesNotToIndex, mkdirp, DOMParser, urls });
   buildError404Page({ askSearchEnginesNotToIndex, mkdirp, DOMParser });
 
   console.log("");

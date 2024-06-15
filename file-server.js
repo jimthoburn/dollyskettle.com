@@ -82,10 +82,23 @@ function serveStaticFiles({ folder }) {
   handlers["/*"] = getStaticFileHandler({ folder, pathPrefix: "" });
 }
 
-function serveError404Page({ folder }) {
+function serveError404Page({ folder, redirects }) {
   console.log(`🚥 Preparing 404 "not found" page`);
   console.log("");
   handlers["/404/"] = async function ({ request }) {
+    const url = new URL(request.url);
+    for (const redirect of redirects) {
+      try {
+        // C) Wildcard redirect (post)
+        // /2024/02/03/old-slug ==> /2024/02/03/new-slug
+        if (redirect.from.endsWith("/*") && new RegExp(redirect.from).test(url.pathname)) {
+          const redirectTo = url.origin + redirect.to;
+          return Response.redirect(redirectTo, 302);
+        }
+      } catch(e) {
+        console.error(e);
+      }
+    }
 
     // Try returning a 404.html file, if one exists
     try {
@@ -150,14 +163,14 @@ async function serve({ folder, redirectsFilePath, port, hostname }) {
   console.log("- - - - - - - - - - - - - - - - - - - - - - -");
   console.log("");
 
+  const redirects = await getRedirects({ folder, redirectsFilePath });
+
   serveStaticFiles({ folder });
-  serveError404Page({ folder });
+  serveError404Page({ folder, redirects });
 
   Deno.serve({ port, hostname }, async (request) => {
     const url = new URL(request.url);
     console.log({ url, pathname: url.pathname });
-
-    const redirects = await getRedirects({ folder, redirectsFilePath });
 
     for (const redirect of redirects) {
       try {

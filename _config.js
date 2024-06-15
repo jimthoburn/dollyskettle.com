@@ -48,6 +48,30 @@ export const config = {
       from: "/index/",
       to: "/recipes/",
     },
+
+    /* SHIM: Redirect old categories to new ones,
+       if the old category would return a 404 otherwise,
+       in case the old category is re-published.
+
+       A trailing `/*` => gives priority to an existing page.
+    */
+    {
+      from: "/category/paleo/*",
+      to: "/category/gluten-free-keto-paleo-low-carb/",
+    },
+    {
+      from: "/category/keto-paleo-low-carb/*",
+      to: "/category/gluten-free-keto-paleo-low-carb/",
+    },
+    {
+      from: "/category/low-carb/*",
+      to: "/category/gluten-free-keto-paleo-low-carb/",
+    },
+    {
+      from: "/category/salads-with-protein/*",
+      to: "/category/salads/",
+    },
+
     {
       from: "/wp-admin/",
       to: "https://content.dollyskettle.com/wp-admin/",
