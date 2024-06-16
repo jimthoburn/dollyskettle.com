@@ -17,7 +17,6 @@ export const config = {
     "posts"      : "/wp-json/wp/v2/posts?per_page=1000&page=${ pageNumber }&_embed=1",
     "pages"      : "/wp-json/wp/v2/pages?per_page=1000&page=${ pageNumber }&_embed=1",
     "media"      : "/wp-json/wp/v2/media?per_page=1000&page=${ pageNumber }&_embed=1",
-    // "categories" : "/wp-json/wp/v2/categories?per_page=100&page=${ pageNumber }&_embed=1"
     "openGraphImage": "/wp-content/themes/kettle/images/farmhouse.jpg",
     "postFeaturedImageFallback": {
       src: "/wp-content/themes/kettle/images/farmhouse.jpg",
@@ -31,7 +30,10 @@ export const config = {
   "useLocalContent": true,
 
   // Path to favicon in public folder
-  // "favicon": "/favicon.png",
+  // https://dev.to/pickleat/add-an-emoji-favicon-to-your-site-co2
+  // https://emojipedia.org/twitter/twemoji-12.0/carrot
+  // https://em-content.zobj.net/source/twitter/185/carrot_1f955.png
+  "favicon": "/favicon/emojipedia-carrot.png",
 
   "buildFolder"   : "_site",
 
