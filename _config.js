@@ -73,10 +73,6 @@ export const config = {
     },
 
     {
-      from: "/wp-admin/",
-      to: "https://content.dollyskettle.com/wp-admin/",
-    },
-    {
       from: "https://www.dollyskettle.com/*",
       to: "https://dollyskettle.com/:splat",
     },
