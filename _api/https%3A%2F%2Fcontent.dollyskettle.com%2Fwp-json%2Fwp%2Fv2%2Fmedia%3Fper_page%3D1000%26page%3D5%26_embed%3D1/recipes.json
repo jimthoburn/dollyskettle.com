@@ -1,5 +1,148 @@
 [
   {
+    "id": 23355,
+    "date": "2021-01-29T16:54:40",
+    "date_gmt": "2021-01-29T23:54:40",
+    "guid": {
+      "rendered": "https://content.dollyskettle.com/wp-content/uploads/2011/09/IMG_0100.jpeg"
+    },
+    "modified": "2021-01-29T16:54:40",
+    "modified_gmt": "2021-01-29T23:54:40",
+    "slug": "img_0100-jpg",
+    "status": "inherit",
+    "type": "attachment",
+    "link": "https://content.dollyskettle.com/2011/09/10/eggplant-and-lentil-chili/img_0100-jpg/",
+    "title": {
+      "rendered": "IMG_0100.JPG"
+    },
+    "author": 2,
+    "featured_media": 0,
+    "comment_status": "open",
+    "ping_status": "closed",
+    "template": "",
+    "meta": [],
+    "description": {
+      "rendered": "<p class=\"attachment\"><a href='https://content.dollyskettle.com/wp-content/uploads/2011/09/IMG_0100.jpeg'><img loading=\"lazy\" decoding=\"async\" width=\"225\" height=\"300\" src=\"https://content.dollyskettle.com/wp-content/uploads/2011/09/IMG_0100-225x300.jpeg\" class=\"attachment-medium size-medium\" alt=\"\" srcset=\"https://content.dollyskettle.com/wp-content/uploads/2011/09/IMG_0100-225x300.jpeg 225w, https://content.dollyskettle.com/wp-content/uploads/2011/09/IMG_0100-768x1024.jpeg 768w, https://content.dollyskettle.com/wp-content/uploads/2011/09/IMG_0100.jpeg 960w\" sizes=\"(max-width: 225px) 100vw, 225px\" /></a></p>\n"
+    },
+    "caption": {
+      "rendered": ""
+    },
+    "alt_text": "",
+    "media_type": "image",
+    "mime_type": "image/jpeg",
+    "media_details": {
+      "width": 960,
+      "height": 1280,
+      "file": "2011/09/IMG_0100.jpeg",
+      "sizes": {
+        "medium": {
+          "file": "IMG_0100-225x300.jpeg",
+          "width": 225,
+          "height": 300,
+          "mime_type": "image/jpeg",
+          "source_url": "https://content.dollyskettle.com/wp-content/uploads/2011/09/IMG_0100-225x300.jpeg"
+        },
+        "large": {
+          "file": "IMG_0100-768x1024.jpeg",
+          "width": 768,
+          "height": 1024,
+          "mime_type": "image/jpeg",
+          "source_url": "https://content.dollyskettle.com/wp-content/uploads/2011/09/IMG_0100-768x1024.jpeg"
+        },
+        "thumbnail": {
+          "file": "IMG_0100-150x150.jpeg",
+          "width": 150,
+          "height": 150,
+          "mime_type": "image/jpeg",
+          "source_url": "https://content.dollyskettle.com/wp-content/uploads/2011/09/IMG_0100-150x150.jpeg"
+        },
+        "medium_large": {
+          "file": "IMG_0100-768x1024.jpeg",
+          "width": 768,
+          "height": 1024,
+          "mime_type": "image/jpeg",
+          "source_url": "https://content.dollyskettle.com/wp-content/uploads/2011/09/IMG_0100-768x1024.jpeg"
+        },
+        "full": {
+          "file": "IMG_0100.jpeg",
+          "width": 960,
+          "height": 1280,
+          "mime_type": "image/jpeg",
+          "source_url": "https://content.dollyskettle.com/wp-content/uploads/2011/09/IMG_0100.jpeg"
+        }
+      },
+      "image_meta": {
+        "aperture": "2",
+        "credit": "",
+        "camera": "Canon PowerShot S95",
+        "caption": "",
+        "created_timestamp": "1315678286",
+        "copyright": "",
+        "focal_length": "6",
+        "iso": "320",
+        "shutter_speed": "0.02",
+        "title": "IMG_0100.JPG",
+        "orientation": "0",
+        "keywords": []
+      }
+    },
+    "post": 627,
+    "source_url": "https://content.dollyskettle.com/wp-content/uploads/2011/09/IMG_0100.jpeg",
+    "_links": {
+      "self": [
+        {
+          "href": "https://content.dollyskettle.com/wp-json/wp/v2/media/23355"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://content.dollyskettle.com/wp-json/wp/v2/media"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://content.dollyskettle.com/wp-json/wp/v2/types/attachment"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://content.dollyskettle.com/wp-json/wp/v2/users/2"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://content.dollyskettle.com/wp-json/wp/v2/comments?post=23355"
+        }
+      ]
+    },
+    "_embedded": {
+      "author": [
+        {
+          "id": 2,
+          "name": "Dolly",
+          "url": "",
+          "description": "",
+          "link": "https://content.dollyskettle.com/author/dolly/",
+          "slug": "dolly",
+          "_links": {
+            "self": [
+              {
+                "href": "https://content.dollyskettle.com/wp-json/wp/v2/users/2"
+              }
+            ],
+            "collection": [
+              {
+                "href": "https://content.dollyskettle.com/wp-json/wp/v2/users"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
     "id": 23340,
     "date": "2021-01-29T16:08:26",
     "date_gmt": "2021-01-29T23:08:26",
