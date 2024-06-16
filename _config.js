@@ -13,10 +13,11 @@ export const config = {
   // Location of the WordPress API
   "data": {
     "host"       : "https://content.dollyskettle.com",
+    // https://developer.wordpress.org/rest-api/using-the-rest-api/pagination/
     // https://wordpress.stackexchange.com/questions/281881/increase-per-page-limit-in-rest-api
-    "posts"      : "/wp-json/wp/v2/posts?per_page=1000&page=${ pageNumber }&_embed=1",
-    "pages"      : "/wp-json/wp/v2/pages?per_page=1000&page=${ pageNumber }&_embed=1",
-    "media"      : "/wp-json/wp/v2/media?per_page=1000&page=${ pageNumber }&_embed=1",
+    "posts"      : "/wp-json/wp/v2/posts?per_page=1000&page=${ pageNumber }&order=asc&orderby=date&_embed=1",
+    "pages"      : "/wp-json/wp/v2/pages?per_page=1000&page=${ pageNumber }&order=asc&orderby=date&_embed=1",
+    "media"      : "/wp-json/wp/v2/media?per_page=1000&page=${ pageNumber }&order=asc&orderby=date&_embed=1",
     "openGraphImage": "/wp-content/themes/kettle/images/farmhouse.jpg",
     "postFeaturedImageFallback": {
       src: "/wp-content/themes/kettle/images/farmhouse.jpg",
