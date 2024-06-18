@@ -90,13 +90,32 @@ function getPageHTML({ url, askSearchEnginesNotToIndex, DOMParser }) {
   });
 }
 
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+function orderByDateDescending(a, b) {
+  // b is less than a by some ordering criterion
+  if (b.date < a.date) {
+    return -1;
+  }
+
+  // b is greater than a by the ordering criterion
+  if (b.date > a.date) {
+    return 1;
+  }
+
+  // a must be equal to b
+  return 0;
+}
+
 function getCategoryHTML({ url, askSearchEnginesNotToIndex, DOMParser }) {
   return new Promise((resolve, reject) => {
     const category = getCategory(url);
 
+    // Start with most recent posts
+    const sortedPosts = category.posts.sort(orderByDateDescending);
+
     let openGraphImage;
     try {
-      openGraphImage = getBackgroundImage({ post: category.posts[0] }).src;
+      openGraphImage = getBackgroundImage({ post: sortedPosts[0] }).src;
     } catch (error) {
       openGraphImage = config.data.openGraphImage;
       console.error(`Warning: Unable to get open graph image for: ${url}`)
