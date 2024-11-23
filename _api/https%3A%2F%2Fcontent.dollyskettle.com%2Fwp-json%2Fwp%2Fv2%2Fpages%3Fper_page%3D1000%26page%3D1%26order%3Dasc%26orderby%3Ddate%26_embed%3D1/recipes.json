@@ -43,7 +43,12 @@
     "_links": {
       "self": [
         {
-          "href": "https://content.dollyskettle.com/wp-json/wp/v2/pages/49"
+          "href": "https://content.dollyskettle.com/wp-json/wp/v2/pages/49",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
         }
       ],
       "collection": [
@@ -105,7 +110,12 @@
           "_links": {
             "self": [
               {
-                "href": "https://content.dollyskettle.com/wp-json/wp/v2/users/2"
+                "href": "https://content.dollyskettle.com/wp-json/wp/v2/users/2",
+                "targetHints": {
+                  "allow": [
+                    "GET"
+                  ]
+                }
               }
             ],
             "collection": [
@@ -133,7 +143,12 @@
             "_links": {
               "self": [
                 {
-                  "href": "https://content.dollyskettle.com/wp-json/wp/v2/comments/544"
+                  "href": "https://content.dollyskettle.com/wp-json/wp/v2/comments/544",
+                  "targetHints": {
+                    "allow": [
+                      "GET"
+                    ]
+                  }
                 }
               ],
               "collection": [
@@ -165,7 +180,12 @@
             "_links": {
               "self": [
                 {
-                  "href": "https://content.dollyskettle.com/wp-json/wp/v2/comments/539"
+                  "href": "https://content.dollyskettle.com/wp-json/wp/v2/comments/539",
+                  "targetHints": {
+                    "allow": [
+                      "GET"
+                    ]
+                  }
                 }
               ],
               "collection": [
@@ -209,7 +229,12 @@
             "_links": {
               "self": [
                 {
-                  "href": "https://content.dollyskettle.com/wp-json/wp/v2/comments/538"
+                  "href": "https://content.dollyskettle.com/wp-json/wp/v2/comments/538",
+                  "targetHints": {
+                    "allow": [
+                      "GET"
+                    ]
+                  }
                 }
               ],
               "collection": [
@@ -280,7 +305,12 @@
     "_links": {
       "self": [
         {
-          "href": "https://content.dollyskettle.com/wp-json/wp/v2/pages/471"
+          "href": "https://content.dollyskettle.com/wp-json/wp/v2/pages/471",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
         }
       ],
       "collection": [
@@ -342,7 +372,12 @@
           "_links": {
             "self": [
               {
-                "href": "https://content.dollyskettle.com/wp-json/wp/v2/users/2"
+                "href": "https://content.dollyskettle.com/wp-json/wp/v2/users/2",
+                "targetHints": {
+                  "allow": [
+                    "GET"
+                  ]
+                }
               }
             ],
             "collection": [
@@ -399,7 +434,12 @@
     "_links": {
       "self": [
         {
-          "href": "https://content.dollyskettle.com/wp-json/wp/v2/pages/1637"
+          "href": "https://content.dollyskettle.com/wp-json/wp/v2/pages/1637",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
         }
       ],
       "collection": [
@@ -461,7 +501,12 @@
           "_links": {
             "self": [
               {
-                "href": "https://content.dollyskettle.com/wp-json/wp/v2/users/2"
+                "href": "https://content.dollyskettle.com/wp-json/wp/v2/users/2",
+                "targetHints": {
+                  "allow": [
+                    "GET"
+                  ]
+                }
               }
             ],
             "collection": [
@@ -489,7 +534,12 @@
             "_links": {
               "self": [
                 {
-                  "href": "https://content.dollyskettle.com/wp-json/wp/v2/comments/249"
+                  "href": "https://content.dollyskettle.com/wp-json/wp/v2/comments/249",
+                  "targetHints": {
+                    "allow": [
+                      "GET"
+                    ]
+                  }
                 }
               ],
               "collection": [
