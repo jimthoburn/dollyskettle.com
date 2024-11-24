@@ -4,12 +4,12 @@
   "name": "dollyskettle.com, Node.js and Deno",
 
   // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-  "image": "mcr.microsoft.com/devcontainers/javascript-node:0-20",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:0-22",
 
   // Features to add to the dev container. More info: https://containers.dev/features.
   "features": {
     "ghcr.io/devcontainers-contrib/features/deno:1": {
-      "version": "1.43.6"
+      "version": "1.46.3"
     }
   }
 
