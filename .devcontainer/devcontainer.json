@@ -4,7 +4,8 @@
   "name": "dollyskettle.com, Node.js and Deno",
 
   // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-  "image": "mcr.microsoft.com/devcontainers/javascript-node:0-22",
+  // https://mcr.microsoft.com/en-us/artifact/mar/devcontainers/javascript-node/about
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm",
 
   // Features to add to the dev container. More info: https://containers.dev/features.
   "features": {
