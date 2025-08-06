@@ -1,10 +1,10 @@
 import { mkdirp } from "mkdirp";
-import { load } from "dotenv/mod.ts";
-import { DOMParser } from "deno_dom/deno-dom-wasm.ts";
+import { load } from "@std/dotenv";
+import { DOMParser } from "@b-fuze/deno-dom";
 import { refreshData, getPublicURLs } from "./data/post.js";
 import { build } from "./build.js";
 
-// https://deno.land/std/dotenv/mod.ts
+// https://jsr.io/@std/dotenv
 const env = await load();
 
 refreshData({ env, mkdirp }).then(async () => {
