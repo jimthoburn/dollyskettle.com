@@ -1,15 +1,16 @@
 {
   "imports": {
-    "chalk": "https://esm.sh/v135/chalk@5.3.0",
-    "dotenv/": "https://deno.land/std@0.210.0/dotenv/",
-    "deno_dom/": "https://deno.land/x/deno_dom@v0.1.43/",
-    "js-beautify": "https://esm.sh/v135/js-beautify@1.15.1",
-    "mkdirp": "https://esm.sh/v135/mkdirp@3.0.1",
+    "@std/dotenv": "jsr:@std/dotenv@^0.225.5",
+    "@b-fuze/deno-dom": "jsr:@b-fuze/deno-dom@^0.1.56",
 
-    "htm": "https://esm.sh/v135/htm@3.1.1",
-    "preact": "https://esm.sh/v135/preact@10.20.1",
-    "preact/": "https://esm.sh/v135/preact@10.20.1/",
-    "preact-render-to-string": "https://esm.sh/v135/preact-render-to-string@6.4.1?external=preact"
+    "chalk": "https://esm.sh/chalk@5.5.0",
+    "js-beautify": "https://esm.sh/js-beautify@1.15.3",
+    "mkdirp": "https://esm.sh/mkdirp@3.0.1",
+
+    "htm": "https://esm.sh/htm@3.1.1",
+    "preact": "https://esm.sh/preact@10.27.0",
+    "preact/": "https://esm.sh/preact@10.27.0/",
+    "preact-render-to-string": "https://esm.sh/preact-render-to-string@6.5.13?external=preact"
   },
   "tasks": {
     "dev": "cd ./_site && deno run --allow-read=./ --allow-net=0.0.0.0:4000 ../file-server.js",
@@ -19,6 +20,8 @@
 
     "build:pages": "deno run --allow-env --allow-read=./ --allow-write=./_api,./_site --allow-sys=uid --allow-net=content.dollyskettle.com build-deno.js",
     "download:data": "deno run --allow-env --allow-read=./ --allow-write=./_api --allow-net=content.dollyskettle.com download-data-deno.js",
-    "download:images": "deno run --allow-env --allow-read=./ --allow-write=./_api,./_pictures --allow-net=content.dollyskettle.com download-images-deno.js"
+    "download:images": "deno run --allow-env --allow-read=./ --allow-write=./_api,./_pictures --allow-net=content.dollyskettle.com download-images-deno.js",
+
+    "cache": "deno install && deno cache file-server.js download-and-build.js build-deno.js download-data-deno.js download-images-deno.js"
   }
 }
