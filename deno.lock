@@ -2,64 +2,19 @@
   "version": "5",
   "specifiers": {
     "jsr:@b-fuze/deno-dom@~0.1.56": "0.1.56",
-    "jsr:@denosaurs/plug@1.1.0": "1.1.0",
-    "jsr:@std/dotenv@~0.225.5": "0.225.8",
-    "jsr:@std/encoding@1": "1.0.11",
-    "jsr:@std/fmt@1": "1.0.10",
-    "jsr:@std/fs@1": "1.0.24",
-    "jsr:@std/internal@^1.0.14": "1.0.14",
-    "jsr:@std/path@1": "1.1.6",
-    "jsr:@std/path@^1.1.5": "1.1.6"
+    "jsr:@std/dotenv@~0.225.5": "0.225.8"
   },
   "jsr": {
     "@b-fuze/deno-dom@0.1.56": {
-      "integrity": "8030e2dc1d8750f1682b53462ab893d9c3470f2287feecbe22f44a88c54ab148",
-      "dependencies": [
-        "jsr:@denosaurs/plug"
-      ]
-    },
-    "@denosaurs/plug@1.1.0": {
-      "integrity": "eb2f0b7546c7bca2000d8b0282c54d50d91cf6d75cb26a80df25a6de8c4bc044",
-      "dependencies": [
-        "jsr:@std/encoding",
-        "jsr:@std/fmt",
-        "jsr:@std/fs",
-        "jsr:@std/path@1"
-      ]
+      "integrity": "8030e2dc1d8750f1682b53462ab893d9c3470f2287feecbe22f44a88c54ab148"
     },
     "@std/dotenv@0.225.8": {
       "integrity": "27b8c1a9d00cbf938345a5924487c04d9b27bdd7e7bd1983f54bcf76d0a0174a"
-    },
-    "@std/encoding@1.0.11": {
-      "integrity": "e7cef2f0b3153bccc17431e7c864a1de03a4b6d9647389c43e08aaa775d37385"
-    },
-    "@std/fmt@1.0.10": {
-      "integrity": "90dfba288802ac6de82fb31d0917eb9e4450b9925b954d5e51fc29ac07419db5"
-    },
-    "@std/fs@1.0.24": {
-      "integrity": "f3061b45b81673a2bece689da041df32d174be064c89eb6397fb5718d3fb7877",
-      "dependencies": [
-        "jsr:@std/internal",
-        "jsr:@std/path@^1.1.5"
-      ]
-    },
-    "@std/internal@1.0.14": {
-      "integrity": "291516b3d4c35024d6ffbc0a9df5bf4c64116e05b50012cf846710152d2ffdf7"
-    },
-    "@std/path@1.1.6": {
-      "integrity": "c68485c2a4dfbb5ae3cc74fae4e8c4e5d874cf8a8ed12927917235c758b46cbe",
-      "dependencies": [
-        "jsr:@std/internal"
-      ]
     }
   },
-  "redirects": {
-    "https://esm.sh/@types/js-beautify@~1.14.3/index.d.ts": "https://esm.sh/@types/js-beautify@1.14.3/index.d.ts"
-  },
   "remote": {
-    "https://esm.sh/chalk@5.5.0": "a1aa2ef149958feaac26379b5011f483d883474ae831a4d049e21bb7821c6b04",
+    "https://esm.sh/chalk@5.5.0": "9de5bffa0a82fb92ccbe9fab29bd7e017ec7f9623a0953dc00d44066215a5b5c",
     "https://esm.sh/chalk@5.5.0/denonext/chalk.mjs": "b4275222f6d56e419c0430948a18303f871487ddb100fec3b2eae3fb8032155d",
-    "https://esm.sh/chalk@5.5.0/denonext/source/vendor/ansi-styles/index.mjs": "0ca6b0af0ce10d2e891f50d1bce3189ed460f5f5fa0123691518ea4e963c7b8c",
     "https://esm.sh/htm@3.1.1": "563658bc68f6b699f6d19d8fa5ef628c19acb8fc6ce7a0858415dba6b2069ff0",
     "https://esm.sh/htm@3.1.1/denonext/htm.mjs": "9216e59d4cbaf50b94aaf50540e58a498bc8fc4b865c67ae807b483ed62b2a7d",
     "https://esm.sh/js-beautify@1.15.3": "1e9134519a494d5a1af5a5463077a3e69126dba26b8305f86a2d1c8293638b3d",
