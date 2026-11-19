@@ -35,7 +35,7 @@ This is a static site generator that creates a website from WordPress content vi
 - Generated site outputs to `_site/` directory
 
 ### Technology Stack
-- **Runtime**: Deno 2.4.4+
+- **Runtime**: Deno 2.9.8+
 - **Templating**: Preact with HTM (no JSX compilation)
 - **Content Source**: WordPress REST API
 - **Deployment**: Static files suitable for Netlify/Vercel
